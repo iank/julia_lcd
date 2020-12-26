@@ -3,7 +3,7 @@ module sram(
     input             i_CLK,
     input             i_Begin,
     input             i_Write,
-    input      [17:0] i_Addr,
+    input      [18:0] i_Addr,
     input      [15:0] i_Data_f2s,  // fpga 2 sram
 
     output     [15:0] o_Data_s2f,  // sram 2 fpga
@@ -11,12 +11,11 @@ module sram(
 
     // Physical signals
     output o_CS1_N,
-    output o_CS2,
     output o_OE_N,
     output o_WE_N,
     output o_LB_N,
     output o_UB_N,
-    output [17:0] o_Addr,
+    output [18:0] o_Addr,
     inout  [15:0] io_IO
 );
     /* State definitions */
@@ -30,8 +29,8 @@ module sram(
     /* Registers */
     reg [2:0] r_CurrentState = STATE_RESET;
     reg [2:0] r_NextState;
-    reg [17:0] r_Addr;
-    reg [17:0] r_NextAddr;
+    reg [18:0] r_Addr;
+    reg [18:0] r_NextAddr;
     reg [15:0] r_Data_f2s;
     reg [15:0] r_NextData_f2s;
     reg [15:0] r_Data_s2f;
@@ -102,5 +101,5 @@ module sram(
     assign o_UB_N = 1'b0; // UB enabled
     
     assign o_CS1_N = 1'b0; // CS = true
-    assign o_CS2   = 1'b1; // CS = true
+//    assign o_CS2   = 1'b1; // CS = true
 endmodule

@@ -4,7 +4,7 @@
 // MODULE: LPM_MUX 
 
 // ============================================================
-// File Name: mux18.v
+// File Name: mux16.v
 // Megafunction Name(s):
 // 			LPM_MUX
 //
@@ -36,22 +36,22 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module mux18 (
+module mux16 (
 	data0x,
 	data1x,
 	sel,
 	result);
 
-	input	[18:0]  data0x;
-	input	[18:0]  data1x;
+	input	[15:0]  data0x;
+	input	[15:0]  data1x;
 	input	  sel;
-	output	[18:0]  result;
+	output	[15:0]  result;
 
-	wire [18:0] sub_wire0;
-	wire [18:0] sub_wire3 = data1x[18:0];
-	wire [18:0] result = sub_wire0[18:0];
-	wire [18:0] sub_wire1 = data0x[18:0];
-	wire [37:0] sub_wire2 = {sub_wire3, sub_wire1};
+	wire [15:0] sub_wire0;
+	wire [15:0] sub_wire3 = data1x[15:0];
+	wire [15:0] result = sub_wire0[15:0];
+	wire [15:0] sub_wire1 = data0x[15:0];
+	wire [31:0] sub_wire2 = {sub_wire3, sub_wire1};
 	wire  sub_wire4 = sel;
 	wire  sub_wire5 = sub_wire4;
 
@@ -69,7 +69,7 @@ module mux18 (
 	defparam
 		LPM_MUX_component.lpm_size = 2,
 		LPM_MUX_component.lpm_type = "LPM_MUX",
-		LPM_MUX_component.lpm_width = 19,
+		LPM_MUX_component.lpm_width = 16,
 		LPM_MUX_component.lpm_widths = 1;
 
 
@@ -84,20 +84,20 @@ endmodule
 // Retrieval info: LIBRARY: lpm lpm.lpm_components.all
 // Retrieval info: CONSTANT: LPM_SIZE NUMERIC "2"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "LPM_MUX"
-// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "19"
+// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "16"
 // Retrieval info: CONSTANT: LPM_WIDTHS NUMERIC "1"
-// Retrieval info: USED_PORT: data0x 0 0 19 0 INPUT NODEFVAL "data0x[18..0]"
-// Retrieval info: USED_PORT: data1x 0 0 19 0 INPUT NODEFVAL "data1x[18..0]"
-// Retrieval info: USED_PORT: result 0 0 19 0 OUTPUT NODEFVAL "result[18..0]"
+// Retrieval info: USED_PORT: data0x 0 0 16 0 INPUT NODEFVAL "data0x[15..0]"
+// Retrieval info: USED_PORT: data1x 0 0 16 0 INPUT NODEFVAL "data1x[15..0]"
+// Retrieval info: USED_PORT: result 0 0 16 0 OUTPUT NODEFVAL "result[15..0]"
 // Retrieval info: USED_PORT: sel 0 0 0 0 INPUT NODEFVAL "sel"
-// Retrieval info: CONNECT: @data 0 0 19 0 data0x 0 0 19 0
-// Retrieval info: CONNECT: @data 0 0 19 19 data1x 0 0 19 0
+// Retrieval info: CONNECT: @data 0 0 16 0 data0x 0 0 16 0
+// Retrieval info: CONNECT: @data 0 0 16 16 data1x 0 0 16 0
 // Retrieval info: CONNECT: @sel 0 0 1 0 sel 0 0 0 0
-// Retrieval info: CONNECT: result 0 0 19 0 @result 0 0 19 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18_bb.v TRUE
+// Retrieval info: CONNECT: result 0 0 16 0 @result 0 0 16 0
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux16_bb.v TRUE
 // Retrieval info: LIB_FILE: lpm

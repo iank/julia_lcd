@@ -37,16 +37,15 @@
 
 
 set_global_assignment -name FAMILY "Cyclone II"
-set_global_assignment -name DEVICE EP2C5F256C8
+set_global_assignment -name DEVICE EP2C5T144I8
 set_global_assignment -name TOP_LEVEL_ENTITY julia
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:16:46  NOVEMBER 21, 2020"
 set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
-set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
-set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
-set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 125
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 144
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name CYCLONEII_CONFIGURATION_SCHEME "PASSIVE SERIAL"
 set_global_assignment -name USE_CONFIGURATION_DEVICE ON
@@ -58,38 +57,38 @@ set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_location_assignment PIN_J16 -to CLK
-set_location_assignment PIN_K16 -to R[0]
-set_location_assignment PIN_L15 -to R[1]
-set_location_assignment PIN_L16 -to R[2]
-set_location_assignment PIN_M14 -to R[3]
-set_location_assignment PIN_N16 -to R[4]
-set_location_assignment PIN_P15 -to R[5]
-set_location_assignment PIN_P16 -to R[6]
-set_location_assignment PIN_N14 -to R[7]
-set_location_assignment PIN_R14 -to G[0]
-set_location_assignment PIN_T14 -to G[1]
-set_location_assignment PIN_R13 -to G[2]
-set_location_assignment PIN_T13 -to G[3]
-set_location_assignment PIN_R11 -to G[4]
-set_location_assignment PIN_T10 -to G[5]
-set_location_assignment PIN_R9 -to G[6]
-set_location_assignment PIN_T9 -to G[7]
-set_location_assignment PIN_L12 -to B[0]
-set_location_assignment PIN_P13 -to B[1]
-set_location_assignment PIN_N11 -to B[2]
-set_location_assignment PIN_M11 -to B[3]
-set_location_assignment PIN_L9 -to B[4]
-set_location_assignment PIN_R8 -to B[5]
-set_location_assignment PIN_N9 -to B[6]
-set_location_assignment PIN_R7 -to B[7]
-set_location_assignment PIN_R3 -to DEN
-set_location_assignment PIN_L4 -to VSD
-set_location_assignment PIN_M4 -to HSD
-set_location_assignment PIN_P4 -to STBYB
-set_location_assignment PIN_K4 -to LCDCLK
+set_location_assignment PIN_88 -to CLK
+set_location_assignment PIN_60 -to R[0]
+set_location_assignment PIN_59 -to R[1]
+set_location_assignment PIN_58 -to R[2]
+set_location_assignment PIN_57 -to R[3]
+set_location_assignment PIN_55 -to R[4]
+set_location_assignment PIN_53 -to R[5]
+set_location_assignment PIN_52 -to R[6]
+set_location_assignment PIN_51 -to R[7]
+set_location_assignment PIN_48 -to G[0]
+set_location_assignment PIN_47 -to G[1]
+set_location_assignment PIN_45 -to G[2]
+set_location_assignment PIN_44 -to G[3]
+set_location_assignment PIN_43 -to G[4]
+set_location_assignment PIN_42 -to G[5]
+set_location_assignment PIN_41 -to G[6]
+set_location_assignment PIN_40 -to G[7]
+set_location_assignment PIN_32 -to B[0]
+set_location_assignment PIN_31 -to B[1]
+set_location_assignment PIN_30 -to B[2]
+set_location_assignment PIN_28 -to B[3]
+set_location_assignment PIN_27 -to B[4]
+set_location_assignment PIN_26 -to B[5]
+set_location_assignment PIN_25 -to B[6]
+set_location_assignment PIN_24 -to B[7]
+set_location_assignment PIN_8 -to DEN
+set_location_assignment PIN_64 -to VSD
+set_location_assignment PIN_63 -to HSD
+set_location_assignment PIN_7 -to STBYB
+set_location_assignment PIN_9 -to LCDCLK
 set_global_assignment -name SDC_FILE julia.sdc
-set_location_assignment PIN_F16 -to LIGHT
+set_location_assignment PIN_144 -to LIGHT
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
@@ -97,47 +96,53 @@ set_global_assignment -name VERILOG_FILE pwm.v
 set_global_assignment -name VERILOG_FILE tftlcd.v
 set_global_assignment -name VERILOG_FILE sram.v
 set_global_assignment -name HEX_FILE linebuf_init.hex
-set_location_assignment PIN_A5 -to ADDR[17]
-set_location_assignment PIN_A3 -to ADDR[16]
-set_location_assignment PIN_A7 -to ADDR[15]
-set_location_assignment PIN_D4 -to ADDR[14]
-set_location_assignment PIN_E5 -to ADDR[13]
-set_location_assignment PIN_E16 -to ADDR[12]
-set_location_assignment PIN_E14 -to ADDR[11]
-set_location_assignment PIN_D16 -to ADDR[10]
-set_location_assignment PIN_D15 -to ADDR[9]
-set_location_assignment PIN_A14 -to ADDR[8]
-set_location_assignment PIN_H13 -to ADDR[7]
-set_location_assignment PIN_D13 -to ADDR[6]
-set_location_assignment PIN_F15 -to ADDR[5]
-set_location_assignment PIN_E6 -to ADDR[4]
-set_location_assignment PIN_C12 -to ADDR[3]
-set_location_assignment PIN_C11 -to ADDR[2]
-set_location_assignment PIN_F9 -to ADDR[1]
-set_location_assignment PIN_D8 -to ADDR[0]
-set_location_assignment PIN_C13 -to CS1_N
-set_location_assignment PIN_B14 -to CS2
-set_location_assignment PIN_J11 -to IO[15]
-set_location_assignment PIN_C14 -to IO[14]
-set_location_assignment PIN_J12 -to IO[13]
-set_location_assignment PIN_G16 -to IO[12]
-set_location_assignment PIN_B12 -to IO[11]
-set_location_assignment PIN_A12 -to IO[10]
-set_location_assignment PIN_B13 -to IO[9]
-set_location_assignment PIN_A13 -to IO[8]
-set_location_assignment PIN_A6 -to IO[7]
-set_location_assignment PIN_B7 -to IO[6]
-set_location_assignment PIN_G7 -to IO[5]
-set_location_assignment PIN_A9 -to IO[4]
-set_location_assignment PIN_G6 -to IO[3]
-set_location_assignment PIN_F6 -to IO[2]
-set_location_assignment PIN_D5 -to IO[1]
-set_location_assignment PIN_C5 -to IO[0]
-set_location_assignment PIN_G13 -to LB_N
-set_location_assignment PIN_D14 -to OE_N
-set_location_assignment PIN_G12 -to UB_N
-set_location_assignment PIN_D6 -to WE_N
+set_location_assignment PIN_125 -to ADDR[17]
+set_location_assignment PIN_122 -to ADDR[16]
+set_location_assignment PIN_121 -to ADDR[15]
+set_location_assignment PIN_120 -to ADDR[14]
+set_location_assignment PIN_119 -to ADDR[13]
+set_location_assignment PIN_118 -to ADDR[12]
+set_location_assignment PIN_115 -to ADDR[11]
+set_location_assignment PIN_114 -to ADDR[10]
+set_location_assignment PIN_113 -to ADDR[9]
+set_location_assignment PIN_112 -to ADDR[8]
+set_location_assignment PIN_94 -to ADDR[7]
+set_location_assignment PIN_93 -to ADDR[6]
+set_location_assignment PIN_79 -to ADDR[5]
+set_location_assignment PIN_72 -to ADDR[4]
+set_location_assignment PIN_71 -to ADDR[3]
+set_location_assignment PIN_70 -to ADDR[2]
+set_location_assignment PIN_69 -to ADDR[1]
+set_location_assignment PIN_67 -to ADDR[0]
+set_location_assignment PIN_80 -to CS1_N
+set_location_assignment PIN_134 -to IO[15]
+set_location_assignment PIN_96 -to IO[14]
+set_location_assignment PIN_97 -to IO[13]
+set_location_assignment PIN_99 -to IO[12]
+set_location_assignment PIN_100 -to IO[11]
+set_location_assignment PIN_101 -to IO[10]
+set_location_assignment PIN_103 -to IO[9]
+set_location_assignment PIN_104 -to IO[8]
+set_location_assignment PIN_76 -to IO[7]
+set_location_assignment PIN_75 -to IO[6]
+set_location_assignment PIN_74 -to IO[5]
+set_location_assignment PIN_73 -to IO[4]
+set_location_assignment PIN_92 -to IO[3]
+set_location_assignment PIN_87 -to IO[2]
+set_location_assignment PIN_86 -to IO[1]
+set_location_assignment PIN_81 -to IO[0]
+set_location_assignment PIN_129 -to LB_N
+set_location_assignment PIN_136 -to OE_N
+set_location_assignment PIN_132 -to UB_N
+set_location_assignment PIN_133 -to WE_N
 set_global_assignment -name QIP_FILE pll.qip
 set_global_assignment -name QIP_FILE blockram.qip
 set_global_assignment -name QIP_FILE mux18.qip
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+set_global_assignment -name STRATIX_CONFIGURATION_DEVICE AUTO
+set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION ON
+set_location_assignment PIN_126 -to ADDR[18]
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS OUTPUT DRIVING AN UNSPECIFIED SIGNAL"
+set_global_assignment -name QIP_FILE mux16.qip
+set_global_assignment -name QIP_FILE mux10.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

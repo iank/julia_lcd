@@ -4,7 +4,7 @@
 // MODULE: LPM_MUX 
 
 // ============================================================
-// File Name: mux18.v
+// File Name: mux10.v
 // Megafunction Name(s):
 // 			LPM_MUX
 //
@@ -36,28 +36,29 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module mux18 (
+module mux10 (
 	data0x,
 	data1x,
+	data2x,
 	sel,
 	result);
 
-	input	[18:0]  data0x;
-	input	[18:0]  data1x;
-	input	  sel;
-	output	[18:0]  result;
+	input	[9:0]  data0x;
+	input	[9:0]  data1x;
+	input	[9:0]  data2x;
+	input	[1:0]  sel;
+	output	[9:0]  result;
 
-	wire [18:0] sub_wire0;
-	wire [18:0] sub_wire3 = data1x[18:0];
-	wire [18:0] result = sub_wire0[18:0];
-	wire [18:0] sub_wire1 = data0x[18:0];
-	wire [37:0] sub_wire2 = {sub_wire3, sub_wire1};
-	wire  sub_wire4 = sel;
-	wire  sub_wire5 = sub_wire4;
+	wire [9:0] sub_wire0;
+	wire [9:0] sub_wire4 = data2x[9:0];
+	wire [9:0] sub_wire3 = data1x[9:0];
+	wire [9:0] result = sub_wire0[9:0];
+	wire [9:0] sub_wire1 = data0x[9:0];
+	wire [29:0] sub_wire2 = {sub_wire4, sub_wire3, sub_wire1};
 
 	lpm_mux	LPM_MUX_component (
 				.data (sub_wire2),
-				.sel (sub_wire5),
+				.sel (sel),
 				.result (sub_wire0)
 				// synopsys translate_off
 				,
@@ -67,10 +68,10 @@ module mux18 (
 				// synopsys translate_on
 				);
 	defparam
-		LPM_MUX_component.lpm_size = 2,
+		LPM_MUX_component.lpm_size = 3,
 		LPM_MUX_component.lpm_type = "LPM_MUX",
-		LPM_MUX_component.lpm_width = 19,
-		LPM_MUX_component.lpm_widths = 1;
+		LPM_MUX_component.lpm_width = 10,
+		LPM_MUX_component.lpm_widths = 2;
 
 
 endmodule
@@ -82,22 +83,24 @@ endmodule
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 // Retrieval info: PRIVATE: new_diagram STRING "1"
 // Retrieval info: LIBRARY: lpm lpm.lpm_components.all
-// Retrieval info: CONSTANT: LPM_SIZE NUMERIC "2"
+// Retrieval info: CONSTANT: LPM_SIZE NUMERIC "3"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "LPM_MUX"
-// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "19"
-// Retrieval info: CONSTANT: LPM_WIDTHS NUMERIC "1"
-// Retrieval info: USED_PORT: data0x 0 0 19 0 INPUT NODEFVAL "data0x[18..0]"
-// Retrieval info: USED_PORT: data1x 0 0 19 0 INPUT NODEFVAL "data1x[18..0]"
-// Retrieval info: USED_PORT: result 0 0 19 0 OUTPUT NODEFVAL "result[18..0]"
-// Retrieval info: USED_PORT: sel 0 0 0 0 INPUT NODEFVAL "sel"
-// Retrieval info: CONNECT: @data 0 0 19 0 data0x 0 0 19 0
-// Retrieval info: CONNECT: @data 0 0 19 19 data1x 0 0 19 0
-// Retrieval info: CONNECT: @sel 0 0 1 0 sel 0 0 0 0
-// Retrieval info: CONNECT: result 0 0 19 0 @result 0 0 19 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mux18_bb.v TRUE
+// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "10"
+// Retrieval info: CONSTANT: LPM_WIDTHS NUMERIC "2"
+// Retrieval info: USED_PORT: data0x 0 0 10 0 INPUT NODEFVAL "data0x[9..0]"
+// Retrieval info: USED_PORT: data1x 0 0 10 0 INPUT NODEFVAL "data1x[9..0]"
+// Retrieval info: USED_PORT: data2x 0 0 10 0 INPUT NODEFVAL "data2x[9..0]"
+// Retrieval info: USED_PORT: result 0 0 10 0 OUTPUT NODEFVAL "result[9..0]"
+// Retrieval info: USED_PORT: sel 0 0 2 0 INPUT NODEFVAL "sel[1..0]"
+// Retrieval info: CONNECT: @data 0 0 10 0 data0x 0 0 10 0
+// Retrieval info: CONNECT: @data 0 0 10 10 data1x 0 0 10 0
+// Retrieval info: CONNECT: @data 0 0 10 20 data2x 0 0 10 0
+// Retrieval info: CONNECT: @sel 0 0 2 0 sel 0 0 2 0
+// Retrieval info: CONNECT: result 0 0 10 0 @result 0 0 10 0
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL mux10_bb.v TRUE
 // Retrieval info: LIB_FILE: lpm
