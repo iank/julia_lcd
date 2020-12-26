@@ -22,13 +22,13 @@ module tftlcd(
     localparam STATE_DATA  = 1'd1;
     
     /* Dimensions and timing */
-    localparam Y_BP   = 10;     // Back porch
-    localparam Y_PX   = 480;    // Data
-    localparam Y_FP   = 10;     // Front porch
+    localparam Y_BP   = 2;     // Back porch
+    localparam Y_PX   = 480;   // Data
+    localparam Y_FP   = 2;     // Front porch
 
     localparam X_BP   = 100;    // Back porch
     localparam X_PX   = 800;    // Data
-    localparam X_FP   = 3000;   // Front porch
+    localparam X_FP   = 2500;   // Front porch
     
     /* State registers */
     reg       r_CurrentState = STATE_RESET;

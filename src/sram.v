@@ -71,14 +71,36 @@ module sram(
                 r_NextState = STATE_WR_END;
             end
             STATE_WR_END: begin
-                r_NextState = STATE_IDLE;
+                if (i_Begin && i_Write) begin
+                    r_NextState    = STATE_WR_BEGIN;
+                    r_NextAddr     = i_Addr;
+                    r_NextData_f2s = i_Data_f2s;
+                end
+                else if (i_Begin && ~i_Write) begin
+                    r_NextState    = STATE_RD_BEGIN;
+                    r_NextAddr     = i_Addr;
+                end
+                else begin
+                    r_NextState = STATE_IDLE;
+                end
             end
             STATE_RD_BEGIN: begin
                 r_NextState = STATE_RD_END;
             end
             STATE_RD_END: begin
                 r_NextData_s2f = io_IO;
-                r_NextState    = STATE_IDLE;
+                if (i_Begin && i_Write) begin
+                    r_NextState    = STATE_WR_BEGIN;
+                    r_NextAddr     = i_Addr;
+                    r_NextData_f2s = i_Data_f2s;
+                end
+                else if (i_Begin && ~i_Write) begin
+                    r_NextState    = STATE_RD_BEGIN;
+                    r_NextAddr     = i_Addr;
+                end
+                else begin
+                    r_NextState = STATE_IDLE;
+                end
             end
         endcase
     end
@@ -92,7 +114,7 @@ module sram(
     assign o_WE_N = ~(r_CurrentState == STATE_WR_BEGIN);
     assign o_OE_N = ~(r_CurrentState == STATE_RD_BEGIN || r_CurrentState == STATE_RD_END);
     
-    assign o_Ready = (r_CurrentState == STATE_IDLE);
+    assign o_Ready = (r_CurrentState == STATE_IDLE || r_CurrentState == STATE_RD_END || r_CurrentState == STATE_WR_END);
     
     assign o_Data_s2f = r_Data_s2f;
     
@@ -101,5 +123,4 @@ module sram(
     assign o_UB_N = 1'b0; // UB enabled
     
     assign o_CS1_N = 1'b0; // CS = true
-//    assign o_CS2   = 1'b1; // CS = true
 endmodule

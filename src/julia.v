@@ -40,17 +40,17 @@ module julia(
     reg [2:0] r_NextState;
 
     // Current address (part) while copying SRAM to Line Buffer
-    reg [9:0] r_SRAM2LBAddr;
-    reg [9:0] r_NextSRAM2LBAddr;
+    reg [9:0] r_LineBufferAddr;
+    reg [9:0] r_NextLineBufferAddr;
     wire [9:0] LBRdAddr;
     
     // Current address while writing SRAM
-    reg [18:0] r_SRAMWrAddr;
-    reg [18:0] r_NextSRAMWrAddr;
+    reg [18:0] r_SRAMInitAddr;
+    reg [18:0] r_NextSRAMInitAddr;
 
     // Data write to SRAM
-    reg [15:0] r_SRAMWrData = 16'd0;
-    reg [15:0] r_NextSRAMWrData;
+    reg [15:0] r_SRAMInitData = 16'd0;
+    reg [15:0] r_NextSRAMInitData;
     wire [15:0] SRAMWrData;
 
     /* Wires */
@@ -78,29 +78,29 @@ module julia(
     
     /* SRAM address mux */
     mux18 SRAMAddrMux(
-        .data0x({ypx[8:0], r_SRAM2LBAddr[9:0]}),
-        .data1x(r_SRAMWrAddr),
+        .data0x({ypx[8:0], r_LineBufferAddr[9:0]}),     /* Generally track LineBuffer / y-pixel */
+        .data1x(r_SRAMInitAddr),                        /* Something else during initialization */
         .sel(r_CurrentState == STATE_SRAMINIT),
         .result(SRAMAddr)
     );
     
     /* SRAM write data mux */
-   mux16 SRAMDataMux(
-        .data0x(px_data + 16'd100),
-        .data1x(r_SRAMWrData),
-        .sel(r_CurrentState == STATE_SRAMINIT),        
+    mux16 SRAMDataMux(
+        .data0x(px_data + 16'd1),                       /* Writeback based on value read into linebuffer */
+        .data1x(r_SRAMInitData),                        /* Something else during initialization */
+        .sel(r_CurrentState == STATE_SRAMINIT),
         .result(SRAMWrData)
     );
     
+    /* LineBuffer address mux */
     mux10 LBRdAddrMux(
-        .data0x(r_SRAM2LBAddr),
-        .data1x(xpx),
-        .data2x(r_SRAM2LBAddr + 10'd1),
+        .data0x(r_LineBufferAddr),                      /* UPDATE: we control the sweep */
+        .data1x(xpx),                                   /* LCDWRITE: track tftlcd */
+        .data2x(r_LineBufferAddr + 10'd3),              /* WRITEBACK: lag by 1 */
         .sel({r_CurrentState == STATE_WRITEBACK, r_CurrentState == STATE_LCDWRITE}),
         .result(LBRdAddr)
-    );
-    
-    
+    );    
+
     /* SRAM */
     sram SRAM(
         // Inputs
@@ -142,13 +142,6 @@ module julia(
         .VSD(VSD),
         .DEN(DEN)
     );
-
-    /* Backlight control */
-    /*pwm backlightControl(
-        .i_CLK(LCDCLK),
-        .o_x(LIGHT)
-    );*/
-    assign LIGHT = 1'b1;
     
     /* Blockram for line buffer */
     blockram lineBuffer(
@@ -157,69 +150,87 @@ module julia(
         .rdaddress(LBRdAddr),
         .q(px_data),
 
-        .wraddress(r_SRAM2LBAddr[9:0]),
+        .wraddress(r_LineBufferAddr),
         .data(SRAM2LBData),
         .wren(LineBufferWREN)
     );
 
     /* State machine */
     always @(posedge LCDCLK) begin
-        r_CurrentState <= r_NextState;
-        r_SRAM2LBAddr  <= r_NextSRAM2LBAddr;
-        r_SRAMWrData   <= r_NextSRAMWrData;
-        r_SRAMWrAddr   <= r_NextSRAMWrAddr;
+        r_CurrentState   <= r_NextState;
+        r_LineBufferAddr <= r_NextLineBufferAddr;
+        r_SRAMInitData   <= r_NextSRAMInitData;
+        r_SRAMInitAddr   <= r_NextSRAMInitAddr;
     end
 
     // Transitions
     always @(*) begin
-        r_NextState       = r_CurrentState;
-        r_NextSRAM2LBAddr = r_SRAM2LBAddr;
-        r_NextSRAMWrData  = r_SRAMWrData;
-        r_NextSRAMWrAddr  = r_SRAMWrAddr;
+        r_NextState          = r_CurrentState;
+        r_NextLineBufferAddr = r_LineBufferAddr;
+        r_NextSRAMInitData   = r_SRAMInitData;
+        r_NextSRAMInitAddr   = r_SRAMInitAddr;
 
         case (r_CurrentState)
             STATE_RESET: begin
+                /* Immediately transition to init */
                 r_NextState = STATE_SRAMINIT;
-                r_NextSRAMWrAddr = 19'd0;
-                r_NextSRAMWrData = 16'd0;
+                r_NextSRAMInitAddr = 19'd0;
+                r_NextSRAMInitData = 16'd0;
             end
             STATE_SRAMINIT: begin
-                if (r_SRAMWrAddr == 19'd512000) begin
+                /* Transition to LCDWRITE once we've written the entire thing */
+                if (r_SRAMInitAddr == 19'd512000) begin
                     r_NextState = STATE_LCDWRITE;
                 end
+                /* Otherwise advance address and data whenever SRAM is ready */
                 else if (SRAMReady) begin
-                    r_NextSRAMWrAddr = r_SRAMWrAddr + 19'd1;
-                    r_NextSRAMWrData = {r_SRAMWrAddr[18:17], 14'd0}; // {r_SRAMWrAddr[8:0], r_SRAMWrAddr[18:12]};
+                    r_NextSRAMInitAddr = r_SRAMInitAddr + 19'd1;
+                    r_NextSRAMInitData = {r_SRAMInitAddr[18:17], 14'd0};
                 end
             end
             STATE_LCDWRITE: begin
+                /* Idle here until LCD is done with a line */
                 if (~DEN) begin
                     r_NextState = STATE_UPDATE;
-                    r_NextSRAM2LBAddr = 10'd0;
+                    r_NextLineBufferAddr = 10'd0;
                 end
             end
             STATE_UPDATE: begin
-                if (r_SRAM2LBAddr == 10'd800) begin
+                /* Update a single line from SRAM, then move to writeback */
+                if (r_LineBufferAddr == 10'd800) begin
                     r_NextState = STATE_WRITEBACK;
-                    r_NextSRAM2LBAddr = 10'd0;
+                    r_NextLineBufferAddr = 10'd0;
                 end
+                /* Advance address to read whenever SRAM is ready */
                 else if (SRAMReady) begin
-                    r_NextSRAM2LBAddr = r_SRAM2LBAddr + 10'd1;
+                    r_NextLineBufferAddr = r_LineBufferAddr + 10'd1;
                 end
             end
             STATE_WRITEBACK: begin
-                if (DEN || r_SRAM2LBAddr == 10'd800) begin
+                /* Back to LCDWRITE when we are finished writing this line back, or we run out of time */
+                if (DEN || r_LineBufferAddr == 10'd800) begin
                     r_NextState = STATE_LCDWRITE;
                 end
+                /* Advance address to write whenever SRAM is ready */
                 else if (SRAMReady) begin
-                    r_NextSRAM2LBAddr = r_SRAM2LBAddr + 10'd1;
+                    r_NextLineBufferAddr = r_LineBufferAddr + 10'd1;
                 end
             end
         endcase
     end
     
+    /* Start LCD once we're out of init */
     assign LCDBegin = ~(r_CurrentState == STATE_RESET || r_CurrentState == STATE_SRAMINIT);
+    
+    /* Write to LineBuffer during UPDATE */
     assign LineBufferWREN = (r_CurrentState == STATE_UPDATE && SRAMReady);
+    
+    /* Begin SRAM txn when appropriate in UPDATE, SRAMINIT, and WRITEBACK */
     assign SRAMBegin = ((r_CurrentState == STATE_UPDATE && SRAMReady) || (r_CurrentState == STATE_SRAMINIT && SRAMReady) || (r_CurrentState == STATE_WRITEBACK && SRAMReady));
+    
+    /* Write SRAM in SRAMINIT and WRITEBACK, otherwise read */
     assign SRAMWr = (r_CurrentState == STATE_SRAMINIT || r_CurrentState == STATE_WRITEBACK);
+
+    /* Backlight control */
+    assign LIGHT = 1'b1;
 endmodule
