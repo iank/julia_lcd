@@ -49,8 +49,7 @@ module julia(
     reg [18:0] r_NextSRAMInitAddr;
 
     // Data write to SRAM
-    reg [15:0] r_SRAMInitData = 16'd0;
-    reg [15:0] r_NextSRAMInitData;
+    wire [15:0] SRAMInitData;
     wire [15:0] SRAMWrData;
 
     /* Wires */
@@ -62,9 +61,14 @@ module julia(
 
     wire LCDBegin;
     wire LineBufferWREN;
+    
+    reg [15:0] r_Iteration;
+    reg [15:0] r_NextIteration;
 
     // For SRAM
-    wire [15:0] px_data;
+    wire [15:0] LB_data;
+    wire [23:0] px_data;
+    wire [15:0] writeback_data;
     wire SRAMBegin;
     wire SRAMReady;
     wire SRAMWr;
@@ -86,8 +90,8 @@ module julia(
     
     /* SRAM write data mux */
     mux16 SRAMDataMux(
-        .data0x(px_data + 16'd1),                       /* Writeback based on value read into linebuffer */
-        .data1x(r_SRAMInitData),                        /* Something else during initialization */
+        .data0x(writeback_data),                        /* Writeback based on value read into linebuffer */
+        .data1x(SRAMInitData),                          /* Something else during initialization */
         .sel(r_CurrentState == STATE_SRAMINIT),
         .result(SRAMWrData)
     );
@@ -129,7 +133,7 @@ module julia(
         // Inputs
         .i_CLK(LCDCLK),
         .i_Begin(LCDBegin),
-        .i_RGB({px_data[15:11], 3'b00, px_data[10:5], 2'b00, px_data[4:0], 3'b000}),
+        .i_RGB(px_data),
         
         // Outputs
         .o_XPx(xpx),
@@ -143,12 +147,26 @@ module julia(
         .DEN(DEN)
     );
     
+    /* Computes initial SRAM values by address */
+    sramInit SRAMInitializer(
+        .i_Addr(r_SRAMInitAddr),
+        .o_Data(SRAMInitData)
+    );
+    
+    /* Computes display data based on complex number stored in SRAM */
+    complexFunction displayFunction(
+        .i_Complex(LB_data),
+        .i_Iteration(r_Iteration),
+        .o_PXData(px_data),
+        .o_Writeback(writeback_data)
+    );
+    
     /* Blockram for line buffer */
     blockram lineBuffer(
         .clock(LCDCLK),
 
         .rdaddress(LBRdAddr),
-        .q(px_data),
+        .q(LB_data),
 
         .wraddress(r_LineBufferAddr),
         .data(SRAM2LBData),
@@ -159,23 +177,23 @@ module julia(
     always @(posedge LCDCLK) begin
         r_CurrentState   <= r_NextState;
         r_LineBufferAddr <= r_NextLineBufferAddr;
-        r_SRAMInitData   <= r_NextSRAMInitData;
         r_SRAMInitAddr   <= r_NextSRAMInitAddr;
+        r_Iteration      <= r_NextIteration;
     end
 
     // Transitions
     always @(*) begin
         r_NextState          = r_CurrentState;
         r_NextLineBufferAddr = r_LineBufferAddr;
-        r_NextSRAMInitData   = r_SRAMInitData;
         r_NextSRAMInitAddr   = r_SRAMInitAddr;
+        r_NextIteration      = r_Iteration;
 
         case (r_CurrentState)
             STATE_RESET: begin
                 /* Immediately transition to init */
                 r_NextState = STATE_SRAMINIT;
                 r_NextSRAMInitAddr = 19'd0;
-                r_NextSRAMInitData = 16'd0;
+                r_NextIteration = 16'd0;
             end
             STATE_SRAMINIT: begin
                 /* Transition to LCDWRITE once we've written the entire thing */
@@ -185,7 +203,6 @@ module julia(
                 /* Otherwise advance address and data whenever SRAM is ready */
                 else if (SRAMReady) begin
                     r_NextSRAMInitAddr = r_SRAMInitAddr + 19'd1;
-                    r_NextSRAMInitData = {r_SRAMInitAddr[18:17], 14'd0};
                 end
             end
             STATE_LCDWRITE: begin
@@ -210,6 +227,7 @@ module julia(
                 /* Back to LCDWRITE when we are finished writing this line back, or we run out of time */
                 if (DEN || r_LineBufferAddr == 10'd800) begin
                     r_NextState = STATE_LCDWRITE;
+                    r_NextIteration = r_Iteration + 16'd1;
                 end
                 /* Advance address to write whenever SRAM is ready */
                 else if (SRAMReady) begin

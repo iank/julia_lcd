@@ -52,7 +52,6 @@ set_global_assignment -name USE_CONFIGURATION_DEVICE ON
 set_global_assignment -name GENERATE_RBF_FILE ON
 set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
 set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "USE AS REGULAR IO"
-set_global_assignment -name VERILOG_FILE julia.v
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
@@ -87,15 +86,10 @@ set_location_assignment PIN_64 -to VSD
 set_location_assignment PIN_63 -to HSD
 set_location_assignment PIN_7 -to STBYB
 set_location_assignment PIN_9 -to LCDCLK
-set_global_assignment -name SDC_FILE julia.sdc
 set_location_assignment PIN_144 -to LIGHT
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
-set_global_assignment -name VERILOG_FILE pwm.v
-set_global_assignment -name VERILOG_FILE tftlcd.v
-set_global_assignment -name VERILOG_FILE sram.v
-set_global_assignment -name HEX_FILE linebuf_init.hex
 set_location_assignment PIN_125 -to ADDR[17]
 set_location_assignment PIN_122 -to ADDR[16]
 set_location_assignment PIN_121 -to ADDR[15]
@@ -135,14 +129,23 @@ set_location_assignment PIN_129 -to LB_N
 set_location_assignment PIN_136 -to OE_N
 set_location_assignment PIN_132 -to UB_N
 set_location_assignment PIN_133 -to WE_N
-set_global_assignment -name QIP_FILE pll.qip
-set_global_assignment -name QIP_FILE blockram.qip
-set_global_assignment -name QIP_FILE mux18.qip
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
 set_global_assignment -name STRATIX_CONFIGURATION_DEVICE AUTO
 set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION ON
 set_location_assignment PIN_126 -to ADDR[18]
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS OUTPUT DRIVING AN UNSPECIFIED SIGNAL"
+set_global_assignment -name VERILOG_FILE complexFunction.v
+set_global_assignment -name VERILOG_FILE julia.v
+set_global_assignment -name SDC_FILE julia.sdc
+set_global_assignment -name VERILOG_FILE pwm.v
+set_global_assignment -name VERILOG_FILE tftlcd.v
+set_global_assignment -name VERILOG_FILE sram.v
+set_global_assignment -name HEX_FILE linebuf_init.hex
+set_global_assignment -name QIP_FILE pll.qip
+set_global_assignment -name QIP_FILE blockram.qip
+set_global_assignment -name QIP_FILE mux18.qip
 set_global_assignment -name QIP_FILE mux16.qip
 set_global_assignment -name QIP_FILE mux10.qip
+set_global_assignment -name VERILOG_FILE SRAMInit.v
+set_global_assignment -name VERILOG_FILE sramInit.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
