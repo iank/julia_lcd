@@ -111,8 +111,6 @@ F10 "TOUCH_INTN" O R 3200 5600 50
 F11 "SDA" B R 3200 5700 50 
 F12 "SCL" I R 3200 5800 50 
 $EndSheet
-Text Notes 5700 5800 0    50   ~ 0
-TODO:\n- analog backlight dimming
 $Sheet
 S 1650 2600 1550 1500
 U 5FEF8A09
