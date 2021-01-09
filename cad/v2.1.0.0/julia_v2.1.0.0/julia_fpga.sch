@@ -619,21 +619,6 @@ Text HLabel 10650 1600 2    50   Output ~ 0
 nSTATUS
 Text HLabel 10650 1700 2    50   Output ~ 0
 CONF_DONE
-$Comp
-L Device:R R17
-U 1 1 60569DDE
-P 7750 2100
-F 0 "R17" V 7800 2300 50  0000 C CNN
-F 1 "0" V 7750 2050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7680 2100 50  0001 C CNN
-F 3 "~" H 7750 2100 50  0001 C CNN
-	1    7750 2100
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7900 2100 8250 2100
-Wire Wire Line
-	7600 2100 7450 2100
 Wire Wire Line
 	7450 2100 7450 2200
 $Comp
@@ -647,17 +632,6 @@ F 3 "~" H 7750 2200 50  0001 C CNN
 	1    7750 2200
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Device:R R19
-U 1 1 605775E4
-P 7750 2300
-F 0 "R19" V 7800 2500 50  0000 C CNN
-F 1 "0" V 7750 2250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7680 2300 50  0001 C CNN
-F 3 "~" H 7750 2300 50  0001 C CNN
-	1    7750 2300
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	7450 2200 7600 2200
 Connection ~ 7450 2200
@@ -665,10 +639,6 @@ Wire Wire Line
 	7450 2200 7450 2300
 Wire Wire Line
 	7900 2200 8250 2200
-Wire Wire Line
-	7900 2300 8250 2300
-Wire Wire Line
-	7600 2300 7450 2300
 Connection ~ 7450 2300
 Wire Wire Line
 	7450 2300 7450 2400
@@ -876,9 +846,9 @@ F 3 "~" H 9500 1900 50  0001 C CNN
 	1    9500 1900
 	0    -1   -1   0   
 $EndComp
-Text HLabel 8050 4500 0    50   Input ~ 0
+Text HLabel 5700 5200 0    50   Input ~ 0
 UART1_TX
-Text HLabel 8050 4600 0    50   Output ~ 0
+Text HLabel 5700 5400 0    50   Output ~ 0
 UART1_RX
 Text HLabel 8050 4700 0    50   Output ~ 0
 FPGA_LED1
@@ -890,23 +860,23 @@ Text Label 850  5150 3    50   ~ 0
 RGB[0..23]
 Text HLabel 1500 3900 0    50   Output ~ 0
 LCDCLK
-Text HLabel 1500 4100 0    50   Output ~ 0
+Text HLabel 2950 4300 2    50   Output ~ 0
 HSD
-Text HLabel 1500 4200 0    50   Output ~ 0
+Text HLabel 1600 4800 0    50   Output ~ 0
 VSD
-Text HLabel 1500 4300 0    50   Output ~ 0
+Text HLabel 1600 3800 0    50   Output ~ 0
 DEN
 Text HLabel 8050 4400 0    50   Output ~ 0
 LIGHT
-Text HLabel 1500 4600 0    50   Input ~ 0
+Text HLabel 3000 4400 2    50   Input ~ 0
 TOUCH_INTN
-Text HLabel 1500 4500 0    50   Output ~ 0
+Text HLabel 2800 5100 0    50   Output ~ 0
 TOUCH_RSTN
-Text HLabel 1500 4700 0    50   BiDi ~ 0
+Text HLabel 3000 4500 2    50   BiDi ~ 0
 SDA
-Text HLabel 1500 4800 0    50   Output ~ 0
+Text HLabel 2650 5000 0    50   Output ~ 0
 SCL
-Text HLabel 1500 4000 0    50   Output ~ 0
+Text HLabel 2950 4200 2    50   Output ~ 0
 STBYB
 Text HLabel 3100 3500 1    50   BiDi ~ 0
 DQ[0..31]
@@ -914,29 +884,29 @@ Text HLabel 5400 4000 1    50   Output ~ 0
 A[0..11]
 Text Label 5400 4050 3    50   ~ 0
 A[0..11]
-Text HLabel 6950 5800 2    50   Output ~ 0
+Text HLabel 4700 5000 2    50   Output ~ 0
 BA1
-Text HLabel 6950 5700 2    50   Output ~ 0
+Text HLabel 3300 5200 0    50   Output ~ 0
 BA0
-Text HLabel 6950 4800 2    50   Output ~ 0
+Text HLabel 3300 5300 0    50   Output ~ 0
 SDRAM_CS_N
-Text HLabel 6950 4700 2    50   Output ~ 0
+Text HLabel 4850 4700 2    50   Output ~ 0
 RAS_N
-Text HLabel 6950 4600 2    50   Output ~ 0
+Text HLabel 7050 5500 2    50   Output ~ 0
 CAS_N
-Text HLabel 6950 5200 2    50   Output ~ 0
+Text HLabel 3450 4900 0    50   Output ~ 0
 DQM0
-Text HLabel 6950 5100 2    50   Output ~ 0
+Text HLabel 3400 5800 0    50   Output ~ 0
 DQM1
-Text HLabel 6950 5000 2    50   Output ~ 0
+Text HLabel 1500 4500 0    50   Output ~ 0
 DQM2
-Text HLabel 6950 4900 2    50   Output ~ 0
+Text HLabel 3250 3750 0    50   Output ~ 0
 DQM3
-Text HLabel 6950 4500 2    50   Output ~ 0
+Text HLabel 7050 5400 2    50   Output ~ 0
 SDRAM_WE_N
-Text HLabel 5500 5700 0    50   Output ~ 0
+Text HLabel 4800 5100 2    50   Output ~ 0
 SDRAM_CKE
-Text HLabel 6950 5300 2    50   Output ~ 0
+Text HLabel 5000 5250 2    50   Output ~ 0
 SDRAM_CLK
 Entry Wire Line
 	850  5350 950  5450
@@ -1053,23 +1023,7 @@ Wire Notes Line
 Text Notes 7050 600  0    50   ~ 0
 Configuration interface
 Wire Wire Line
-	1500 4300 1800 4300
-Wire Wire Line
 	1500 3900 1800 3900
-Wire Wire Line
-	1500 4000 1800 4000
-Wire Wire Line
-	1500 4100 1800 4100
-Wire Wire Line
-	1500 4200 1800 4200
-Wire Wire Line
-	1500 4500 1800 4500
-Wire Wire Line
-	1500 4600 1800 4600
-Wire Wire Line
-	1500 4700 1800 4700
-Wire Wire Line
-	1500 4800 1800 4800
 Wire Notes Line
 	650  3200 650  7000
 Wire Notes Line
@@ -1079,61 +1033,25 @@ Wire Notes Line
 Wire Notes Line
 	650  3200 2950 3200
 Entry Wire Line
-	3100 3650 3200 3750
-Entry Wire Line
 	3100 3750 3200 3850
 Entry Wire Line
 	3100 3850 3200 3950
 Entry Wire Line
 	3100 4150 3200 4250
 Entry Wire Line
-	3100 4600 3200 4700
-Entry Wire Line
-	3100 4700 3200 4800
-Entry Wire Line
-	3100 4800 3200 4900
-Entry Wire Line
 	3100 4900 3200 5000
 Entry Wire Line
-	3100 5000 3200 5100
-Entry Wire Line
-	3100 5100 3200 5200
-Entry Wire Line
-	3100 5200 3200 5300
-Entry Wire Line
 	3100 5300 3200 5400
-Entry Wire Line
-	3100 5400 3200 5500
 Entry Wire Line
 	3100 5500 3200 5600
 Entry Wire Line
 	3100 5600 3200 5700
-Entry Wire Line
-	3100 5700 3200 5800
 Text Label 3100 3900 1    50   ~ 0
 DQ[0..31]
 Wire Wire Line
-	3200 3750 3600 3750
-Wire Wire Line
 	3200 3850 3600 3850
 Wire Wire Line
-	3200 3950 3600 3950
-Wire Wire Line
-	3200 4250 3600 4250
-Wire Wire Line
-	3200 4700 3600 4700
-Wire Wire Line
-	3200 4800 3600 4800
-Wire Wire Line
-	3200 4900 3600 4900
-Wire Wire Line
 	3200 5000 3600 5000
-Wire Wire Line
-	3200 5100 3600 5100
-Wire Wire Line
-	3200 5200 3600 5200
-Wire Wire Line
-	3200 5300 3600 5300
 Wire Wire Line
 	3200 5400 3600 5400
 Wire Wire Line
@@ -1142,239 +1060,43 @@ Wire Wire Line
 	3200 5600 3600 5600
 Wire Wire Line
 	3200 5700 3600 5700
-Wire Wire Line
-	3200 5800 3600 5800
-Entry Wire Line
-	4800 5700 4900 5800
-Entry Wire Line
-	4800 5600 4900 5700
-Entry Wire Line
-	4800 5500 4900 5600
-Entry Wire Line
-	4800 5400 4900 5500
-Entry Wire Line
-	4800 5300 4900 5400
-Entry Wire Line
-	4800 5200 4900 5300
-Entry Wire Line
-	4800 5100 4900 5200
-Entry Wire Line
-	4800 5000 4900 5100
 Entry Wire Line
 	4800 4900 4900 5000
 Entry Wire Line
-	4800 4800 4900 4900
-Entry Wire Line
-	4800 4700 4900 4800
-Entry Wire Line
-	4800 4250 4900 4350
-Entry Wire Line
-	4800 4150 4900 4250
-Entry Wire Line
-	4800 4050 4900 4150
-Entry Wire Line
-	4800 3950 4900 4050
-Entry Wire Line
 	4800 3850 4900 3950
-NoConn ~ 4600 3750
-NoConn ~ 1800 3600
-NoConn ~ 1800 3700
-NoConn ~ 1800 3800
 NoConn ~ 2800 3600
 NoConn ~ 2800 3700
-NoConn ~ 2800 3800
 NoConn ~ 2800 3900
-NoConn ~ 2800 4000
-NoConn ~ 2800 4100
-NoConn ~ 2800 4200
-NoConn ~ 2800 4300
-NoConn ~ 2800 4400
-NoConn ~ 2800 4500
 NoConn ~ 2800 4600
-NoConn ~ 2800 4700
-NoConn ~ 2800 4800
-NoConn ~ 1800 4400
 Wire Bus Line
 	3100 5950 4900 5950
 Wire Wire Line
 	4800 3850 4600 3850
 Wire Wire Line
-	4800 3950 4600 3950
-Wire Wire Line
 	4800 4050 4600 4050
-Wire Wire Line
-	4800 4150 4600 4150
-Wire Wire Line
-	4800 4250 4600 4250
-Wire Wire Line
-	4800 4700 4600 4700
-Wire Wire Line
-	4800 4800 4600 4800
 Wire Wire Line
 	4800 4900 4600 4900
 Wire Wire Line
-	4800 5000 4600 5000
-Wire Wire Line
 	4800 5100 4600 5100
-Wire Wire Line
-	4800 5200 4600 5200
-Wire Wire Line
-	4800 5300 4600 5300
-Wire Wire Line
-	4800 5400 4600 5400
-Wire Wire Line
-	4800 5500 4600 5500
-Wire Wire Line
-	4800 5600 4600 5600
-Wire Wire Line
-	4800 5700 4600 5700
-Text Label 3250 4250 0    50   ~ 0
-DQ0
-Text Label 4650 4250 0    50   ~ 0
-DQ1
-Text Label 4650 4150 0    50   ~ 0
-DQ2
-Text Label 4650 3950 0    50   ~ 0
-DQ3
 Text Label 4650 3850 0    50   ~ 0
-DQ4
-Text Label 3250 3950 0    50   ~ 0
-DQ5
-Text Label 4650 4050 0    50   ~ 0
-DQ6
-Text Label 3250 3850 0    50   ~ 0
-DQ7
-Text Label 3250 3750 0    50   ~ 0
-DQ8
-Text Label 3300 5500 0    50   ~ 0
-DQ9
-Text Label 3300 5000 0    50   ~ 0
-DQ10
-Text Label 4650 5200 0    50   ~ 0
-DQ11
-Text Label 4650 5100 0    50   ~ 0
-DQ12
-Text Label 4650 4700 0    50   ~ 0
-DQ13
-Text Label 3300 5800 0    50   ~ 0
-DQ14
-Text Label 4650 4900 0    50   ~ 0
-DQ15
-Text Label 4650 4800 0    50   ~ 0
-DQ16
-Text Label 3300 4800 0    50   ~ 0
-DQ17
-Text Label 3300 4700 0    50   ~ 0
-DQ18
-Text Label 3300 5100 0    50   ~ 0
-DQ19
-Text Label 3300 4900 0    50   ~ 0
-DQ20
-Text Label 3300 5200 0    50   ~ 0
-DQ21
-Text Label 3300 5300 0    50   ~ 0
-DQ22
-Text Label 4650 5300 0    50   ~ 0
-DQ23
-Text Label 4650 5000 0    50   ~ 0
-DQ24
-Text Label 4650 5400 0    50   ~ 0
-DQ25
-Text Label 4650 5500 0    50   ~ 0
-DQ26
-Text Label 4650 5600 0    50   ~ 0
-DQ27
-Text Label 4650 5700 0    50   ~ 0
-DQ28
-Text Label 3300 5400 0    50   ~ 0
 DQ29
-Text Label 3300 5600 0    50   ~ 0
-DQ30
-Text Label 3300 5700 0    50   ~ 0
-DQ31
-Entry Wire Line
-	5400 4400 5500 4500
-Entry Wire Line
-	5400 4500 5500 4600
-Entry Wire Line
-	5400 4600 5500 4700
-Entry Wire Line
-	5400 4700 5500 4800
-Entry Wire Line
-	5400 4800 5500 4900
-Entry Wire Line
-	5400 4900 5500 5000
-Entry Wire Line
-	5400 5000 5500 5100
-Entry Wire Line
-	5400 5100 5500 5200
-Entry Wire Line
-	5400 5200 5500 5300
-Entry Wire Line
-	5400 5300 5500 5400
-Entry Wire Line
-	5400 5400 5500 5500
-Entry Wire Line
-	5400 5500 5500 5600
-Wire Wire Line
-	6800 5300 6950 5300
-Wire Wire Line
-	6800 5700 6950 5700
-Wire Wire Line
-	6800 5800 6950 5800
-Text Notes 6000 6000 0    50   ~ 0
-T15<->DPCLK3
-Wire Wire Line
-	5500 4500 5800 4500
-Wire Wire Line
-	5500 4600 5800 4600
-Wire Wire Line
-	5500 4700 5800 4700
-Wire Wire Line
-	5500 4800 5800 4800
-Wire Wire Line
-	5500 4900 5800 4900
-Wire Wire Line
-	5500 5000 5800 5000
-Wire Wire Line
-	5500 5100 5800 5100
-Wire Wire Line
-	5500 5200 5800 5200
-Wire Wire Line
-	5500 5300 5800 5300
-Wire Wire Line
-	5500 5400 5800 5400
-Wire Wire Line
-	5500 5500 5800 5500
-Wire Wire Line
-	5500 5600 5800 5600
-Wire Wire Line
-	5500 5700 5800 5700
-Wire Wire Line
-	6800 4500 6950 4500
-Wire Wire Line
-	6800 4600 6950 4600
-Wire Wire Line
-	6800 4700 6950 4700
+Text Label 3300 5500 0    50   ~ 0
+A11
+Text Label 3300 5000 0    50   ~ 0
+A9
+Text Label 4650 4900 0    50   ~ 0
+DQ8
+Text Notes 4050 6100 0    50   ~ 0
+K15 <-> DPCLK4
 Wire Wire Line
 	6800 4800 6950 4800
 Wire Wire Line
 	6800 4900 6950 4900
 Wire Wire Line
-	6800 5000 6950 5000
-Wire Wire Line
-	6800 5100 6950 5100
-Wire Wire Line
 	6800 5200 6950 5200
-NoConn ~ 6800 5400
-NoConn ~ 6800 5500
 NoConn ~ 6800 5600
 Wire Wire Line
 	8050 4400 8450 4400
-Wire Wire Line
-	8050 4500 8450 4500
-Wire Wire Line
-	8050 4600 8450 4600
 Wire Wire Line
 	8050 4700 8450 4700
 Wire Wire Line
@@ -1429,80 +1151,30 @@ NoConn ~ 11050 5950
 NoConn ~ 11050 6050
 NoConn ~ 11050 6150
 NoConn ~ 11050 6250
-Text Label 5550 4500 0    50   ~ 0
-A11
-Text Label 5550 4600 0    50   ~ 0
-A10
-Text Label 5550 4700 0    50   ~ 0
-A9
-Text Label 5550 4800 0    50   ~ 0
-A8
-Text Label 5550 4900 0    50   ~ 0
-A7
-Text Label 5550 5000 0    50   ~ 0
-A6
-Text Label 5550 5100 0    50   ~ 0
-A5
-Text Label 5550 5200 0    50   ~ 0
-A4
-Text Label 5550 5300 0    50   ~ 0
-A3
-Text Label 5550 5400 0    50   ~ 0
-A2
-Text Label 5550 5600 0    50   ~ 0
-A0
-Text Label 5550 5500 0    50   ~ 0
-A1
-Text Label 950  5450 0    50   ~ 0
-RGB0
-Text Label 950  5550 0    50   ~ 0
-RGB1
-Text Label 950  5650 0    50   ~ 0
-RGB2
-Text Label 950  5750 0    50   ~ 0
-RGB3
-Text Label 950  5850 0    50   ~ 0
-RGB4
-Text Label 950  5950 0    50   ~ 0
-RGB5
-Text Label 950  6050 0    50   ~ 0
-RGB6
-Text Label 950  6150 0    50   ~ 0
-RGB7
-Text Label 950  6250 0    50   ~ 0
-RGB8
-Text Label 950  6350 0    50   ~ 0
-RGB9
-Text Label 950  6450 0    50   ~ 0
-RGB10
-Text Label 950  6550 0    50   ~ 0
-RGB11
-Text Label 950  6650 0    50   ~ 0
-RGB12
 Text Label 2250 5650 0    50   ~ 0
-RGB13
+RGB8
 Wire Wire Line
 	2200 5650 2550 5650
 Text Label 2250 5750 0    50   ~ 0
-RGB14
+RGB0
 Text Label 2250 5850 0    50   ~ 0
-RGB15
+RGB9
 Text Label 2250 5950 0    50   ~ 0
-RGB16
+RGB5
 Text Label 2250 6050 0    50   ~ 0
-RGB17
+RGB6
 Text Label 2250 6150 0    50   ~ 0
-RGB18
+RGB7
 Text Label 2250 6250 0    50   ~ 0
-RGB19
+RGB10
 Text Label 2250 6350 0    50   ~ 0
-RGB20
+RGB2
 Text Label 2250 6450 0    50   ~ 0
-RGB21
+RGB3
 Text Label 2250 6550 0    50   ~ 0
-RGB22
+RGB4
 Text Label 2250 6650 0    50   ~ 0
-RGB23
+RGB1
 $Comp
 L power:PWR_FLAG #FLG0103
 U 1 1 618643D1
@@ -1517,14 +1189,258 @@ $EndComp
 Connection ~ 3400 1450
 Wire Wire Line
 	3400 1450 3400 1500
-Wire Bus Line
-	2650 5750 2650 6900
-Wire Bus Line
-	850  4850 850  6900
+Text Label 950  6650 0    50   ~ 0
+RGB12
+Text Label 950  6550 0    50   ~ 0
+RGB11
+Text Label 950  6450 0    50   ~ 0
+RGB14
+Text Label 950  6350 0    50   ~ 0
+RGB15
+Text Label 950  6250 0    50   ~ 0
+RGB13
+Text Label 950  6150 0    50   ~ 0
+RGB17
+Text Label 950  6050 0    50   ~ 0
+RGB16
+Text Label 950  5850 0    50   ~ 0
+RGB21
+Text Label 950  5750 0    50   ~ 0
+RGB18
+Text Label 950  5650 0    50   ~ 0
+RGB22
+Text Label 950  5550 0    50   ~ 0
+RGB20
+Text Label 950  5450 0    50   ~ 0
+RGB19
+Text Label 950  5950 0    50   ~ 0
+RGB23
+Wire Wire Line
+	4600 5200 4800 5200
+Wire Wire Line
+	4800 5200 4800 5250
+Wire Wire Line
+	4800 5250 5000 5250
+Wire Wire Line
+	6800 5300 7000 5300
+Wire Wire Line
+	2800 4700 2900 4700
+Wire Wire Line
+	2900 4700 2900 5100
+Wire Wire Line
+	2900 5100 2800 5100
+Wire Wire Line
+	2800 4800 2850 4800
+Wire Wire Line
+	2850 4800 2850 5000
+Wire Wire Line
+	2850 5000 2650 5000
+Wire Wire Line
+	3000 4400 2800 4400
+Wire Wire Line
+	2800 4500 3000 4500
+Wire Wire Line
+	2800 4200 2950 4200
+Wire Wire Line
+	2800 4300 2950 4300
+Wire Wire Line
+	1600 3800 1800 3800
+Wire Wire Line
+	1600 4800 1800 4800
+Wire Wire Line
+	1800 4600 1500 4600
+Text Label 1500 4600 0    50   ~ 0
+DQ23
+Wire Wire Line
+	1800 4000 1500 4000
+Text Label 1500 4000 0    50   ~ 0
+DQ22
+Wire Wire Line
+	2800 4100 3000 4100
+Text Label 3000 4100 0    50   ~ 0
+DQ17
+Wire Wire Line
+	1800 4700 1500 4700
+Text Label 1500 4700 0    50   ~ 0
+DQ20
+Wire Wire Line
+	1800 4100 1500 4100
+Wire Wire Line
+	1800 4300 1500 4300
+Wire Wire Line
+	3200 4250 3600 4250
+Text Label 3300 4250 0    50   ~ 0
+DQ16
+Wire Wire Line
+	1800 3600 1550 3600
+Text Label 1550 3600 0    50   ~ 0
+DQ25
+Wire Wire Line
+	4600 4250 4750 4250
+Wire Wire Line
+	4600 4150 4750 4150
+Wire Wire Line
+	1550 3700 1800 3700
+Wire Wire Line
+	4600 3950 4700 3950
+Wire Wire Line
+	4700 5000 4600 5000
+Wire Wire Line
+	4600 5700 4800 5700
 Wire Bus Line
 	5400 4000 5400 5500
+Text Label 4800 5700 0    50   ~ 0
+A8
+Wire Wire Line
+	4600 5600 4800 5600
+Text Label 4800 5600 0    50   ~ 0
+A1
+Wire Wire Line
+	4600 5300 4750 5300
+Text Label 4750 5300 0    50   ~ 0
+A7
+Wire Wire Line
+	7450 2300 8250 2300
+Wire Wire Line
+	7450 2100 8250 2100
+Text Label 4800 4050 0    50   ~ 0
+A6
+Wire Wire Line
+	4600 5400 4750 5400
+Text Label 4750 5400 0    50   ~ 0
+A5
+Wire Wire Line
+	4600 5500 4750 5500
+Text Label 4750 5500 0    50   ~ 0
+A4
+Text Label 3400 3950 0    50   ~ 0
+A3
+Wire Wire Line
+	3600 3950 3400 3950
+Wire Wire Line
+	3600 3750 3250 3750
+Text Label 3300 3850 0    50   ~ 0
+DQ31
+Wire Wire Line
+	4600 3750 4850 3750
+Text Label 4850 3750 0    50   ~ 0
+DQ30
+Text Label 4700 3950 0    50   ~ 0
+DQ27
+Text Label 1500 4100 0    50   ~ 0
+DQ19
+Text Label 1500 4300 0    50   ~ 0
+DQ21
+Text Label 1550 3700 0    50   ~ 0
+DQ28
+Text Label 4750 4150 0    50   ~ 0
+DQ26
+Text Label 1500 4200 0    50   ~ 0
+DQ18
+Wire Wire Line
+	1500 4200 1800 4200
+Text Label 4750 4250 0    50   ~ 0
+DQ24
+Wire Wire Line
+	1500 4500 1800 4500
+Wire Wire Line
+	2800 3800 2900 3800
+Text Label 2900 3800 0    50   ~ 0
+A0
+Wire Wire Line
+	1800 4400 1500 4400
+Text Label 1500 4400 0    50   ~ 0
+A2
+Wire Wire Line
+	2800 4000 3000 4000
+Text Label 3000 4000 0    50   ~ 0
+A10
+Wire Wire Line
+	3400 5800 3600 5800
+Wire Wire Line
+	4600 4700 4850 4700
+Wire Wire Line
+	4600 4800 4800 4800
+Text Label 4800 4800 0    50   ~ 0
+DQ10
+Wire Wire Line
+	3450 4900 3600 4900
+Wire Wire Line
+	3600 5100 3300 5100
+Text Label 3300 5100 0    50   ~ 0
+DQ12
+Text Label 3350 5700 0    50   ~ 0
+DQ11
+Wire Wire Line
+	3600 4800 3300 4800
+Text Label 3300 4800 0    50   ~ 0
+DQ9
+Wire Wire Line
+	6800 5800 7000 5800
+Text Label 7000 5800 0    50   ~ 0
+DQ14
+Text Label 3300 5600 0    50   ~ 0
+DQ13
+Wire Wire Line
+	3600 5200 3300 5200
+Wire Wire Line
+	3600 5300 3300 5300
+Wire Wire Line
+	3600 4700 3300 4700
+Text Label 3300 4700 0    50   ~ 0
+DQ15
+Wire Wire Line
+	6800 5500 7050 5500
+Wire Wire Line
+	6800 5400 7050 5400
+Text Label 3300 5400 0    50   ~ 0
+DQ7
+Text Label 6950 4800 0    50   ~ 0
+DQ6
+Text Label 7000 5300 0    50   ~ 0
+DQ5
+Text Label 6950 5200 0    50   ~ 0
+DQ1
+Wire Wire Line
+	5800 5500 5550 5500
+Text Label 5550 5500 0    50   ~ 0
+DQ3
+Text Label 6950 4900 0    50   ~ 0
+DQ0
+Wire Wire Line
+	5800 5300 5550 5300
+Text Label 5550 5300 0    50   ~ 0
+DQ2
+Wire Wire Line
+	5800 5600 5550 5600
+Text Label 5550 5600 0    50   ~ 0
+DQ4
+NoConn ~ 5800 4500
+NoConn ~ 5800 4600
+NoConn ~ 5800 4700
+NoConn ~ 5800 4800
+NoConn ~ 5800 4900
+NoConn ~ 5800 5000
+NoConn ~ 5800 5100
+NoConn ~ 6800 4500
+NoConn ~ 6800 4600
+NoConn ~ 6800 4700
+NoConn ~ 6800 5000
+NoConn ~ 6800 5100
+NoConn ~ 6800 5700
+NoConn ~ 5800 5700
+NoConn ~ 8450 4500
+NoConn ~ 8450 4600
+Wire Wire Line
+	5800 5200 5700 5200
+Wire Wire Line
+	5800 5400 5700 5400
 Wire Bus Line
 	4900 3950 4900 5950
 Wire Bus Line
+	2650 5750 2650 6900
+Wire Bus Line
 	3100 3500 3100 5950
+Wire Bus Line
+	850  4850 850  6900
 $EndSCHEMATC
