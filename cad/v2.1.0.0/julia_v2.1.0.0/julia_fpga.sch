@@ -862,19 +862,19 @@ Text HLabel 1500 3900 0    50   Output ~ 0
 LCDCLK
 Text HLabel 2950 4300 2    50   Output ~ 0
 HSD
-Text HLabel 1600 4800 0    50   Output ~ 0
-VSD
 Text HLabel 1600 3800 0    50   Output ~ 0
+VSD
+Text HLabel 1600 4800 0    50   Output ~ 0
 DEN
 Text HLabel 8050 4400 0    50   Output ~ 0
 LIGHT
-Text HLabel 3000 4400 2    50   Input ~ 0
+Text HLabel 3000 4800 2    50   Input ~ 0
 TOUCH_INTN
 Text HLabel 2800 5100 0    50   Output ~ 0
 TOUCH_RSTN
-Text HLabel 3000 4500 2    50   BiDi ~ 0
+Text HLabel 3000 4400 2    50   BiDi ~ 0
 SDA
-Text HLabel 2650 5000 0    50   Output ~ 0
+Text HLabel 3000 4500 2    50   Output ~ 0
 SCL
 Text HLabel 2950 4200 2    50   Output ~ 0
 STBYB
@@ -1230,12 +1230,6 @@ Wire Wire Line
 Wire Wire Line
 	2900 5100 2800 5100
 Wire Wire Line
-	2800 4800 2850 4800
-Wire Wire Line
-	2850 4800 2850 5000
-Wire Wire Line
-	2850 5000 2650 5000
-Wire Wire Line
 	3000 4400 2800 4400
 Wire Wire Line
 	2800 4500 3000 4500
@@ -1435,6 +1429,8 @@ Wire Wire Line
 	5800 5200 5700 5200
 Wire Wire Line
 	5800 5400 5700 5400
+Wire Wire Line
+	2800 4800 3000 4800
 Wire Bus Line
 	4900 3950 4900 5950
 Wire Bus Line
