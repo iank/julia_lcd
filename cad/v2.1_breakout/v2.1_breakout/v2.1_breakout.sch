@@ -73,8 +73,8 @@ L Connector_Generic:Conn_02x05_Top_Bottom J2
 U 1 1 615CD619
 P 2800 2800
 F 0 "J2" H 2850 3217 50  0000 C CNN
-F 1 "Julia v2.1.0.0 connector" H 2850 3126 50  0000 C CNN
-F 2 "ik:Hirose_DF23_DF23C-10DS-0.5V_2x05_P0.50mm_Vertical" H 2800 2800 50  0001 C CNN
+F 1 "Julia v2.1.1.0 connector" H 2850 3126 50  0000 C CNN
+F 2 "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical" H 2800 2800 50  0001 C CNN
 F 3 "~" H 2800 2800 50  0001 C CNN
 	1    2800 2800
 	1    0    0    -1  
