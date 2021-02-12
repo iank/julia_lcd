@@ -49,12 +49,12 @@ $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 4 1 5FF3067F
-P 8850 4800
-F 0 "U1" H 8900 5465 50  0000 C CNN
-F 1 "EP4CE6F17" H 8900 5374 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 8950 3950 50  0001 C CNN
-F 3 "" H 8300 4350 50  0001 C CNN
-	4    8850 4800
+P 9400 6150
+F 0 "U1" H 9450 6815 50  0000 C CNN
+F 1 "EP4CE6F17" H 9450 6724 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 9500 5300 50  0001 C CNN
+F 3 "" H 8850 5700 50  0001 C CNN
+	4    9400 6150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -82,56 +82,56 @@ $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 7 1 5FF3FA76
-P 6300 5000
-F 0 "U1" H 6300 5765 50  0000 C CNN
-F 1 "EP4CE6F17" H 6300 5674 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 6400 4150 50  0001 C CNN
-F 3 "" H 5750 4550 50  0001 C CNN
-	7    6300 5000
+P 8800 4350
+F 0 "U1" H 8800 5115 50  0000 C CNN
+F 1 "EP4CE6F17" H 8800 5024 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 8900 3500 50  0001 C CNN
+F 3 "" H 8250 3900 50  0001 C CNN
+	7    8800 4350
 	1    0    0    -1  
 $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 8 1 5FF438A4
-P 4100 5200
-F 0 "U1" H 4100 5965 50  0000 C CNN
-F 1 "EP4CE6F17" H 4100 5874 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 4200 4350 50  0001 C CNN
-F 3 "" H 3550 4750 50  0001 C CNN
-	8    4100 5200
+P 6650 4350
+F 0 "U1" H 6650 5115 50  0000 C CNN
+F 1 "EP4CE6F17" H 6650 5024 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 6750 3500 50  0001 C CNN
+F 3 "" H 6100 3900 50  0001 C CNN
+	8    6650 4350
 	1    0    0    -1  
 $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 9 1 5FF47099
-P 4100 4250
-F 0 "U1" H 4100 5015 50  0000 C CNN
-F 1 "EP4CE6F17" H 4100 4924 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 4200 3400 50  0001 C CNN
-F 3 "" H 3550 3800 50  0001 C CNN
-	9    4100 4250
+P 6650 6250
+F 0 "U1" H 6650 7015 50  0000 C CNN
+F 1 "EP4CE6F17" H 6650 6924 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 6750 5400 50  0001 C CNN
+F 3 "" H 6100 5800 50  0001 C CNN
+	9    6650 6250
 	1    0    0    -1  
 $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 10 1 5FF4DDD6
-P 2300 4100
-F 0 "U1" H 2300 4865 50  0000 C CNN
-F 1 "EP4CE6F17" H 2300 4774 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 2400 3250 50  0001 C CNN
-F 3 "" H 1750 3650 50  0001 C CNN
-	10   2300 4100
+P 4100 4350
+F 0 "U1" H 4100 5115 50  0000 C CNN
+F 1 "EP4CE6F17" H 4100 5024 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 4200 3500 50  0001 C CNN
+F 3 "" H 3550 3900 50  0001 C CNN
+	10   4100 4350
 	1    0    0    -1  
 $EndComp
 $Comp
 L ik:EP4CE6F17 U1
 U 11 1 5FF53BEA
-P 1700 5950
-F 0 "U1" H 1700 6715 50  0000 C CNN
-F 1 "EP4CE6F17" H 1700 6624 50  0000 C CNN
-F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 1800 5100 50  0001 C CNN
-F 3 "" H 1150 5500 50  0001 C CNN
-	11   1700 5950
+P 1850 5950
+F 0 "U1" H 1850 6715 50  0000 C CNN
+F 1 "EP4CE6F17" H 1850 6624 50  0000 C CNN
+F 2 "Package_BGA:BGA-256_17.0x17.0mm_Layout16x16_P1.0mm_Ball0.5mm_Pad0.4mm_NSMD" H 1950 5100 50  0001 C CNN
+F 3 "" H 1300 5500 50  0001 C CNN
+	11   1850 5950
 	1    0    0    -1  
 $EndComp
 Text Notes 4550 3600 0    50   ~ 0
@@ -839,168 +839,166 @@ F 3 "~" H 9500 1900 50  0001 C CNN
 	1    9500 1900
 	0    -1   -1   0   
 $EndComp
-Text HLabel 5700 5200 0    50   Input ~ 0
+Text HLabel 8100 4550 0    50   Input ~ 0
 UART1_TX
-Text HLabel 5700 5400 0    50   Output ~ 0
+Text HLabel 8100 4750 0    50   Output ~ 0
 UART1_RX
-Text HLabel 8050 4700 0    50   Output ~ 0
+Text HLabel 8600 6050 0    50   Output ~ 0
 FPGA_LED1
-Text HLabel 8050 4800 0    50   Output ~ 0
+Text HLabel 8600 6150 0    50   Output ~ 0
 FPGA_LED2
-Text HLabel 850  4850 1    50   Output ~ 0
+Text HLabel 1000 4850 1    50   Output ~ 0
 RGB[0..23]
-Text Label 850  5150 3    50   ~ 0
+Text Label 1000 5150 3    50   ~ 0
 RGB[0..23]
-Text HLabel 1500 3900 0    50   Output ~ 0
+Text HLabel 3300 4150 0    50   Output ~ 0
 LCDCLK
-Text HLabel 2950 4300 2    50   Output ~ 0
+Text HLabel 4900 4550 2    50   Output ~ 0
 HSD
-Text HLabel 1600 3800 0    50   Output ~ 0
+Text HLabel 3300 4050 0    50   Output ~ 0
 VSD
-Text HLabel 1600 4800 0    50   Output ~ 0
+Text HLabel 3300 5050 0    50   Output ~ 0
 DEN
-Text HLabel 8050 4400 0    50   Output ~ 0
+Text HLabel 8600 5750 0    50   Output ~ 0
 LIGHT
-Text HLabel 3000 4800 2    50   Input ~ 0
+Text HLabel 4900 5050 2    50   Input ~ 0
 TOUCH_INTN
-Text HLabel 2800 5100 0    50   Output ~ 0
+Text HLabel 4900 4950 2    50   Output ~ 0
 TOUCH_RSTN
-Text HLabel 3000 4400 2    50   BiDi ~ 0
+Text HLabel 4900 4650 2    50   BiDi ~ 0
 SDA
-Text HLabel 3000 4500 2    50   Output ~ 0
+Text HLabel 4900 4750 2    50   Output ~ 0
 SCL
-Text HLabel 2950 4200 2    50   Output ~ 0
+Text HLabel 4900 4450 2    50   Output ~ 0
 STBYB
-Text HLabel 3100 3500 1    50   BiDi ~ 0
+Text HLabel 1300 3450 0    50   BiDi ~ 0
 DQ[0..31]
-Text HLabel 5400 4000 1    50   Output ~ 0
+Text HLabel 1300 3550 0    50   Output ~ 0
 A[0..11]
-Text Label 5400 4050 3    50   ~ 0
+Text Label 1350 3550 0    50   ~ 0
 A[0..11]
-Text HLabel 4700 5000 2    50   Output ~ 0
+Text HLabel 7450 4150 2    50   Output ~ 0
 BA1
-Text HLabel 3300 5200 0    50   Output ~ 0
+Text HLabel 5850 4350 0    50   Output ~ 0
 BA0
-Text HLabel 3300 5300 0    50   Output ~ 0
+Text HLabel 5850 4450 0    50   Output ~ 0
 SDRAM_CS_N
-Text HLabel 4850 4700 2    50   Output ~ 0
+Text HLabel 7450 3850 2    50   Output ~ 0
 RAS_N
-Text HLabel 7050 5500 2    50   Output ~ 0
+Text HLabel 9550 4850 2    50   Output ~ 0
 CAS_N
-Text HLabel 3450 4900 0    50   Output ~ 0
+Text HLabel 5850 4050 0    50   Output ~ 0
 DQM0
-Text HLabel 3400 5800 0    50   Output ~ 0
+Text HLabel 5850 4950 0    50   Output ~ 0
 DQM1
-Text HLabel 1500 4500 0    50   Output ~ 0
+Text HLabel 3300 4750 0    50   Output ~ 0
 DQM2
-Text HLabel 3250 3750 0    50   Output ~ 0
+Text HLabel 5850 5750 0    50   Output ~ 0
 DQM3
-Text HLabel 7050 5400 2    50   Output ~ 0
+Text HLabel 9550 4750 2    50   Output ~ 0
 SDRAM_WE_N
-Text HLabel 4800 5100 2    50   Output ~ 0
+Text HLabel 7450 4250 2    50   Output ~ 0
 SDRAM_CKE
-Text HLabel 5000 5250 2    50   Output ~ 0
+Text HLabel 7450 4350 2    50   Output ~ 0
 SDRAM_CLK
 Entry Wire Line
-	850  5350 950  5450
+	1000 5350 1100 5450
 Entry Wire Line
-	850  5450 950  5550
+	1000 5450 1100 5550
 Entry Wire Line
-	850  5550 950  5650
+	1000 5550 1100 5650
 Entry Wire Line
-	850  5650 950  5750
+	1000 5650 1100 5750
 Entry Wire Line
-	850  5750 950  5850
+	1000 5750 1100 5850
 Entry Wire Line
-	850  5850 950  5950
+	1000 5850 1100 5950
 Entry Wire Line
-	850  5950 950  6050
+	1000 5950 1100 6050
 Entry Wire Line
-	850  6050 950  6150
+	1000 6050 1100 6150
 Entry Wire Line
-	850  6150 950  6250
+	1000 6150 1100 6250
 Entry Wire Line
-	850  6250 950  6350
+	1000 6250 1100 6350
 Entry Wire Line
-	850  6350 950  6450
+	1000 6350 1100 6450
 Entry Wire Line
-	850  6450 950  6550
+	1000 6450 1100 6550
 Entry Wire Line
-	850  6550 950  6650
+	1000 6550 1100 6650
 Entry Wire Line
-	2550 5650 2650 5750
+	2700 5650 2800 5750
 Entry Wire Line
-	2550 5750 2650 5850
+	2700 5750 2800 5850
 Entry Wire Line
-	2550 5850 2650 5950
+	2700 5850 2800 5950
 Entry Wire Line
-	2550 5950 2650 6050
+	2700 5950 2800 6050
 Entry Wire Line
-	2550 6050 2650 6150
+	2700 6050 2800 6150
 Entry Wire Line
-	2550 6150 2650 6250
+	2700 6150 2800 6250
 Entry Wire Line
-	2550 6250 2650 6350
+	2700 6250 2800 6350
 Entry Wire Line
-	2550 6350 2650 6450
+	2700 6350 2800 6450
 Entry Wire Line
-	2550 6450 2650 6550
+	2700 6450 2800 6550
 Entry Wire Line
-	2550 6550 2650 6650
+	2700 6550 2800 6650
 Entry Wire Line
-	2550 6650 2650 6750
+	2700 6650 2800 6750
 Wire Bus Line
-	850  6900 2650 6900
+	1000 6900 2800 6900
 Wire Wire Line
-	950  5450 1200 5450
+	1100 5450 1350 5450
 Wire Wire Line
-	950  5550 1200 5550
+	1100 5550 1350 5550
 Wire Wire Line
-	950  5650 1200 5650
+	1100 5650 1350 5650
 Wire Wire Line
-	950  5750 1200 5750
+	1100 5750 1350 5750
 Wire Wire Line
-	950  5850 1200 5850
+	1100 5850 1350 5850
 Wire Wire Line
-	950  5950 1200 5950
+	1100 5950 1350 5950
 Wire Wire Line
-	950  6050 1200 6050
+	1100 6050 1350 6050
 Wire Wire Line
-	950  6150 1200 6150
+	1100 6150 1350 6150
 Wire Wire Line
-	950  6250 1200 6250
+	1100 6250 1350 6250
 Wire Wire Line
-	950  6350 1200 6350
+	1100 6350 1350 6350
 Wire Wire Line
-	950  6450 1200 6450
+	1100 6450 1350 6450
 Wire Wire Line
-	950  6550 1200 6550
+	1100 6550 1350 6550
 Wire Wire Line
-	950  6650 1200 6650
+	1100 6650 1350 6650
 Wire Wire Line
-	2200 6650 2550 6650
+	2350 6650 2700 6650
 Wire Wire Line
-	2200 6550 2550 6550
+	2350 6550 2700 6550
 Wire Wire Line
-	2200 6450 2550 6450
+	2350 6450 2700 6450
 Wire Wire Line
-	2200 6350 2550 6350
+	2350 6350 2700 6350
 Wire Wire Line
-	2200 6250 2550 6250
+	2350 6250 2700 6250
 Wire Wire Line
-	2200 6150 2550 6150
+	2350 6150 2700 6150
 Wire Wire Line
-	2200 6050 2550 6050
+	2350 6050 2700 6050
 Wire Wire Line
-	2200 5950 2550 5950
+	2350 5950 2700 5950
 Wire Wire Line
-	2200 5850 2550 5850
+	2350 5850 2700 5850
 Wire Wire Line
-	2200 5750 2550 5750
-NoConn ~ 2200 5550
-NoConn ~ 2200 5450
-Text Notes 700  3150 0    50   ~ 0
-LCD I/Os
+	2350 5750 2700 5750
+NoConn ~ 2350 5550
+NoConn ~ 2350 5450
 Text Notes 850  550  0    50   ~ 0
 Power
 Text Notes 3250 700  0    50   ~ 0
@@ -1016,91 +1014,63 @@ Wire Notes Line
 Text Notes 7050 600  0    50   ~ 0
 Configuration interface
 Wire Wire Line
-	1500 3900 1800 3900
-Wire Notes Line
-	650  3200 650  7000
-Wire Notes Line
-	650  7000 2950 7000
-Wire Notes Line
-	2950 7000 2950 3200
-Wire Notes Line
-	650  3200 2950 3200
-Entry Wire Line
-	3100 3750 3200 3850
-Entry Wire Line
-	3100 3850 3200 3950
-Entry Wire Line
-	3100 4150 3200 4250
-Entry Wire Line
-	3100 4900 3200 5000
-Entry Wire Line
-	3100 5300 3200 5400
-Entry Wire Line
-	3100 5500 3200 5600
-Entry Wire Line
-	3100 5600 3200 5700
-Text Label 3100 3900 1    50   ~ 0
+	3300 4150 3600 4150
+Text Label 1700 3450 2    50   ~ 0
 DQ[0..31]
 Wire Wire Line
-	3200 3850 3600 3850
+	5850 5850 6150 5850
 Wire Wire Line
-	3200 5000 3600 5000
+	5850 4150 6150 4150
 Wire Wire Line
-	3200 5400 3600 5400
+	5850 4550 6150 4550
 Wire Wire Line
-	3200 5500 3600 5500
+	5850 4650 6150 4650
 Wire Wire Line
-	3200 5600 3600 5600
+	5850 4750 6150 4750
 Wire Wire Line
-	3200 5700 3600 5700
-Entry Wire Line
-	4800 4900 4900 5000
-Entry Wire Line
-	4800 3850 4900 3950
-NoConn ~ 2800 3600
-NoConn ~ 2800 3700
-NoConn ~ 2800 3900
-NoConn ~ 2800 4600
-Wire Bus Line
-	3100 5950 4900 5950
+	5850 4850 6150 4850
+NoConn ~ 4600 3850
+NoConn ~ 4600 3950
+NoConn ~ 4600 4150
+NoConn ~ 4600 4850
 Wire Wire Line
-	4800 3850 4600 3850
+	7450 5850 7150 5850
 Wire Wire Line
-	4800 4050 4600 4050
+	7450 6050 7150 6050
 Wire Wire Line
-	4800 4900 4600 4900
+	7450 4050 7150 4050
 Wire Wire Line
-	4800 5100 4600 5100
-Text Label 4650 3850 0    50   ~ 0
+	7450 4250 7150 4250
+Text Label 7450 5850 0    50   ~ 0
 DQ29
-Text Label 3300 5500 0    50   ~ 0
+Text Label 5850 4650 0    50   ~ 0
 A11
-Text Label 3300 5000 0    50   ~ 0
+Text Label 5850 4150 0    50   ~ 0
 A9
-Text Label 4650 4900 0    50   ~ 0
+Text Label 7450 4050 0    50   ~ 0
 DQ8
-Text Notes 4050 6100 0    50   ~ 0
+Text Notes 6300 5150 0    50   ~ 0
 K15 <-> DPCLK4
 Wire Wire Line
-	6800 4800 6950 4800
+	9300 4150 9500 4150
 Wire Wire Line
-	6800 4900 6950 4900
+	9300 4250 9500 4250
 Wire Wire Line
-	6800 5200 6950 5200
-NoConn ~ 6800 5600
+	9300 4550 9500 4550
+NoConn ~ 9300 4950
 Wire Wire Line
-	8050 4400 8450 4400
+	8600 5750 9000 5750
 Wire Wire Line
-	8050 4700 8450 4700
+	8600 6050 9000 6050
 Wire Wire Line
-	8050 4800 8450 4800
-NoConn ~ 8450 4900
-NoConn ~ 9350 4900
-NoConn ~ 9350 4800
-NoConn ~ 9350 4700
-NoConn ~ 9350 4600
-NoConn ~ 9350 4500
-NoConn ~ 9350 4400
+	8600 6150 9000 6150
+NoConn ~ 9000 6250
+NoConn ~ 9900 6250
+NoConn ~ 9900 6150
+NoConn ~ 9900 6050
+NoConn ~ 9900 5950
+NoConn ~ 9900 5850
+NoConn ~ 9900 5750
 NoConn ~ 10050 3650
 NoConn ~ 10050 3750
 NoConn ~ 10050 3850
@@ -1144,29 +1114,29 @@ NoConn ~ 11050 5950
 NoConn ~ 11050 6050
 NoConn ~ 11050 6150
 NoConn ~ 11050 6250
-Text Label 2250 5650 0    50   ~ 0
+Text Label 2400 5650 0    50   ~ 0
 RGB8
 Wire Wire Line
-	2200 5650 2550 5650
-Text Label 2250 5750 0    50   ~ 0
+	2350 5650 2700 5650
+Text Label 2400 5750 0    50   ~ 0
 RGB0
-Text Label 2250 5850 0    50   ~ 0
+Text Label 2400 5850 0    50   ~ 0
 RGB9
-Text Label 2250 5950 0    50   ~ 0
+Text Label 2400 5950 0    50   ~ 0
 RGB5
-Text Label 2250 6050 0    50   ~ 0
+Text Label 2400 6050 0    50   ~ 0
 RGB6
-Text Label 2250 6150 0    50   ~ 0
+Text Label 2400 6150 0    50   ~ 0
 RGB7
-Text Label 2250 6250 0    50   ~ 0
+Text Label 2400 6250 0    50   ~ 0
 RGB10
-Text Label 2250 6350 0    50   ~ 0
+Text Label 2400 6350 0    50   ~ 0
 RGB2
-Text Label 2250 6450 0    50   ~ 0
+Text Label 2400 6450 0    50   ~ 0
 RGB3
-Text Label 2250 6550 0    50   ~ 0
+Text Label 2400 6550 0    50   ~ 0
 RGB4
-Text Label 2250 6650 0    50   ~ 0
+Text Label 2400 6650 0    50   ~ 0
 RGB1
 $Comp
 L power:PWR_FLAG #FLG0103
@@ -1182,248 +1152,236 @@ $EndComp
 Connection ~ 3400 1450
 Wire Wire Line
 	3400 1450 3400 1500
-Text Label 950  6650 0    50   ~ 0
+Text Label 1100 6650 0    50   ~ 0
 RGB12
-Text Label 950  6550 0    50   ~ 0
+Text Label 1100 6550 0    50   ~ 0
 RGB11
-Text Label 950  6450 0    50   ~ 0
+Text Label 1100 6450 0    50   ~ 0
 RGB14
-Text Label 950  6350 0    50   ~ 0
+Text Label 1100 6350 0    50   ~ 0
 RGB15
-Text Label 950  6250 0    50   ~ 0
+Text Label 1100 6250 0    50   ~ 0
 RGB13
-Text Label 950  6150 0    50   ~ 0
+Text Label 1100 6150 0    50   ~ 0
 RGB17
-Text Label 950  6050 0    50   ~ 0
+Text Label 1100 6050 0    50   ~ 0
 RGB16
-Text Label 950  5850 0    50   ~ 0
+Text Label 1100 5850 0    50   ~ 0
 RGB21
-Text Label 950  5750 0    50   ~ 0
+Text Label 1100 5750 0    50   ~ 0
 RGB18
-Text Label 950  5650 0    50   ~ 0
+Text Label 1100 5650 0    50   ~ 0
 RGB22
-Text Label 950  5550 0    50   ~ 0
+Text Label 1100 5550 0    50   ~ 0
 RGB20
-Text Label 950  5450 0    50   ~ 0
+Text Label 1100 5450 0    50   ~ 0
 RGB19
-Text Label 950  5950 0    50   ~ 0
+Text Label 1100 5950 0    50   ~ 0
 RGB23
 Wire Wire Line
-	4600 5200 4800 5200
+	9300 4650 9500 4650
 Wire Wire Line
-	4800 5200 4800 5250
+	4900 4650 4600 4650
 Wire Wire Line
-	4800 5250 5000 5250
+	4600 4750 4900 4750
 Wire Wire Line
-	6800 5300 7000 5300
+	4600 4450 4900 4450
 Wire Wire Line
-	2800 4700 2900 4700
+	4600 4550 4900 4550
 Wire Wire Line
-	2900 4700 2900 5100
+	3300 4050 3600 4050
 Wire Wire Line
-	2900 5100 2800 5100
+	3300 5050 3600 5050
 Wire Wire Line
-	3000 4400 2800 4400
-Wire Wire Line
-	2800 4500 3000 4500
-Wire Wire Line
-	2800 4200 2950 4200
-Wire Wire Line
-	2800 4300 2950 4300
-Wire Wire Line
-	1600 3800 1800 3800
-Wire Wire Line
-	1600 4800 1800 4800
-Wire Wire Line
-	1800 4600 1500 4600
-Text Label 1500 4600 0    50   ~ 0
+	3600 4850 3300 4850
+Text Label 3300 4850 0    50   ~ 0
 DQ23
 Wire Wire Line
-	1800 4000 1500 4000
-Text Label 1500 4000 0    50   ~ 0
+	3600 4250 3300 4250
+Text Label 3300 4250 0    50   ~ 0
 DQ22
 Wire Wire Line
-	2800 4100 3000 4100
-Text Label 3000 4100 0    50   ~ 0
+	4600 4350 4900 4350
+Text Label 4900 4350 0    50   ~ 0
 DQ17
 Wire Wire Line
-	1800 4700 1500 4700
-Text Label 1500 4700 0    50   ~ 0
+	3600 4950 3300 4950
+Text Label 3300 4950 0    50   ~ 0
 DQ20
 Wire Wire Line
-	1800 4100 1500 4100
+	3600 4350 3300 4350
 Wire Wire Line
-	1800 4300 1500 4300
+	3600 4550 3300 4550
 Wire Wire Line
-	3200 4250 3600 4250
-Text Label 3300 4250 0    50   ~ 0
+	5850 6250 6150 6250
+Text Label 5850 6250 0    50   ~ 0
 DQ16
 Wire Wire Line
-	1800 3600 1550 3600
-Text Label 1550 3600 0    50   ~ 0
+	3600 3850 3300 3850
+Text Label 3300 3850 0    50   ~ 0
 DQ25
 Wire Wire Line
-	4600 4250 4750 4250
+	7150 6250 7450 6250
 Wire Wire Line
-	4600 4150 4750 4150
+	7150 6150 7450 6150
 Wire Wire Line
-	1550 3700 1800 3700
+	3300 3950 3600 3950
 Wire Wire Line
-	4600 3950 4700 3950
+	7150 5950 7450 5950
 Wire Wire Line
-	4700 5000 4600 5000
+	7450 4150 7150 4150
 Wire Wire Line
-	4600 5700 4800 5700
+	7150 4850 7450 4850
 Wire Bus Line
-	5400 4000 5400 5500
-Text Label 4800 5700 0    50   ~ 0
+	1300 3550 2800 3550
+Text Label 7450 4850 0    50   ~ 0
 A8
 Wire Wire Line
-	4600 5600 4800 5600
-Text Label 4800 5600 0    50   ~ 0
+	7150 4750 7450 4750
+Text Label 7450 4750 0    50   ~ 0
 A1
 Wire Wire Line
-	4600 5300 4750 5300
-Text Label 4750 5300 0    50   ~ 0
+	7150 4450 7450 4450
+Text Label 7450 4450 0    50   ~ 0
 A7
 Wire Wire Line
 	7450 2300 8250 2300
 Wire Wire Line
 	7450 2100 8250 2100
-Text Label 4800 4050 0    50   ~ 0
+Text Label 7450 6050 0    50   ~ 0
 A6
 Wire Wire Line
-	4600 5400 4750 5400
-Text Label 4750 5400 0    50   ~ 0
+	7150 4550 7450 4550
+Text Label 7450 4550 0    50   ~ 0
 A5
 Wire Wire Line
-	4600 5500 4750 5500
-Text Label 4750 5500 0    50   ~ 0
+	7150 4650 7450 4650
+Text Label 7450 4650 0    50   ~ 0
 A4
-Text Label 3400 3950 0    50   ~ 0
+Text Label 5850 5950 0    50   ~ 0
 A3
 Wire Wire Line
-	3600 3950 3400 3950
+	6150 5950 5850 5950
 Wire Wire Line
-	3600 3750 3250 3750
-Text Label 3300 3850 0    50   ~ 0
+	6150 5750 5850 5750
+Text Label 5850 5850 0    50   ~ 0
 DQ31
 Wire Wire Line
-	4600 3750 4850 3750
-Text Label 4850 3750 0    50   ~ 0
+	7150 5750 7450 5750
+Text Label 7450 5750 0    50   ~ 0
 DQ30
-Text Label 4700 3950 0    50   ~ 0
+Text Label 7450 5950 0    50   ~ 0
 DQ27
-Text Label 1500 4100 0    50   ~ 0
+Text Label 3300 4350 0    50   ~ 0
 DQ19
-Text Label 1500 4300 0    50   ~ 0
+Text Label 3300 4550 0    50   ~ 0
 DQ21
-Text Label 1550 3700 0    50   ~ 0
+Text Label 3300 3950 0    50   ~ 0
 DQ28
-Text Label 4750 4150 0    50   ~ 0
+Text Label 7450 6150 0    50   ~ 0
 DQ26
-Text Label 1500 4200 0    50   ~ 0
+Text Label 3300 4450 0    50   ~ 0
 DQ18
 Wire Wire Line
-	1500 4200 1800 4200
-Text Label 4750 4250 0    50   ~ 0
+	3300 4450 3600 4450
+Text Label 7450 6250 0    50   ~ 0
 DQ24
 Wire Wire Line
-	1500 4500 1800 4500
+	3300 4750 3600 4750
 Wire Wire Line
-	2800 3800 2900 3800
-Text Label 2900 3800 0    50   ~ 0
+	4600 4050 4900 4050
+Text Label 4900 4050 0    50   ~ 0
 A0
 Wire Wire Line
-	1800 4400 1500 4400
-Text Label 1500 4400 0    50   ~ 0
+	3600 4650 3300 4650
+Text Label 3300 4650 0    50   ~ 0
 A2
 Wire Wire Line
-	2800 4000 3000 4000
-Text Label 3000 4000 0    50   ~ 0
+	4600 4250 4900 4250
+Text Label 4900 4250 0    50   ~ 0
 A10
 Wire Wire Line
-	3400 5800 3600 5800
+	5850 4950 6150 4950
 Wire Wire Line
-	4600 4700 4850 4700
+	7150 3850 7450 3850
 Wire Wire Line
-	4600 4800 4800 4800
-Text Label 4800 4800 0    50   ~ 0
+	7150 3950 7450 3950
+Text Label 7450 3950 0    50   ~ 0
 DQ10
 Wire Wire Line
-	3450 4900 3600 4900
+	5850 4050 6150 4050
 Wire Wire Line
-	3600 5100 3300 5100
-Text Label 3300 5100 0    50   ~ 0
+	6150 4250 5850 4250
+Text Label 5850 4250 0    50   ~ 0
 DQ12
-Text Label 3350 5700 0    50   ~ 0
+Text Label 5850 4850 0    50   ~ 0
 DQ11
 Wire Wire Line
-	3600 4800 3300 4800
-Text Label 3300 4800 0    50   ~ 0
+	6150 3950 5850 3950
+Text Label 5850 3950 0    50   ~ 0
 DQ9
 Wire Wire Line
-	6800 5800 7000 5800
-Text Label 7000 5800 0    50   ~ 0
+	9300 5150 9500 5150
+Text Label 9500 5150 0    50   ~ 0
 DQ14
-Text Label 3300 5600 0    50   ~ 0
+Text Label 5850 4750 0    50   ~ 0
 DQ13
 Wire Wire Line
-	3600 5200 3300 5200
+	6150 4350 5850 4350
 Wire Wire Line
-	3600 5300 3300 5300
+	6150 4450 5850 4450
 Wire Wire Line
-	3600 4700 3300 4700
-Text Label 3300 4700 0    50   ~ 0
+	6150 3850 5850 3850
+Text Label 5850 3850 0    50   ~ 0
 DQ15
 Wire Wire Line
-	6800 5500 7050 5500
+	9300 4850 9550 4850
 Wire Wire Line
-	6800 5400 7050 5400
-Text Label 3300 5400 0    50   ~ 0
+	9300 4750 9550 4750
+Text Label 5850 4550 0    50   ~ 0
 DQ7
-Text Label 6950 4800 0    50   ~ 0
+Text Label 9500 4150 0    50   ~ 0
 DQ6
-Text Label 7000 5300 0    50   ~ 0
+Text Label 9500 4650 0    50   ~ 0
 DQ5
-Text Label 6950 5200 0    50   ~ 0
+Text Label 9500 4550 0    50   ~ 0
 DQ1
 Wire Wire Line
-	5800 5500 5550 5500
-Text Label 5550 5500 0    50   ~ 0
+	8300 4850 7950 4850
+Text Label 7950 4850 0    50   ~ 0
 DQ3
-Text Label 6950 4900 0    50   ~ 0
+Text Label 9500 4250 0    50   ~ 0
 DQ0
 Wire Wire Line
-	5800 5300 5550 5300
-Text Label 5550 5300 0    50   ~ 0
+	8300 4650 7950 4650
+Text Label 7950 4650 0    50   ~ 0
 DQ2
 Wire Wire Line
-	5800 5600 5550 5600
-Text Label 5550 5600 0    50   ~ 0
+	8300 4950 7950 4950
+Text Label 7950 4950 0    50   ~ 0
 DQ4
-NoConn ~ 5800 4500
-NoConn ~ 5800 4600
-NoConn ~ 5800 4700
-NoConn ~ 5800 4800
-NoConn ~ 5800 4900
-NoConn ~ 5800 5000
-NoConn ~ 5800 5100
-NoConn ~ 6800 4500
-NoConn ~ 6800 4600
-NoConn ~ 6800 4700
-NoConn ~ 6800 5000
-NoConn ~ 6800 5100
-NoConn ~ 6800 5700
-NoConn ~ 5800 5700
-NoConn ~ 8450 4500
-NoConn ~ 8450 4600
+NoConn ~ 8300 3850
+NoConn ~ 8300 3950
+NoConn ~ 8300 4050
+NoConn ~ 8300 4150
+NoConn ~ 8300 4250
+NoConn ~ 8300 4350
+NoConn ~ 8300 4450
+NoConn ~ 9300 3850
+NoConn ~ 9300 3950
+NoConn ~ 9300 4050
+NoConn ~ 9300 4350
+NoConn ~ 9300 4450
+NoConn ~ 9300 5050
+NoConn ~ 8300 5050
+NoConn ~ 9000 5850
+NoConn ~ 9000 5950
 Wire Wire Line
-	5800 5200 5700 5200
+	8300 4550 8100 4550
 Wire Wire Line
-	5800 5400 5700 5400
+	8300 4750 8100 4750
 Wire Wire Line
-	2800 4800 3000 4800
+	4600 5050 4900 5050
 Wire Wire Line
 	1050 850  1050 1200
 $Comp
@@ -1442,11 +1400,13 @@ Wire Wire Line
 Wire Wire Line
 	1200 1100 1300 1100
 Wire Bus Line
-	4900 3950 4900 5950
+	1300 3450 2800 3450
+Wire Wire Line
+	7150 4350 7450 4350
+Wire Wire Line
+	4600 4950 4900 4950
 Wire Bus Line
-	2650 5750 2650 6900
+	2800 5750 2800 6900
 Wire Bus Line
-	3100 3500 3100 5950
-Wire Bus Line
-	850  4850 850  6900
+	1000 4850 1000 6900
 $EndSCHEMATC
