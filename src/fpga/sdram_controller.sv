@@ -47,7 +47,7 @@ module sdram_controller #(
 	output logic row_address_strobe,
 	output logic column_address_strobe,
 	output logic write_enable,
-	output logic [DQM_WIDTH-1:0] dqm = {DQM_WIDTH{1'b0}},
+	output logic [DQM_WIDTH-1:0] dqm,
 	inout wire [DATA_WIDTH-1:0] dq
 );
 
@@ -74,6 +74,8 @@ logic [2:0] state = STATE_UNINIT;
 localparam int REFRESH_TIMER_WIDTH = $clog2(AVERAGE_REFRESH_INTERVAL_CLOCKS + 1);
 localparam bit [REFRESH_TIMER_WIDTH-1:0] REFRESH_TIMER_END = REFRESH_TIMER_WIDTH'(AVERAGE_REFRESH_INTERVAL_CLOCKS);
 logic [REFRESH_TIMER_WIDTH-1:0] refresh_timer = REFRESH_TIMER_WIDTH'(0);
+
+assign dqm = 4'b0;
 
 always_ff @(posedge clk)
 begin

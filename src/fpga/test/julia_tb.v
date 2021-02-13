@@ -26,46 +26,45 @@ julia DUT(
     .PLD_CLOCKINPUT(jclk),
     .LEDG(LEDG),
     .S_DQ(S_DQ),
-	 .S_ADDR(S_ADDR),
-	 .S_BA(S_BA),
-	 .S_CAS_N(S_CAS_N),
-	 .S_CKE(S_CKE),
-	 .S_CLK(S_CLK),
-	 .S_CS_N(S_CS_N),
-	 .S_DQM(S_DQM),
-	 .S_RAS_N(S_RAS_N),
-	 .S_WE_N(S_WE_N),
-	 .LCDCLK(LCDCLK),
-	 .RGB(RGB),
-	 .DEN(DEN),
-	 .HSD(HSD),
-	 .VSD(VSD),
-	 .STBYB(STBYB)
+    .S_ADDR(S_ADDR),
+    .S_BA(S_BA),
+    .S_CAS_N(S_CAS_N),
+    .S_CKE(S_CKE),
+    .S_CLK(S_CLK),
+    .S_CS_N(S_CS_N),
+    .S_DQM(S_DQM),
+    .S_RAS_N(S_RAS_N),
+    .S_WE_N(S_WE_N),
+    .LCDCLK(LCDCLK),
+    .RGB(RGB),
+    .DEN(DEN),
+    .HSD(HSD),
+    .VSD(VSD),
+    .STBYB(STBYB)
 );
 
 sdr SDR(
-	.Clk(S_CLK),
-	.Cke(S_CKE),
-	.Cs_n(S_CS_N),
-	.Ras_n(S_RAS_N),
-	.Cas_n(S_CAS_N),
-	.We_n(S_WE_N),
-	.Addr(S_ADDR),
-	.Ba(S_BA),
-	.Dq(S_DQ),
-	.Dqm(S_DQM)
+    .Clk(S_CLK),
+    .Cke(S_CKE),
+    .Cs_n(S_CS_N),
+    .Ras_n(S_RAS_N),
+    .Cas_n(S_CAS_N),
+    .We_n(S_WE_N),
+    .Addr(S_ADDR),
+    .Ba(S_BA),
+    .Dq(S_DQ),
+    .Dqm(S_DQM)
 );
 
 initial begin
-   jclk = 0;
-	#1500;
-   //#13552000
+    jclk = 0;
 end
 
 always begin // 50MHz clk
     #10 jclk = ~jclk;
 end
 always @(posedge LCDCLK) begin
-//	 $display("VID: ", $time, ",%d,%06x,%d,%d,%d", LCDCLK, RGB, DEN, VSD, HSD);
+    if (DEN)
+        $display("VID: ", $time, ",%d,%06x,%d,%d,%d", LCDCLK, RGB, DEN, VSD, HSD);
 end
 endmodule

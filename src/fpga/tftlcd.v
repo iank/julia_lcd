@@ -7,7 +7,7 @@ module tftlcd
 
     parameter X_BP   = 100,    // Back porch
     parameter X_PX   = 800,    // Data
-    parameter X_FP   = 500,    // Front porch
+    parameter X_FP   = 1000,   // Front porch
 
     parameter DATA_WIDTH = 24,
     parameter X_COUNTER_WIDTH = log2ceil(X_BP+X_PX+X_FP),
@@ -47,7 +47,7 @@ module tftlcd
     wire VData = (r_CounterY >= (0) && r_CounterY < (Y_PX));
     wire HData = (r_CounterX >= (0) && r_CounterX < (X_PX));
 
-    wire DataEnable  = VData & HData;
+    wire DataEnable  = VData & HData & (r_CurrentState == STATE_DATA);
 
     /* Counters */
     always @(negedge i_CLK) begin
