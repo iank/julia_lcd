@@ -1,3 +1,4 @@
+vlog -reportprogress 300 -work work /home/ian/fun/julia_lcd/src/fpga/test/sdr.v
 vlog -reportprogress 300 -work work /home/ian/fun/julia_lcd/src/fpga/test/julia_tb.v
 vsim -L altera_mf_ver  work.julia_tb
 

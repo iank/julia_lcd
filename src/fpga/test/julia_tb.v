@@ -43,6 +43,19 @@ julia DUT(
 	 .STBYB(STBYB)
 );
 
+sdr SDR(
+	.Clk(S_CLK),
+	.Cke(S_CKE),
+	.Cs_n(S_CS_N),
+	.Ras_n(S_RAS_N),
+	.Cas_n(S_CAS_N),
+	.We_n(S_WE_N),
+	.Addr(S_ADDR),
+	.Ba(S_BA),
+	.Dq(S_DQ),
+	.Dqm(S_DQM)
+);
+
 initial begin
    jclk = 0;
 	#1500;
@@ -52,7 +65,7 @@ end
 always begin // 50MHz clk
     #10 jclk = ~jclk;
 end
-always begin
-	 $monitor("VID: ", $time, ",%d,%06x,%d,%d,%d", LCDCLK, RGB, DEN, VSD, HSD);
+always @(posedge LCDCLK) begin
+//	 $display("VID: ", $time, ",%d,%06x,%d,%d,%d", LCDCLK, RGB, DEN, VSD, HSD);
 end
 endmodule
