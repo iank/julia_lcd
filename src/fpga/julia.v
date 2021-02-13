@@ -24,4 +24,29 @@ module julia(
     output STBYB
 );
 
+mem_pll mem_pll(.inclk0(PLD_CLOCKINPUT), .c0(S_CLK));
+vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK));
+
+wire [23:0] rgb;
+wire [8:0]  cy;
+wire [10:0] cx;
+
+tftlcd #(.Y_PX(480), .X_PX(800)) tftlcd(
+	.i_CLK(LCDCLK),
+	.i_RGB(rgb),
+	.i_Begin(1'b1),
+	
+	.o_XPx(cx),
+	.o_YPx(cy),
+	
+	/* Physical outputs */
+	.RGB(RGB),
+	.STBYB(STBYB),
+	.HSD(HSD),
+	.VSD(VSD),
+	.DEN(DEN)
+);
+
+assign rgb = {cy, cx, 4'b0};
+
 endmodule
