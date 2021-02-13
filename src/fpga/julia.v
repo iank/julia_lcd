@@ -127,7 +127,7 @@ always @(posedge MEM_CLK) begin
 /*        if (data_address + 1'd1 == 22'd0)
             sdram_init_complete <= 1'b1;*/
         if (data_address + 1'd1 == (480*800)) begin
-		      data_address <= 0;
+            data_address <= 0;
             sdram_init_complete <= 1'b1;
         end
     end
@@ -151,7 +151,7 @@ always @(posedge MEM_CLK) begin
 end
 
 assign LEDG[0] = ~sdram_init_complete;
-assign LEDG[1] = ~(command == CMD_READ);
+assign LEDG[1] = ~data_read_valid;
 
 /* Video control logic */
 always @(posedge LCDCLK) begin
@@ -159,9 +159,9 @@ always @(posedge LCDCLK) begin
         lcd_begin <= 1'b1;
 
     if (DEN && lcd_begin) begin
-        rgb <= pixel_data_out[23:0];
-		  //rgb <= {cy, cx, 4'd0};
-	 end
+        //rgb <= pixel_data_out[23:0];
+        rgb <= {cy, pixel_data_out[14:0]};
+    end
 end
 
 endmodule

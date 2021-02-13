@@ -80,9 +80,9 @@ assign dqm = 4'b0;
 always_ff @(posedge clk)
 begin
 	// TODO: abort a read/write and refresh if it's taking too long (i.e. full-page)
-	if (state == STATE_IDLE && refresh_timer >= REFRESH_TIMER_END) // Refresh will always occur from an idle state
+	if (state == STATE_WAITING && internal_command == CMD_AUTO_REFRESH) // Refresh will always occur from an idle state
 		refresh_timer <= REFRESH_TIMER_WIDTH'(0);
-	else if (state == STATE_UNINIT)
+	if (state == STATE_UNINIT)
 		refresh_timer <= REFRESH_TIMER_WIDTH'(0);
 	else
 		refresh_timer <= refresh_timer + 1'd1;

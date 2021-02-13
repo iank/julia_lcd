@@ -51,7 +51,8 @@ sdram_controller #(
 	.MINIMUM_STABLE_CONDITION_TIME(200E-6), // 200 us
 	.MODE_REGISTER_SET_CYCLE_TIME(2.0 / CLK_RATE), // 2 clocks
 	.WRITE_RECOVERY_TIME(2.0 / CLK_RATE), // 2 clocks
-	.AVERAGE_REFRESH_INTERVAL_TIME(15.6E-6) // 15.6 us
+//	.AVERAGE_REFRESH_INTERVAL_TIME(15.6E-6) // 15.6 us
+	.AVERAGE_REFRESH_INTERVAL_TIME(13.6E-6) // 13.6 us
 ) sdram_controller (
 	.clk(clk),
     .command(command),
