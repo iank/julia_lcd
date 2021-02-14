@@ -4,7 +4,7 @@
 // MODULE: altpll 
 
 // ============================================================
-// File Name: mem_pll.v
+// File Name: sdramPLL.v
 // Megafunction Name(s):
 // 			altpll
 //
@@ -31,7 +31,7 @@
 //Altera or its authorized distributors.  Please refer to the 
 //applicable agreement for further details.
 
-module mem_pll (
+module sdramPLL (
 	inclk0,
 	c0);
 
@@ -91,7 +91,7 @@ endmodule
 // Retrieval info: PRIVATE: OUTPUT_FREQ_UNIT0 STRING "MHz"
 // Retrieval info: PRIVATE: PHASE_RECONFIG_FEATURE_ENABLED STRING "1"
 // Retrieval info: PRIVATE: PHASE_RECONFIG_INPUTS_CHECK STRING "0"
-// Retrieval info: PRIVATE: PHASE_SHIFT0 STRING "-3.00000000"
+// Retrieval info: PRIVATE: PHASE_SHIFT0 STRING "3.00000000"
 // Retrieval info: PRIVATE: PHASE_SHIFT_STEP_ENABLED_CHECK STRING "0"
 // Retrieval info: PRIVATE: PHASE_SHIFT_UNIT0 STRING "deg"
 // Retrieval info: PRIVATE: PLL_ADVANCED_PARAM_CHECK STRING "0"
@@ -104,7 +104,7 @@ endmodule
 // Retrieval info: PRIVATE: PLL_PFDENA_CHECK STRING "0"
 // Retrieval info: PRIVATE: PLL_TARGET_HARCOPY_CHECK NUMERIC "0"
 // Retrieval info: PRIVATE: PRIMARY_CLK_COMBO STRING "inclk0"
-// Retrieval info: PRIVATE: RECONFIG_FILE STRING "mem_pll.mif"
+// Retrieval info: PRIVATE: RECONFIG_FILE STRING "sdramPLL.mif"
 // Retrieval info: PRIVATE: SACN_INPUTS_CHECK STRING "0"
 // Retrieval info: PRIVATE: SCAN_FEATURE_ENABLED STRING "1"
 // Retrieval info: PRIVATE: SELF_RESET_LOCK_LOSS STRING "0"
@@ -128,7 +128,7 @@ endmodule
 // Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "1"
 // Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
 // Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "1"
-// Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "-167"
+// Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "167"
 // Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK0"
 // Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "20000"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
@@ -183,12 +183,12 @@ endmodule
 // Retrieval info: CONNECT: @inclk 0 0 1 1 GND 0 0 0 0
 // Retrieval info: CONNECT: @inclk 0 0 1 0 inclk0 0 0 0 0
 // Retrieval info: CONNECT: c0 0 0 0 0 @clk 0 0 1 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll.ppf TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll.cmp TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll.bsf TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll_inst.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL mem_pll_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL.ppf TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL.cmp TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL.bsf TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL sdramPLL_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
 // Retrieval info: CBX_MODULE_PREFIX: ON

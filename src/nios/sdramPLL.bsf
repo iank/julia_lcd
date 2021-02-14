@@ -21,7 +21,7 @@ applicable agreement for further details.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 0 0 240 152)
-	(text "mem_pll" (rect 96 0 153 16)(font "Arial" (font_size 10)))
+	(text "sdramPLL" (rect 91 0 160 16)(font "Arial" (font_size 10)))
 	(text "inst" (rect 8 136 25 148)(font "Arial" ))
 	(port
 		(pt 0 64)
@@ -46,7 +46,7 @@ applicable agreement for further details.
 		(text "DC (%)" (rect 132 93 294 197)(font "Arial" ))
 		(text "c0" (rect 54 107 116 225)(font "Arial" ))
 		(text "1/1" (rect 77 107 164 225)(font "Arial" ))
-		(text "-3.00" (rect 103 107 225 225)(font "Arial" ))
+		(text "3.00" (rect 104 107 224 225)(font "Arial" ))
 		(text "50.00" (rect 136 107 293 225)(font "Arial" ))
 		(line (pt 0 0)(pt 241 0))
 		(line (pt 241 0)(pt 241 153))
