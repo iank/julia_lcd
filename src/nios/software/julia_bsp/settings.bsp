@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Feb 14, 2021 9:05:37 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1613311537739</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Feb 14, 2021 9:13:14 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1613311994889</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\ian\Desktop\julia_lcd\src\nios\software\julia_bsp</BspGeneratedLocation>
-        <BspSettingsFile>.\settings.bsp</BspSettingsFile>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\ian\Desktop\julia_lcd\src\nios\julia_sys.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>

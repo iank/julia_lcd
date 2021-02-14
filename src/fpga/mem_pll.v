@@ -46,18 +46,18 @@ module mem_pll (
 	output	  c0;
 	output	  c1;
 
-	wire [4:0] sub_wire0;
-	wire [0:0] sub_wire5 = 1'h0;
-	wire [1:1] sub_wire2 = sub_wire0[1:1];
-	wire [0:0] sub_wire1 = sub_wire0[0:0];
-	wire  c0 = sub_wire1;
-	wire  c1 = sub_wire2;
-	wire  sub_wire3 = inclk0;
-	wire [1:0] sub_wire4 = {sub_wire5, sub_wire3};
+	wire [0:0] sub_wire2 = 1'h0;
+	wire [4:0] sub_wire3;
+	wire  sub_wire0 = inclk0;
+	wire [1:0] sub_wire1 = {sub_wire2, sub_wire0};
+	wire [1:1] sub_wire5 = sub_wire3[1:1];
+	wire [0:0] sub_wire4 = sub_wire3[0:0];
+	wire  c0 = sub_wire4;
+	wire  c1 = sub_wire5;
 
 	altpll	altpll_component (
-				.inclk (sub_wire4),
-				.clk (sub_wire0),
+				.inclk (sub_wire1),
+				.clk (sub_wire3),
 				.activeclock (),
 				.areset (1'b0),
 				.clkbad (),
@@ -95,14 +95,14 @@ module mem_pll (
 				.vcounderrange ());
 	defparam
 		altpll_component.bandwidth_type = "AUTO",
-		altpll_component.clk0_divide_by = 1,
+		altpll_component.clk0_divide_by = 5,
 		altpll_component.clk0_duty_cycle = 50,
-		altpll_component.clk0_multiply_by = 1,
+		altpll_component.clk0_multiply_by = 8,
 		altpll_component.clk0_phase_shift = "0",
-		altpll_component.clk1_divide_by = 1,
+		altpll_component.clk1_divide_by = 5,
 		altpll_component.clk1_duty_cycle = 50,
-		altpll_component.clk1_multiply_by = 1,
-		altpll_component.clk1_phase_shift = "-2778",
+		altpll_component.clk1_multiply_by = 8,
+		altpll_component.clk1_phase_shift = "-1736",
 		altpll_component.compensate_clock = "CLK0",
 		altpll_component.inclk0_input_frequency = 20000,
 		altpll_component.intended_device_family = "Cyclone IV E",
@@ -179,8 +179,8 @@ endmodule
 // Retrieval info: PRIVATE: DIV_FACTOR1 NUMERIC "1"
 // Retrieval info: PRIVATE: DUTY_CYCLE0 STRING "50.00000000"
 // Retrieval info: PRIVATE: DUTY_CYCLE1 STRING "50.00000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE0 STRING "50.000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "50.000000"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE0 STRING "80.000000"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "80.000000"
 // Retrieval info: PRIVATE: EXPLICIT_SWITCHOVER_COUNTER STRING "0"
 // Retrieval info: PRIVATE: EXT_FEEDBACK_RADIO STRING "0"
 // Retrieval info: PRIVATE: GLOCKED_COUNTER_EDIT_CHANGED STRING "1"
@@ -208,8 +208,8 @@ endmodule
 // Retrieval info: PRIVATE: MULT_FACTOR0 NUMERIC "1"
 // Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "1"
 // Retrieval info: PRIVATE: NORMAL_MODE_RADIO STRING "1"
-// Retrieval info: PRIVATE: OUTPUT_FREQ0 STRING "50.00000000"
-// Retrieval info: PRIVATE: OUTPUT_FREQ1 STRING "50.00000000"
+// Retrieval info: PRIVATE: OUTPUT_FREQ0 STRING "80.00000000"
+// Retrieval info: PRIVATE: OUTPUT_FREQ1 STRING "80.00000000"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_MODE0 STRING "1"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_MODE1 STRING "1"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_UNIT0 STRING "MHz"
@@ -255,14 +255,14 @@ endmodule
 // Retrieval info: PRIVATE: ZERO_DELAY_RADIO STRING "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
-// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "5"
 // Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "8"
 // Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "0"
-// Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "5"
 // Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "1"
-// Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "-2778"
+// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "8"
+// Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "-1736"
 // Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK0"
 // Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "20000"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"

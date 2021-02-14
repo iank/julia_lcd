@@ -81,8 +81,12 @@
 #include "sys/alt_stdio.h"
 
 int main()
-{ 
-  alt_putstr("Hello from Nios II!\n");
+{
+    alt_putstr("Hello from Nios II!\n");
+
+    char *buf = alt_uncached_malloc(32);
+    memset(buf, 0x32, 32);
+    alt_printf("Hello from Nios II! %c\n", buf[4]);
 
   /* Event loop never exits. */
   while (1);

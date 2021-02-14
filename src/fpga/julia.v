@@ -5,7 +5,7 @@ module julia(
     /* Physical outputs */
     output [1:0] LEDG,
      
-    output [31:0] S_DQ,
+    inout  [31:0] S_DQ,
     output [11:0] S_ADDR,
     output [1:0] S_BA,
     output S_CAS_N,
@@ -67,7 +67,7 @@ wire [31:0] data_read;
 wire data_read_valid, data_write_done;
 reg [7:0] countdown;
 
-as4c4m32s_controller #(.CLK_RATE(50000000), .WRITE_BURST(WRITE_BURST), .READ_BURST_LENGTH(READ_BURST_LENGTH), .CAS_LATENCY(3)) as4c4m32s_controller (
+as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BURST_LENGTH(READ_BURST_LENGTH), .CAS_LATENCY(3)) as4c4m32s_controller (
     .clk(MEM_CLK),
     .command(command),
     .data_address(data_address),
@@ -159,8 +159,8 @@ always @(posedge LCDCLK) begin
         lcd_begin <= 1'b1;
 
     if (DEN && lcd_begin) begin
-        //rgb <= pixel_data_out[23:0];
-        rgb <= {cy, pixel_data_out[14:0]};
+        rgb <= pixel_data_out[23:0];
+        //rgb <= {cy, pixel_data_out[14:0]};
     end
 end
 

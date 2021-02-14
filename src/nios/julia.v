@@ -5,7 +5,7 @@ module julia(
     /* Physical outputs */
     output [1:0] LEDG,
      
-    output [31:0] S_DQ,
+    inout [31:0] S_DQ,
     output [11:0] S_ADDR,
     output [1:0] S_BA,
     output S_CAS_N,
@@ -24,7 +24,15 @@ module julia(
     output STBYB
 );
 
-    mem_pll mem_pll_inst(
+    assign LCDCLK = PLD_CLOCKINPUT;
+    assign LEDG = 2'b1;
+    assign RGB[23:0] = 24'b0;
+    assign DEN = 1'b0;
+    assign VSD = 1'b0;
+    assign HSD = 1'b0;
+    assign STBYB = 1'b1;
+
+    sdramPLL mem_pll_inst(
         .inclk0(PLD_CLOCKINPUT),
         .c0(S_CLK)
     );
