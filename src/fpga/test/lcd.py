@@ -35,20 +35,19 @@ def render_lcd(file):
                 x_counter = 0
                 y_counter += 1
                 if (y_counter == res_y):
-                    lcd_output.show()                    
+                    lcd_output.save("frames/frame_{:04d}.png".format(frame_count), "png")
                     frame_count += 1
                     lcd_output = Image.new('RGB', (res_x, res_y), (0,0,0))
                     x_counter = 0
                     y_counter = 0
 
             lcd_output.putpixel((x_counter, y_counter),
-                                ((rgb & 0xFF0000) >> 16,
+                                ((rgb & 0x0000FF),
                                  (rgb & 0x00FF00) >>  8,
-                                 (rgb & 0x0000FF)))
+                                 (rgb & 0xFF0000) >> 16))
 
     print("Decoded {} frames".format(frame_count))
     print("{} {}".format(x_counter,y_counter))
-    lcd_output.show()
 
 if os.path.isfile(sys.argv[1]):
     render_lcd(sys.argv[1])

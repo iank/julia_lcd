@@ -77,6 +77,18 @@ logic [REFRESH_TIMER_WIDTH-1:0] refresh_timer = REFRESH_TIMER_WIDTH'(0);
 
 assign dqm = 4'b0;
 
+localparam bit [3:0] CMD_BANK_ACTIVATE = 4'd0;
+localparam bit [3:0] CMD_BANK_PRECHARGE = 4'd1;
+localparam bit [3:0] CMD_PRECHARGE_ALL = 4'd2;
+localparam bit [3:0] CMD_WRITE = 4'd3;
+localparam bit [3:0] CMD_READ = 4'd4;
+localparam bit [3:0] CMD_MODE_REGISTER_SET = 4'd5;
+localparam bit [3:0] CMD_NO_OP = 4'd6;
+localparam bit [3:0] CMD_BURST_STOP = 4'd7;
+localparam bit [3:0] CMD_AUTO_REFRESH = 4'd8;
+
+logic [3:0] internal_command = CMD_NO_OP;
+
 always_ff @(posedge clk)
 begin
 	// TODO: abort a read/write and refresh if it's taking too long (i.e. full-page)
@@ -102,17 +114,6 @@ logic [DATA_WIDTH-1:0] internal_dq = DATA_WIDTH'(0);
 assign dq = state == STATE_WRITING ? internal_dq : {DATA_WIDTH{1'bz}}; // Tri-State driver
 
 
-localparam bit [3:0] CMD_BANK_ACTIVATE = 4'd0;
-localparam bit [3:0] CMD_BANK_PRECHARGE = 4'd1;
-localparam bit [3:0] CMD_PRECHARGE_ALL = 4'd2;
-localparam bit [3:0] CMD_WRITE = 4'd3;
-localparam bit [3:0] CMD_READ = 4'd4;
-localparam bit [3:0] CMD_MODE_REGISTER_SET = 4'd5;
-localparam bit [3:0] CMD_NO_OP = 4'd6;
-localparam bit [3:0] CMD_BURST_STOP = 4'd7;
-localparam bit [3:0] CMD_AUTO_REFRESH = 4'd8;
-
-logic [3:0] internal_command = CMD_NO_OP;
 assign chip_select = !(internal_command != CMD_NO_OP);
 assign row_address_strobe = !(internal_command == CMD_BANK_ACTIVATE || internal_command == CMD_BANK_PRECHARGE || internal_command == CMD_PRECHARGE_ALL || internal_command == CMD_MODE_REGISTER_SET || internal_command == CMD_AUTO_REFRESH);
 assign column_address_strobe = !(internal_command == CMD_WRITE || internal_command == CMD_READ || internal_command == CMD_MODE_REGISTER_SET || internal_command == CMD_AUTO_REFRESH);
@@ -304,7 +305,7 @@ begin
 			address <= address;
 		end
 
-		if (step == STEP_WIDTH'(CAS_LATENCY + READ_BURST_LENGTH + 2)) // Last read just finished
+		if (step == STEP_WIDTH'(CAS_LATENCY + READ_BURST_LENGTH + 1)) // Last read just finished
 		begin
 			if (bank_or_row_differs)
 			begin
@@ -318,7 +319,7 @@ begin
 			end
 			data_read_valid <= 1'b0;
 		end
-		else if (step >= STEP_WIDTH'(CAS_LATENCY + 2)) // Still reading
+		else if (step >= STEP_WIDTH'(CAS_LATENCY + 1)) // Still reading
 		begin
 			data_read <= dq;
 			data_read_valid <= 1'b1;
