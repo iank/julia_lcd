@@ -93,7 +93,8 @@ as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BUR
 
 
 reg first_data_ready = 1'b0;
-wire [31:0] pixel_data_in, pixel_data_out;
+wire [31:0] pixel_data_in;
+wire [7:0] pixel_data_out;
 wire pixel_data_in_enable, pixel_data_out_acknowledge;
 wire [9:0] pixel_in_used;
 
@@ -105,7 +106,7 @@ fifo	pixel_read_fifo (
 	.wrreq (pixel_data_in_enable),
 	.q (pixel_data_out),
 	.wrusedw (pixel_in_used)
-	);
+);
 	
 assign pixel_data_out_acknowledge = DEN && lcd_begin;
 assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
@@ -126,10 +127,11 @@ always @(posedge MEM_CLK) begin
             countdown <= countdown - 1'd1;
              
         data_address <= data_address + 1'd1;
-        data_write <= {10'b1111111100, data_address + 1'd1};
+        //data_write <= {10'b0000000000, data_address + 1'd1};
+		  data_write <= {4{data_address[7:0] + 1'd1}};
 /*        if (data_address + 1'd1 == 22'd0)
             sdram_init_complete <= 1'b1;*/
-        if (data_address + 1'd1 == (480*800)) begin
+        if (data_address + 1'd1 == (480*200)) begin
             data_address <= 0;
             sdram_init_complete <= 1'b1;
         end
@@ -149,12 +151,20 @@ always @(posedge MEM_CLK) begin
         else
             countdown <= countdown - 1'd1;
 
-        data_address <= data_address == (480*800 - 1) ? 22'd0 : data_address + 1'd1;
+        data_address <= data_address == (480*200 - 1) ? 22'd0 : data_address + 1'd1;
     end
 end
 
 assign LEDG[0] = ~sdram_init_complete;
 assign LEDG[1] = ~data_read_valid;
+
+/* Color map */
+wire [23:0] px_rgb;
+
+color_map color_map (
+	.value (pixel_data_out),
+	.rgb (px_rgb)
+);
 
 /* Video control logic */
 always @(posedge LCDCLK) begin
@@ -162,8 +172,7 @@ always @(posedge LCDCLK) begin
         lcd_begin <= 1'b1;
 
     if (DEN && lcd_begin) begin
-        rgb <= pixel_data_out[23:0];
-        //rgb <= {cy, pixel_data_out[14:0]};
+        rgb <= px_rgb;
     end
 end
 

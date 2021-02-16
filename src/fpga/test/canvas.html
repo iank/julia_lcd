@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Canvas test</title>
+        <script type="text/javascript">
+        var ctx;
+        var SRAM = [];
+
+        function initSRAM() {
+            var i=0;
+            for (var addr=0; addr<(480*800); addr+=4) {
+                if (i % 8 == 0) {
+                    SRAM[addr]   = 0xFF;
+                    SRAM[addr+1] = 0x00;
+                    SRAM[addr+2] = 0x00;
+                    SRAM[addr+3] = i & 0xFF;
+                }
+                else {
+                    SRAM[addr]   = i & 0xFF;
+                    SRAM[addr+1] = i & 0xFF;
+                    SRAM[addr+2] = i & 0xFF;
+                    SRAM[addr+3] = i & 0xFF;
+                }
+                i++;
+            }
+        }
+
+        function drawPx(x, y, r, g, b) {
+            ctx.fillStyle = "rgba("+r+","+g+","+b+",1)";
+            ctx.fillRect(x, y, 1, 1);
+        }
+
+        function draw() {
+            initSRAM();
+            for (var y=0; y<480; y++) {
+                for (var x=0; x<800; x++) {
+                    var addr = y*800+x;
+                    var r,g,b;
+                    switch (SRAM[addr]) {
+                        case 0:
+                            b = 0x33; g = 0xAA; r = 0x00;
+                            break;
+                        case 1:
+                            b = 0x55; g = 0xAA; r = 0x00;
+                            break;
+                        case 2:
+                            b = 0x99; g = 0xAA; r = 0x00;
+                            break;
+                        case 3:
+                            b = 0xAA; g = 0xAA; r = 0x00;
+                            break;
+                        case 4:
+                            b = 0xAA; g = 0x99; r = 0x00;
+                            break;
+                        case 5:
+                            b = 0xAA; g = 0x66; r = 0x00;
+                            break;
+                        case 6:
+                            b = 0xAA; g = 0x33; r = 0x00;
+                            break;
+                        case 7:
+                            b = 0xAA; g = 0x00; r = 0x00;
+                            break;
+                        case 8:
+                            b = 0xAA; g = 0x00; r = 0x33;
+                            break;
+                        case 9:
+                            b = 0xAA; g = 0x00; r = 0x66;
+                            break;
+                        case 10:
+                            b = 0xAA; g = 0x00; r = 0x99;
+                            break;
+                        case 11:
+                            b = 0xAA; g = 0x00; r = 0xBB;
+                            break;
+                        default:
+                            b = 0xAA; g = 0x33; r = 0xBB;
+                            break;
+                    }
+                    drawPx(x, y, r, g, b);
+                }
+            }
+        }
+
+        function canvasTest() {
+            var canvas = document.getElementById('cvs');
+            if (canvas.getContext) {
+                ctx = canvas.getContext('2d');
+            }
+            draw();
+        }
+        </script>
+    </head>
+    <body onload="canvasTest();">
+        <canvas id="cvs" width="800" height="480"></canvas>
+    </body>
+</html>

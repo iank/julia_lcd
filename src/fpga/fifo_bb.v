@@ -1,12 +1,12 @@
 // megafunction wizard: %FIFO%VBB%
 // GENERATION: STANDARD
 // VERSION: WM1.0
-// MODULE: dcfifo 
+// MODULE: dcfifo_mixed_widths 
 
 // ============================================================
 // File Name: fifo.v
 // Megafunction Name(s):
-// 			dcfifo
+// 			dcfifo_mixed_widths
 //
 // Simulation Library Files(s):
 // 			altera_mf
@@ -46,7 +46,7 @@ module fifo (
 	input	  rdreq;
 	input	  wrclk;
 	input	  wrreq;
-	output	[31:0]  q;
+	output	[7:0]  q;
 	output	[9:0]  wrusedw;
 
 endmodule
@@ -75,9 +75,9 @@ endmodule
 // Retrieval info: PRIVATE: UsedW NUMERIC "1"
 // Retrieval info: PRIVATE: Width NUMERIC "32"
 // Retrieval info: PRIVATE: dc_aclr NUMERIC "0"
-// Retrieval info: PRIVATE: diff_widths NUMERIC "0"
+// Retrieval info: PRIVATE: diff_widths NUMERIC "1"
 // Retrieval info: PRIVATE: msb_usedw NUMERIC "0"
-// Retrieval info: PRIVATE: output_width NUMERIC "32"
+// Retrieval info: PRIVATE: output_width NUMERIC "8"
 // Retrieval info: PRIVATE: rsEmpty NUMERIC "0"
 // Retrieval info: PRIVATE: rsFull NUMERIC "0"
 // Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
@@ -90,16 +90,18 @@ endmodule
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "1024"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
-// Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
+// Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo_mixed_widths"
 // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "32"
 // Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "10"
+// Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "12"
+// Retrieval info: CONSTANT: LPM_WIDTH_R NUMERIC "8"
 // Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: USE_EAB STRING "ON"
 // Retrieval info: CONSTANT: WRSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
-// Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
+// Retrieval info: USED_PORT: q 0 0 8 0 OUTPUT NODEFVAL "q[7..0]"
 // Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 // Retrieval info: USED_PORT: wrclk 0 0 0 0 INPUT NODEFVAL "wrclk"
@@ -110,12 +112,12 @@ endmodule
 // Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
 // Retrieval info: CONNECT: @wrclk 0 0 0 0 wrclk 0 0 0 0
 // Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
-// Retrieval info: CONNECT: q 0 0 32 0 @q 0 0 32 0
+// Retrieval info: CONNECT: q 0 0 8 0 @q 0 0 8 0
 // Retrieval info: CONNECT: wrusedw 0 0 10 0 @wrusedw 0 0 10 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo.inc FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL fifo_inst.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL fifo_inst.v FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
