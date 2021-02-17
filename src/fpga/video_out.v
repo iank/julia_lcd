@@ -39,8 +39,8 @@ assign o_Pixel_Data_Acknowledge = DEN && lcd_begin;
 wire [23:0] px_rgb;
 
 color_map color_map (
-	.value (i_Pixel_Data),
-	.rgb (px_rgb)
+    .value (i_Pixel_Data),
+    .rgb (px_rgb)
 );
 
 /* Video control logic */

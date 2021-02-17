@@ -74,16 +74,16 @@ wire [7:0] pixel_data_out;
 wire pixel_data_in_enable, pixel_data_out_acknowledge;
 wire [9:0] pixel_in_used;
 
-fifo	pixel_read_fifo (
-	.data (pixel_data_in),
-	.rdclk (LCDCLK),
-	.rdreq (pixel_data_out_acknowledge),
-	.wrclk (MEM_CLK),
-	.wrreq (pixel_data_in_enable),
-	.q (pixel_data_out),
-	.wrusedw (pixel_in_used)
+fifo pixel_read_fifo (
+    .data (pixel_data_in),
+    .rdclk (LCDCLK),
+    .rdreq (pixel_data_out_acknowledge),
+    .wrclk (MEM_CLK),
+    .wrreq (pixel_data_in_enable),
+    .q (pixel_data_out),
+    .wrusedw (pixel_in_used)
 );
-	
+
 assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
 assign pixel_data_in = data_read;
 
@@ -108,8 +108,7 @@ always @(posedge MEM_CLK) begin
             countdown <= countdown - 1'd1;
              
         data_address <= data_address + 1'd1;
-        //data_write <= {10'b0000000000, data_address + 1'd1};
-		  data_write <= {4{data_address[7:0] + 1'd1}};
+        data_write <= {4{data_address[7:0] + 1'd1}};
 /*        if (data_address + 1'd1 == 22'd0)
             sdram_init_complete <= 1'b1;*/
         if (data_address + 1'd1 == (480*200)) begin
@@ -120,7 +119,7 @@ always @(posedge MEM_CLK) begin
      /* Read back from SDRAM */
     else if (command == CMD_IDLE && sdram_init_complete) begin
         if ((fifo_low_threshold && !fifo_filling) || (fifo_filling && !fifo_high_threshold)) begin
-		      fifo_filling <= 1'b1;
+            fifo_filling <= 1'b1;
             command <= CMD_READ;
             countdown <= READ_BURST_LENGTH - 1;
         end
@@ -135,8 +134,8 @@ always @(posedge MEM_CLK) begin
 
         data_address <= data_address == (480*200 - 1) ? 22'd0 : data_address + 1'd1;
     end
-	 if (fifo_filling && fifo_high_threshold)
-	     fifo_filling <= 1'b0;
+    if (fifo_filling && fifo_high_threshold)
+        fifo_filling <= 1'b0;
 end
 
 assign LEDG[0] = ~sdram_init_complete;
@@ -145,10 +144,10 @@ assign LEDG[1] = ~data_read_valid;
 /* LCD */
 video_out video_out (
     .LCDCLK(LCDCLK),
-	 .i_Begin(first_data_ready),
+    .i_Begin(first_data_ready),
     .i_Pixel_Data(pixel_data_out), // "out" from FIFO
-	 .o_Pixel_Data_Acknowledge(pixel_data_out_acknowledge),
-	 
+    .o_Pixel_Data_Acknowledge(pixel_data_out_acknowledge),
+ 
     /* Physical outputs */
     .RGB(RGB),
     .DEN(DEN),
