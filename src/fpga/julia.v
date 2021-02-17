@@ -29,28 +29,6 @@ wire MEM_CLK;
 mem_pll mem_pll(.inclk0(PLD_CLOCKINPUT), .c0(MEM_CLK), .c1(S_CLK));
 vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK));
 
-/* LCD */
-reg [23:0] rgb;
-wire [8:0]  cy;
-wire [10:0] cx;
-reg lcd_begin = 1'b0;
-
-tftlcd #(.Y_PX(480), .X_PX(800)) tftlcd(
-    .i_CLK(LCDCLK),
-    .i_RGB(rgb),
-    .i_Begin(lcd_begin),
-    
-    .o_XPx(cx),
-    .o_YPx(cy),
-    
-    /* Physical outputs */
-    .RGB(RGB),
-    .STBYB(STBYB),
-    .HSD(HSD),
-    .VSD(VSD),
-    .DEN(DEN)
-);
-
 /* SDRAM */
 localparam WRITE_BURST = 1;
 localparam READ_BURST_LENGTH = 8;
@@ -90,8 +68,6 @@ as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BUR
 
 /* FIFO */
 
-
-
 reg first_data_ready = 1'b0;
 wire [31:0] pixel_data_in;
 wire [7:0] pixel_data_out;
@@ -108,7 +84,6 @@ fifo	pixel_read_fifo (
 	.wrusedw (pixel_in_used)
 );
 	
-assign pixel_data_out_acknowledge = DEN && lcd_begin;
 assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
 assign pixel_data_in = data_read;
 
@@ -167,22 +142,19 @@ end
 assign LEDG[0] = ~sdram_init_complete;
 assign LEDG[1] = ~data_read_valid;
 
-/* Color map */
-wire [23:0] px_rgb;
-
-color_map color_map (
-	.value (pixel_data_out),
-	.rgb (px_rgb)
+/* LCD */
+video_out video_out (
+    .LCDCLK(LCDCLK),
+	 .i_Begin(first_data_ready),
+    .i_Pixel_Data(pixel_data_out), // "out" from FIFO
+	 .o_Pixel_Data_Acknowledge(pixel_data_out_acknowledge),
+	 
+    /* Physical outputs */
+    .RGB(RGB),
+    .DEN(DEN),
+    .HSD(HSD),
+    .VSD(VSD),
+    .STBYB(STBYB)
 );
-
-/* Video control logic */
-always @(posedge LCDCLK) begin
-    if (first_data_ready && !lcd_begin)
-        lcd_begin <= 1'b1;
-
-    if (DEN && lcd_begin) begin
-        rgb <= px_rgb;
-    end
-end
 
 endmodule
