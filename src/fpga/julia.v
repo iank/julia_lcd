@@ -112,6 +112,12 @@ assign pixel_data_out_acknowledge = DEN && lcd_begin;
 assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
 assign pixel_data_in = data_read;
 
+reg fifo_filling = 1'b0;
+wire fifo_low_threshold, fifo_high_threshold;
+
+assign fifo_low_threshold = (pixel_in_used <= 256);
+assign fifo_high_threshold = (pixel_in_used >= (1024 - READ_BURST_LENGTH));
+
 /* Memory control logic */
 always @(posedge MEM_CLK) begin
     /* Initialize SDRAM */
@@ -138,7 +144,8 @@ always @(posedge MEM_CLK) begin
     end
      /* Read back from SDRAM */
     else if (command == CMD_IDLE && sdram_init_complete) begin
-        if (pixel_in_used <= (1024 - READ_BURST_LENGTH)) begin
+        if ((fifo_low_threshold && !fifo_filling) || (fifo_filling && !fifo_high_threshold)) begin
+		      fifo_filling <= 1'b1;
             command <= CMD_READ;
             countdown <= READ_BURST_LENGTH - 1;
         end
@@ -153,6 +160,8 @@ always @(posedge MEM_CLK) begin
 
         data_address <= data_address == (480*200 - 1) ? 22'd0 : data_address + 1'd1;
     end
+	 if (fifo_filling && fifo_high_threshold)
+	     fifo_filling <= 1'b0;
 end
 
 assign LEDG[0] = ~sdram_init_complete;
