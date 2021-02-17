@@ -24,25 +24,49 @@ module julia(
     output STBYB
 );
 
+`include "sdram.vh"
+
+/***********************************************************************/
+
 /* PLLs */
 wire MEM_CLK;
 mem_pll mem_pll(.inclk0(PLD_CLOCKINPUT), .c0(MEM_CLK), .c1(S_CLK));
 vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK));
 
-/* SDRAM */
-localparam WRITE_BURST = 1;
-localparam READ_BURST_LENGTH = 8;
+/***********************************************************************/
 
-localparam CMD_IDLE  = 2'd0;
-localparam CMD_WRITE = 2'd1;
-localparam CMD_READ  = 2'd2;
-
-reg [1:0] command = 2'd0;
-reg [21:0] data_address = 22'd0;
-reg [31:0] data_write = 32'd0;
+/* Frame reader <-> SDRAM, FIFO */
+wire [1:0] command;
+wire [21:0] data_address;
+wire [31:0] data_write;
 wire [31:0] data_read;
 wire data_read_valid, data_write_done;
+wire sdram_init_complete;
+wire first_data_ready;
 
+/* Frame reader <-> FIFO <-> Video out */
+wire [31:0] pixel_data_in;
+wire [7:0] pixel_data_out;
+wire pixel_data_in_enable, pixel_data_out_acknowledge;
+wire [9:0] pixel_in_used;
+
+/***********************************************************************/
+
+/* Frame Reader */
+frame_reader frame_reader (
+    .i_Clk(MEM_CLK),
+    .i_Data_Read_Valid(data_read_valid),
+    .i_Data_Write_Done(data_write_done),
+    .i_Pixel_In_Used(pixel_in_used),
+    .o_Command(command),
+    .o_Data_Address(data_address),
+    .o_Data_Write(data_write),
+    .o_FIFO_Wr(pixel_data_in_enable),
+    .o_SDRAM_Init_Complete(sdram_init_complete),
+    .o_First_Data_Ready(first_data_ready)
+);
+
+/* SDRAM Controller */
 as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BURST_LENGTH(READ_BURST_LENGTH), .CAS_LATENCY(3)) as4c4m32s_controller (
     .clk(MEM_CLK),
     .command(command),
@@ -65,10 +89,7 @@ as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BUR
 );
 
 /* FIFO */
-wire [31:0] pixel_data_in;
-wire [7:0] pixel_data_out;
-wire pixel_data_in_enable, pixel_data_out_acknowledge;
-wire [9:0] pixel_in_used;
+assign pixel_data_in = data_read;
 
 fifo pixel_read_fifo (
     .data (pixel_data_in),
@@ -79,62 +100,6 @@ fifo pixel_read_fifo (
     .q (pixel_data_out),
     .wrusedw (pixel_in_used)
 );
-
-reg fifo_filling = 1'b0;
-wire fifo_low_threshold, fifo_high_threshold;
-reg first_data_ready = 1'b0;
-reg sdram_init_complete = 1'd0;
-reg [7:0] countdown;
-
-assign fifo_low_threshold = (pixel_in_used <= 256);
-assign fifo_high_threshold = (pixel_in_used >= (1024 - READ_BURST_LENGTH));
-assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
-assign pixel_data_in = data_read;
-
-/* Memory control logic */
-always @(posedge MEM_CLK) begin
-    /* Initialize SDRAM */
-    if (command == CMD_IDLE && !sdram_init_complete) begin
-        command <= CMD_WRITE;
-        data_write <= {10'b1111111100, data_address};
-        countdown <= READ_BURST_LENGTH - 1;
-    end
-    else if (command == CMD_WRITE && data_write_done) begin
-        if (countdown == 3'd0)
-            command <= CMD_IDLE;
-        else
-            countdown <= countdown - 1'd1;
-             
-        data_address <= data_address + 1'd1;
-        data_write <= {4{data_address[7:0] + 1'd1}};
-/*        if (data_address + 1'd1 == 22'd0)
-            sdram_init_complete <= 1'b1;*/
-        if (data_address + 1'd1 == (480*200)) begin
-            data_address <= 0;
-            sdram_init_complete <= 1'b1;
-        end
-    end
-     /* Read back from SDRAM */
-    else if (command == CMD_IDLE && sdram_init_complete) begin
-        if ((fifo_low_threshold && !fifo_filling) || (fifo_filling && !fifo_high_threshold)) begin
-            fifo_filling <= 1'b1;
-            command <= CMD_READ;
-            countdown <= READ_BURST_LENGTH - 1;
-        end
-    end
-    else if (command == CMD_READ && data_read_valid) begin
-        if (countdown == 3'd0) begin
-            command <= CMD_IDLE;
-            first_data_ready <= 1'b1;
-        end
-        else
-            countdown <= countdown - 1'd1;
-
-        data_address <= data_address == (480*200 - 1) ? 22'd0 : data_address + 1'd1;
-    end
-    if (fifo_filling && fifo_high_threshold)
-        fifo_filling <= 1'b0;
-end
 
 /* LCD */
 video_out video_out (
