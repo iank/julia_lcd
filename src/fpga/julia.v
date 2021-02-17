@@ -35,13 +35,20 @@ vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK));
 
 /***********************************************************************/
 
-/* Frame reader <-> SDRAM, FIFO */
+/* SDRAM Mux -> SDRAM controller */
 wire [1:0] command;
 wire [21:0] data_address;
 wire [31:0] data_write;
+wire [5:0] dummy;
+
+/* SDRAM Controller outputs */
 wire [31:0] data_read;
 wire data_read_valid, data_write_done;
-wire sdram_init_complete;
+
+/* Frame reader <-> SDRAM Mux, FIFO */
+wire [1:0] FR_command;
+wire [21:0] FR_data_address;
+wire [31:0] FR_data_write;
 wire first_data_ready;
 
 /* Frame reader <-> FIFO <-> Video out */
@@ -52,18 +59,14 @@ wire [9:0] pixel_in_used;
 
 /***********************************************************************/
 
-/* Frame Reader */
-frame_reader frame_reader (
-    .i_Clk(MEM_CLK),
-    .i_Data_Read_Valid(data_read_valid),
-    .i_Data_Write_Done(data_write_done),
-    .i_Pixel_In_Used(pixel_in_used),
-    .o_Command(command),
-    .o_Data_Address(data_address),
-    .o_Data_Write(data_write),
-    .o_FIFO_Wr(pixel_data_in_enable),
-    .o_SDRAM_Init_Complete(sdram_init_complete),
-    .o_First_Data_Ready(first_data_ready)
+/* SDRAM Mux: Switch access to the SDRAM controller between init,
+ *            frame reader, and fractal engine as necessary */
+sdram_mux sdram_mux(
+    .sel(2'b00),
+    .data0x({FR_command, FR_data_address, FR_data_write}),
+    .data1x(),
+    .data2x(),
+    .result({command, data_address, data_write})
 );
 
 /* SDRAM Controller */
@@ -86,6 +89,19 @@ as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BUR
     .write_enable(S_WE_N),
     .dqm(S_DQM),
     .dq(S_DQ)
+);
+
+/* Frame Reader */
+frame_reader frame_reader (
+    .i_Clk(MEM_CLK),
+    .i_Data_Read_Valid(data_read_valid),
+    .i_Data_Write_Done(data_write_done),
+    .i_Pixel_In_Used(pixel_in_used),
+    .o_Command(FR_command),
+    .o_Data_Address(FR_data_address),
+    .o_Data_Write(FR_data_write),
+    .o_FIFO_Wr(pixel_data_in_enable),
+    .o_First_Data_Ready(first_data_ready)
 );
 
 /* FIFO */

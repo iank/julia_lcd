@@ -11,7 +11,6 @@ module frame_reader(
     output reg [31:0] o_Data_Write,
     output o_FIFO_Wr,
 
-    output reg o_SDRAM_Init_Complete,
     output reg o_First_Data_Ready
 );
 
@@ -24,7 +23,7 @@ initial o_Data_Write = 32'd0;
 reg fifo_filling = 1'b0;
 wire fifo_low_threshold, fifo_high_threshold;
 initial o_First_Data_Ready = 1'b0;
-initial o_SDRAM_Init_Complete = 1'd0;
+reg o_SDRAM_Init_Complete = 1'd0;
 reg [7:0] countdown;
 
 assign fifo_low_threshold = (i_Pixel_In_Used <= 256);
