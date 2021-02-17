@@ -38,12 +38,10 @@ localparam CMD_WRITE = 2'd1;
 localparam CMD_READ  = 2'd2;
 
 reg [1:0] command = 2'd0;
-reg sdram_init_complete = 1'd0;
 reg [21:0] data_address = 22'd0;
 reg [31:0] data_write = 32'd0;
 wire [31:0] data_read;
 wire data_read_valid, data_write_done;
-reg [7:0] countdown;
 
 as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BURST_LENGTH(READ_BURST_LENGTH), .CAS_LATENCY(3)) as4c4m32s_controller (
     .clk(MEM_CLK),
@@ -67,8 +65,6 @@ as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BUR
 );
 
 /* FIFO */
-
-reg first_data_ready = 1'b0;
 wire [31:0] pixel_data_in;
 wire [7:0] pixel_data_out;
 wire pixel_data_in_enable, pixel_data_out_acknowledge;
@@ -84,14 +80,16 @@ fifo pixel_read_fifo (
     .wrusedw (pixel_in_used)
 );
 
-assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
-assign pixel_data_in = data_read;
-
 reg fifo_filling = 1'b0;
 wire fifo_low_threshold, fifo_high_threshold;
+reg first_data_ready = 1'b0;
+reg sdram_init_complete = 1'd0;
+reg [7:0] countdown;
 
 assign fifo_low_threshold = (pixel_in_used <= 256);
 assign fifo_high_threshold = (pixel_in_used >= (1024 - READ_BURST_LENGTH));
+assign pixel_data_in_enable = command == CMD_READ && data_read_valid;
+assign pixel_data_in = data_read;
 
 /* Memory control logic */
 always @(posedge MEM_CLK) begin
@@ -138,9 +136,6 @@ always @(posedge MEM_CLK) begin
         fifo_filling <= 1'b0;
 end
 
-assign LEDG[0] = ~sdram_init_complete;
-assign LEDG[1] = ~data_read_valid;
-
 /* LCD */
 video_out video_out (
     .LCDCLK(LCDCLK),
@@ -155,5 +150,9 @@ video_out video_out (
     .VSD(VSD),
     .STBYB(STBYB)
 );
+
+/* LEDs */
+assign LEDG[0] = 1'b1;
+assign LEDG[1] = 1'b1;
 
 endmodule
