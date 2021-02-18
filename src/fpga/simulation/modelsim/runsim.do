@@ -1,6 +1,6 @@
 vlog -reportprogress 300 -work work /home/ian/fun/julia_lcd/src/fpga/test/sdr.v
 vlog -reportprogress 300 -work work /home/ian/fun/julia_lcd/src/fpga/test/julia_tb.v
-vsim -L altera_mf_ver  work.julia_tb
+vsim -L altera_mf_ver -L lpm_ver work.julia_tb
 
 add wave -position insertpoint \
 sim:/julia_tb/jclk \
@@ -15,10 +15,13 @@ sim:/julia_tb/DUT/pixel_data_out_acknowledge \
 sim:/julia_tb/DUT/pixel_data_in_enable \
 sim:/julia_tb/DUT/data_address \
 sim:/julia_tb/DUT/data_read_valid \
-sim:/julia_tb/DUT/countdown \
 sim:/julia_tb/DUT/data_read \
-sim:/julia_tb/DUT/command \
-sim:/julia_tb/DUT/as4c4m32s_controller/sdram_controller/countdown \
-sim:/julia_tb/DUT/as4c4m32s_controller/sdram_controller/step \
-sim:/julia_tb/DUT/as4c4m32s_controller/sdram_controller/state \
 sim:/julia_tb/DUT/MEM_CLK
+sim:/julia_tb/DUT/FR_command \
+sim:/julia_tb/DUT/FR_data_address \
+sim:/julia_tb/DUT/frame_reader_requests_sdram \
+sim:/julia_tb/DUT/PR_data_write \
+sim:/julia_tb/DUT/PR_command \
+sim:/julia_tb/DUT/PR_data_address \
+sim:/julia_tb/DUT/processor_yields_sdram \
+sim:/julia_tb/DUT/mux_sel

@@ -55,10 +55,19 @@ wire [21:0] MI_data_address;
 wire [31:0] MI_data_write;
 wire sdram_initialized;
 
-/* Frame reader -> SDRAM Mux, Video out */
+/* Frame reader -> SDRAM Mux, Video out, Processor */
 wire [1:0] FR_command;
 wire [21:0] FR_data_address;
 wire first_data_ready;
+wire frame_reader_requests_sdram;
+
+/* Processor -> SDRAM Mux, frame reader */
+wire [31:0] PR_data_write;
+wire [1:0] PR_command;
+wire [21:0] PR_data_address;
+wire processor_yields_sdram;
+wire it_worked;
+
 
 /* Frame reader <-> FIFO <-> Video out */
 wire [31:0] pixel_data_in;
@@ -74,10 +83,11 @@ sdram_mux sdram_mux(
     .sel(mux_sel),
     .data0x({MI_command, MI_data_address, MI_data_write}),
     .data1x({FR_command, FR_data_address, 32'dx}),
-    .data2x(),
+    .data2x({PR_command, PR_data_address, PR_data_write}),
     .result({command, data_address, data_write})
 );
-assign mux_sel = sdram_initialized ? SDRAM_MUX_FRAME_READER : SDRAM_MUX_INIT;
+
+assign mux_sel = sdram_initialized ? (processor_yields_sdram ? SDRAM_MUX_FRAME_READER: SDRAM_MUX_PROCESSOR) : SDRAM_MUX_INIT;
 
 /* SDRAM Controller */
 as4c4m32s_controller #(.CLK_RATE(80000000), .WRITE_BURST(WRITE_BURST), .READ_BURST_LENGTH(READ_BURST_LENGTH), .CAS_LATENCY(3)) as4c4m32s_controller (
@@ -117,10 +127,26 @@ frame_reader frame_reader (
     .i_Begin(sdram_initialized),
     .i_Data_Read_Valid(data_read_valid),
     .i_Pixel_In_Used(pixel_in_used),
+    .i_SDRAM_Grant(processor_yields_sdram),
+    .o_SDRAM_Request(frame_reader_requests_sdram),
     .o_Command(FR_command),
     .o_Data_Address(FR_data_address),
     .o_FIFO_Wr(pixel_data_in_enable),
     .o_First_Data_Ready(first_data_ready)
+);
+
+/* Processor */
+mandelbrot mandelbrot(
+    .i_Clk(MEM_CLK),
+    .i_SDRAM_Requested(frame_reader_requests_sdram),
+    .i_Data_Read (data_read),
+    .i_Data_Write_Done(data_write_done),
+    .i_Data_Read_Valid(data_read_valid),
+    .o_SDRAM_Yield(processor_yields_sdram),
+    .o_Command(PR_command),
+    .o_Data_Address(PR_data_address),
+    .o_Data_Write(PR_data_write),
+    .it_worked(it_worked)
 );
 
 /* FIFO */
@@ -152,7 +178,7 @@ video_out video_out (
 );
 
 /* LEDs */
-assign LEDG[0] = 1'b1;
+assign LEDG[0] = ~it_worked;
 assign LEDG[1] = 1'b1;
 
 endmodule
