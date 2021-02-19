@@ -66,8 +66,6 @@ wire [31:0] PR_data_write;
 wire [1:0] PR_command;
 wire [21:0] PR_data_address;
 wire processor_yields_sdram;
-wire it_worked;
-
 
 /* Frame reader <-> FIFO <-> Video out */
 wire [31:0] pixel_data_in;
@@ -145,8 +143,7 @@ mandelbrot mandelbrot(
     .o_SDRAM_Yield(processor_yields_sdram),
     .o_Command(PR_command),
     .o_Data_Address(PR_data_address),
-    .o_Data_Write(PR_data_write),
-    .it_worked(it_worked)
+    .o_Data_Write(PR_data_write)
 );
 
 /* FIFO */
@@ -178,7 +175,7 @@ video_out video_out (
 );
 
 /* LEDs */
-assign LEDG[0] = ~it_worked;
+assign LEDG[0] = 1'b1;
 assign LEDG[1] = 1'b1;
 
 endmodule
