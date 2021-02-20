@@ -66,9 +66,9 @@ always @(posedge i_Clk) begin
     /* "process" between fifos */
     readout_rdreq <= 1'b0;
     writeback_wrreq <= 1'b0;
-	 
-	 // Test: only do this every now and then
-	 reg_test <= reg_test + 1'd1;
+ 
+    // Test: only do this every now and then
+    reg_test <= reg_test + 1'd1;
     if (!readout_fifo_empty && !writeback_fifo_full && reg_test == 4'd0) begin
         writeback_wrreq <= 1'b1;
         readout_rdreq   <= 1'b1;
@@ -104,7 +104,7 @@ always @(posedge i_Clk) begin
         else
             countdown <= countdown - 1'd1;
 
-            o_Data_Address <= o_Data_Address + 1'd1;
+        o_Data_Address <= o_Data_Address + 1'd1;
     end
 end
 
