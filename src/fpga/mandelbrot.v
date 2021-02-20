@@ -17,7 +17,8 @@ module mandelbrot(
 
 initial o_Command = CMD_IDLE;
 
-reg [21:0] data_address = 22'd0;
+reg [21:0] read_data_address = 22'd0;
+reg [21:0] write_data_address = 22'd0;
 initial o_Data_Address = 22'd0;
 
 reg [1:0] cmd_next = CMD_READ;
@@ -48,7 +49,7 @@ always @(posedge i_Clk) begin
     if (o_Command == CMD_IDLE && ~i_SDRAM_Requested) begin
         o_Command <= cmd_next;
         countdown <= READ_BURST_LENGTH - 1;
-        o_Data_Address <= data_address;
+        o_Data_Address <= cmd_next == CMD_READ ? read_data_address : write_data_address;
     end
     else if (o_Command == CMD_READ && i_Data_Read_Valid) begin
         if (countdown == 3'd0) begin
@@ -65,7 +66,8 @@ always @(posedge i_Clk) begin
         if (countdown == 3'd0) begin
             o_Command <= CMD_IDLE;
             cmd_next  <= CMD_READ;
-            data_address <= o_Data_Address == (480*200 - 1) ? 22'd0 : data_address + READ_BURST_LENGTH;
+            write_data_address <= o_Data_Address == (480*200 - 1) ? 22'd0 : write_data_address + READ_BURST_LENGTH;
+            read_data_address <= o_Data_Address == (480*200 - 1) ? 22'd0 : read_data_address + READ_BURST_LENGTH;
         end
         else
             countdown <= countdown - 1'd1;
