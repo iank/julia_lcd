@@ -4,7 +4,7 @@
 // MODULE: scfifo 
 
 // ============================================================
-// File Name: processor_fifo.v
+// File Name: processor_fifo_ack.v
 // Megafunction Name(s):
 // 			scfifo
 //
@@ -37,15 +37,14 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module processor_fifo (
+module processor_fifo_ack (
 	clock,
 	data,
 	rdreq,
 	wrreq,
 	empty,
 	full,
-	q,
-	usedw);
+	q);
 
 	input	  clock;
 	input	[31:0]  data;
@@ -54,16 +53,13 @@ module processor_fifo (
 	output	  empty;
 	output	  full;
 	output	[31:0]  q;
-	output	[2:0]  usedw;
 
 	wire  sub_wire0;
 	wire  sub_wire1;
 	wire [31:0] sub_wire2;
-	wire [2:0] sub_wire3;
 	wire  empty = sub_wire0;
 	wire  full = sub_wire1;
 	wire [31:0] q = sub_wire2[31:0];
-	wire [2:0] usedw = sub_wire3[2:0];
 
 	scfifo	scfifo_component (
 				.clock (clock),
@@ -73,12 +69,12 @@ module processor_fifo (
 				.empty (sub_wire0),
 				.full (sub_wire1),
 				.q (sub_wire2),
-				.usedw (sub_wire3),
 				.aclr (),
 				.almost_empty (),
 				.almost_full (),
 				.eccstatus (),
-				.sclr ());
+				.sclr (),
+				.usedw ());
 	defparam
 		scfifo_component.add_ram_output_register = "OFF",
 		scfifo_component.intended_device_family = "Cyclone IV E",
@@ -101,7 +97,7 @@ endmodule
 // Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "-1"
 // Retrieval info: PRIVATE: AlmostFull NUMERIC "0"
 // Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
-// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
+// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 // Retrieval info: PRIVATE: Clock NUMERIC "0"
 // Retrieval info: PRIVATE: Depth NUMERIC "8"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
@@ -111,11 +107,11 @@ endmodule
 // Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: Optimize NUMERIC "2"
+// Retrieval info: PRIVATE: Optimize NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: UsedW NUMERIC "1"
+// Retrieval info: PRIVATE: UsedW NUMERIC "0"
 // Retrieval info: PRIVATE: Width NUMERIC "32"
 // Retrieval info: PRIVATE: dc_aclr NUMERIC "0"
 // Retrieval info: PRIVATE: diff_widths NUMERIC "0"
@@ -146,7 +142,6 @@ endmodule
 // Retrieval info: USED_PORT: full 0 0 0 0 OUTPUT NODEFVAL "full"
 // Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
-// Retrieval info: USED_PORT: usedw 0 0 3 0 OUTPUT NODEFVAL "usedw[2..0]"
 // Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 // Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
 // Retrieval info: CONNECT: @data 0 0 32 0 data 0 0 32 0
@@ -155,11 +150,10 @@ endmodule
 // Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
 // Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 32 0 @q 0 0 32 0
-// Retrieval info: CONNECT: usedw 0 0 3 0 @usedw 0 0 3 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf

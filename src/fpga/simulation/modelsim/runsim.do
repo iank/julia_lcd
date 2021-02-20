@@ -31,8 +31,12 @@ sim:/julia_tb/DUT/mandelbrot/o_Data_Address \
 sim:/julia_tb/DUT/mandelbrot/o_Data_Write \
 sim:/julia_tb/DUT/mandelbrot/read_data_address \
 sim:/julia_tb/DUT/mandelbrot/countdown \
-sim:/julia_tb/DUT/mandelbrot/fifo_q \
-sim:/julia_tb/DUT/mandelbrot/processor_fifo_inst/usedw \
-sim:/julia_tb/DUT/mandelbrot/wrreq \
-sim:/julia_tb/DUT/mandelbrot/fifo_full \
-sim:/julia_tb/DUT/mandelbrot/fifo_empty
+sim:/julia_tb/DUT/mandelbrot/writeback_fifo_q \
+sim:/julia_tb/DUT/mandelbrot/readout_wrreq \
+sim:/julia_tb/DUT/mandelbrot/readout_rdreq \
+sim:/julia_tb/DUT/mandelbrot/writeback_wrreq \
+sim:/julia_tb/DUT/mandelbrot/readout_fifo_full \
+sim:/julia_tb/DUT/mandelbrot/readout_fifo_empty \
+sim:/julia_tb/DUT/mandelbrot/writeback_fifo_full \
+sim:/julia_tb/DUT/mandelbrot/writeback_fifo_empty \
+sim:/julia_tb/DUT/mandelbrot/readout_to_writeback
