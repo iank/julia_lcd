@@ -29,7 +29,8 @@ sim:/julia_tb/DUT/mux_sel \
 sim:/julia_tb/DUT/mandelbrot/o_Command \
 sim:/julia_tb/DUT/mandelbrot/o_Data_Address \
 sim:/julia_tb/DUT/mandelbrot/o_Data_Write \
-sim:/julia_tb/DUT/mandelbrot/data_address \
+sim:/julia_tb/DUT/mandelbrot/read_data_address \
+sim:/julia_tb/DUT/mandelbrot/write_data_address \
 sim:/julia_tb/DUT/mandelbrot/cmd_next \
 sim:/julia_tb/DUT/mandelbrot/countdown \
 sim:/julia_tb/DUT/mandelbrot/fifo_q \

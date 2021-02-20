@@ -46,18 +46,18 @@ module mem_pll (
 	output	  c0;
 	output	  c1;
 
-	wire [0:0] sub_wire2 = 1'h0;
-	wire [4:0] sub_wire3;
-	wire  sub_wire0 = inclk0;
-	wire [1:0] sub_wire1 = {sub_wire2, sub_wire0};
-	wire [1:1] sub_wire5 = sub_wire3[1:1];
-	wire [0:0] sub_wire4 = sub_wire3[0:0];
-	wire  c0 = sub_wire4;
-	wire  c1 = sub_wire5;
+	wire [4:0] sub_wire0;
+	wire [0:0] sub_wire5 = 1'h0;
+	wire [1:1] sub_wire2 = sub_wire0[1:1];
+	wire [0:0] sub_wire1 = sub_wire0[0:0];
+	wire  c0 = sub_wire1;
+	wire  c1 = sub_wire2;
+	wire  sub_wire3 = inclk0;
+	wire [1:0] sub_wire4 = {sub_wire5, sub_wire3};
 
 	altpll	altpll_component (
-				.inclk (sub_wire1),
-				.clk (sub_wire3),
+				.inclk (sub_wire4),
+				.clk (sub_wire0),
 				.activeclock (),
 				.areset (1'b0),
 				.clkbad (),

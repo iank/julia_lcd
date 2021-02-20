@@ -33,11 +33,11 @@ wire wrreq;
 assign wrreq = o_Command == CMD_READ && i_Data_Read_Valid;
 
 /* Read/writeback FIFO */
-processor_fifo	processor_fifo_inst (
+processor_fifo processor_fifo_inst (
     .clock (i_Clk),
     .data (i_Data_Read),
     .rdreq (i_Data_Write_Done),
-	 .usedw (usedw),
+    .usedw (usedw),
     .wrreq (wrreq),
     .q (fifo_q)
 );
@@ -53,24 +53,24 @@ always @(posedge i_Clk) begin
     else if (o_Command == CMD_READ && i_Data_Read_Valid) begin
         if (countdown == 3'd0) begin
             o_Command <= CMD_IDLE;
-				cmd_next  <= CMD_WRITE;
+            cmd_next  <= CMD_WRITE;
         end
         else
             countdown <= countdown - 1'd1;
 
-		  o_Data_Address <= o_Data_Address + 1'd1;
+        o_Data_Address <= o_Data_Address + 1'd1;
     end
-	 
-	 else if (o_Command == CMD_WRITE && i_Data_Write_Done) begin
+ 
+    else if (o_Command == CMD_WRITE && i_Data_Write_Done) begin
         if (countdown == 3'd0) begin
             o_Command <= CMD_IDLE;
-				cmd_next  <= CMD_READ;
-				data_address <= o_Data_Address == (480*200 - 1) ? 22'd0 : data_address + READ_BURST_LENGTH;
+            cmd_next  <= CMD_READ;
+            data_address <= o_Data_Address == (480*200 - 1) ? 22'd0 : data_address + READ_BURST_LENGTH;
         end
         else
             countdown <= countdown - 1'd1;
 
-		  o_Data_Address <= o_Data_Address + 1'd1;
+            o_Data_Address <= o_Data_Address + 1'd1;
     end
 end
 
