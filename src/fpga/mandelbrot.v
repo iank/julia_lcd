@@ -49,9 +49,14 @@ processor_fifo_ack readout_fifo (
     .q (readout_to_writeback)
 );
 
+wire [31:0] processed_data  = ((readout_to_writeback[7:0]   + 8'h01) << 0) | 
+                              ((readout_to_writeback[15:8]  + 8'h01) << 8) | 
+                              ((readout_to_writeback[23:16] + 8'h01) << 16) | 
+                              ((readout_to_writeback[31:24] + 8'h01) << 24);
+
 processor_fifo_ack writeback_fifo (
     .clock (i_Clk),
-    .data (readout_to_writeback + 32'h01010101),
+    .data (processed_data),
     .rdreq (writeback_rdreq),
     .wrreq (writeback_wrreq),
     .full (writeback_fifo_full),
