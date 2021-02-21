@@ -1,12 +1,12 @@
 // megafunction wizard: %FIFO%VBB%
 // GENERATION: STANDARD
 // VERSION: WM1.0
-// MODULE: scfifo 
+// MODULE: dcfifo_mixed_widths 
 
 // ============================================================
-// File Name: processor_fifo_ack_big.v
+// File Name: processor_fifo_32in64out.v
 // Megafunction Name(s):
-// 			scfifo
+// 			dcfifo_mixed_widths
 //
 // Simulation Library Files(s):
 // 			altera_mf
@@ -32,22 +32,24 @@
 //refer to the applicable agreement for further details, at
 //https://fpgasoftware.intel.com/eula.
 
-module processor_fifo_ack_big (
-	clock,
+module processor_fifo_32in64out (
 	data,
+	rdclk,
 	rdreq,
+	wrclk,
 	wrreq,
-	empty,
-	full,
-	q);
+	q,
+	rdempty,
+	wrempty);
 
-	input	  clock;
 	input	[31:0]  data;
+	input	  rdclk;
 	input	  rdreq;
+	input	  wrclk;
 	input	  wrreq;
-	output	  empty;
-	output	  full;
-	output	[31:0]  q;
+	output	[63:0]  q;
+	output	  rdempty;
+	output	  wrempty;
 
 endmodule
 
@@ -58,8 +60,8 @@ endmodule
 // Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "-1"
 // Retrieval info: PRIVATE: AlmostFull NUMERIC "0"
 // Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
-// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
-// Retrieval info: PRIVATE: Clock NUMERIC "0"
+// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
+// Retrieval info: PRIVATE: Clock NUMERIC "4"
 // Retrieval info: PRIVATE: Depth NUMERIC "64"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
 // Retrieval info: PRIVATE: Full NUMERIC "1"
@@ -68,53 +70,58 @@ endmodule
 // Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: Optimize NUMERIC "0"
+// Retrieval info: PRIVATE: Optimize NUMERIC "2"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: UsedW NUMERIC "0"
+// Retrieval info: PRIVATE: UsedW NUMERIC "1"
 // Retrieval info: PRIVATE: Width NUMERIC "32"
 // Retrieval info: PRIVATE: dc_aclr NUMERIC "0"
-// Retrieval info: PRIVATE: diff_widths NUMERIC "0"
+// Retrieval info: PRIVATE: diff_widths NUMERIC "1"
 // Retrieval info: PRIVATE: msb_usedw NUMERIC "0"
-// Retrieval info: PRIVATE: output_width NUMERIC "32"
+// Retrieval info: PRIVATE: output_width NUMERIC "64"
 // Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 // Retrieval info: PRIVATE: rsFull NUMERIC "0"
 // Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
 // Retrieval info: PRIVATE: sc_aclr NUMERIC "0"
 // Retrieval info: PRIVATE: sc_sclr NUMERIC "0"
-// Retrieval info: PRIVATE: wsEmpty NUMERIC "0"
-// Retrieval info: PRIVATE: wsFull NUMERIC "1"
+// Retrieval info: PRIVATE: wsEmpty NUMERIC "1"
+// Retrieval info: PRIVATE: wsFull NUMERIC "0"
 // Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
-// Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "64"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
-// Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
+// Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo_mixed_widths"
 // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "32"
 // Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "6"
+// Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "5"
+// Retrieval info: CONSTANT: LPM_WIDTH_R NUMERIC "64"
 // Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
+// Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: USE_EAB STRING "ON"
-// Retrieval info: USED_PORT: clock 0 0 0 0 INPUT NODEFVAL "clock"
+// Retrieval info: CONSTANT: WRSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
-// Retrieval info: USED_PORT: empty 0 0 0 0 OUTPUT NODEFVAL "empty"
-// Retrieval info: USED_PORT: full 0 0 0 0 OUTPUT NODEFVAL "full"
-// Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
+// Retrieval info: USED_PORT: q 0 0 64 0 OUTPUT NODEFVAL "q[63..0]"
+// Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
+// Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
+// Retrieval info: USED_PORT: wrclk 0 0 0 0 INPUT NODEFVAL "wrclk"
+// Retrieval info: USED_PORT: wrempty 0 0 0 0 OUTPUT NODEFVAL "wrempty"
 // Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
-// Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
 // Retrieval info: CONNECT: @data 0 0 32 0 data 0 0 32 0
+// Retrieval info: CONNECT: @rdclk 0 0 0 0 rdclk 0 0 0 0
 // Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
+// Retrieval info: CONNECT: @wrclk 0 0 0 0 wrclk 0 0 0 0
 // Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
-// Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
-// Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
-// Retrieval info: CONNECT: q 0 0 32 0 @q 0 0 32 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_ack_big_bb.v TRUE
+// Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
+// Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
+// Retrieval info: CONNECT: wrempty 0 0 0 0 @wrempty 0 0 0 0
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf

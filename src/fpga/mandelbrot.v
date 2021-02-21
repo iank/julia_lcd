@@ -1,5 +1,6 @@
 module mandelbrot(
     input i_Clk,
+    input i_CPU_Clk,
 
     input i_Data_Read_Valid,
     input i_Data_Write_Done,
@@ -47,15 +48,18 @@ wire [31:0] px_data_write;
 // For mock processor
 wire px_readout_rdreq, px_writeback_wrreq;
 wire [31:0] px_readout_to_writeback;
+wire px_readout_fifo_empty_cpu;
+wire px_writeback_fifo_full_cpu, px_writeback_fifo_empty_cpu;
 
 /* Read/writeback FIFO */
-processor_fifo_ack px_readout_fifo (
-    .clock (i_Clk),
+processor_fifo_32in8out px_readout_fifo (
+    .rdclk (i_CPU_Clk),
+    .wrclk (i_Clk),
     .data (i_Data_Read),
     .rdreq (px_readout_rdreq),
     .wrreq (px_readout_wrreq),
-    .full (),
-    .empty (px_readout_fifo_empty),
+    .wrempty (px_readout_fifo_empty),
+    .rdempty (px_readout_fifo_empty_cpu),
     .q (px_readout_to_writeback)
 );
 
@@ -64,13 +68,15 @@ wire [31:0] px_processed_data  = ((px_readout_to_writeback[7:0]   + 8'h01) << 0)
                                  ((px_readout_to_writeback[23:16] + 8'h01) << 16) | 
                                  ((px_readout_to_writeback[31:24] + 8'h01) << 24);
 
-processor_fifo_ack px_writeback_fifo (
-    .clock (i_Clk),
+processor_fifo_8in32out px_writeback_fifo (
+    .rdclk (i_Clk),
+    .wrclk (i_CPU_Clk),
     .data (px_processed_data),
     .rdreq (px_writeback_rdreq),
     .wrreq (px_writeback_wrreq),
-    .full (px_writeback_fifo_full),
-    .empty (px_writeback_fifo_empty),
+    .rdfull (px_writeback_fifo_full),
+    .wrfull (px_writeback_fifo_full_cpu),
+    .rdempty (px_writeback_fifo_empty),
     .q (px_data_write)
 );
 
@@ -88,15 +94,18 @@ wire [31:0] data_data_write;
 // For mock processor
 wire data_readout_rdreq, data_writeback_wrreq;
 wire [31:0] data_readout_to_writeback;
+wire data_readout_fifo_empty_cpu;
+wire data_writeback_fifo_full_cpu, data_writeback_fifo_empty_cpu;
 
 /* Read/writeback FIFO */
-processor_fifo_ack_big data_readout_fifo (
-    .clock (i_Clk),
+processor_fifo_32in64out data_readout_fifo (
+    .rdclk (i_CPU_Clk),
+    .wrclk (i_Clk),
     .data (i_Data_Read),
     .rdreq (data_readout_rdreq),
     .wrreq (data_readout_wrreq),
-    .full (),
-    .empty (data_readout_fifo_empty),
+    .wrempty (data_readout_fifo_empty),
+    .rdempty (data_readout_fifo_empty_cpu),
     .q (data_readout_to_writeback)
 );
 
@@ -105,13 +114,15 @@ wire [31:0] data_processed_data = ((data_readout_to_writeback[7:0]   + 8'h08) <<
                                   ((data_readout_to_writeback[23:16] + 8'h05) << 16) | 
                                   ((data_readout_to_writeback[31:24] + 8'h20) << 24);
 
-processor_fifo_ack_big data_writeback_fifo (
-    .clock (i_Clk),
+processor_fifo_64in32out data_writeback_fifo (
+    .rdclk (i_Clk),
+    .wrclk (i_CPU_Clk),
     .data (data_processed_data),
     .rdreq (data_writeback_rdreq),
     .wrreq (data_writeback_wrreq),
-    .full (data_writeback_fifo_full),
-    .empty (data_writeback_fifo_empty),
+    .rdfull (data_writeback_fifo_full),
+    .wrfull (data_writeback_fifo_full_cpu),
+    .rdempty (data_writeback_fifo_empty),
     .q (data_data_write)
 );
 /////////////
@@ -122,9 +133,6 @@ processor_data_mux processor_data_mux(
     .result(o_Data_Write),
     .sel(r_State == STATE_WRITEDATA)
 );
-
-
-reg [3:0] reg_test = 4'd0;
 
 // State transitions
 always @(*) begin
@@ -150,11 +158,11 @@ always @(*) begin
 end
 
 // Mock processor
-assign px_writeback_wrreq = (~px_readout_fifo_empty & ~px_writeback_fifo_full & (reg_test == 4'd0));
-assign px_readout_rdreq = (~px_readout_fifo_empty & ~px_writeback_fifo_full & (reg_test == 4'd0));
+assign px_writeback_wrreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu);
+assign px_readout_rdreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu);
 
-assign data_writeback_wrreq = (~data_readout_fifo_empty & ~data_writeback_fifo_full & ~reg_test[2]);
-assign data_readout_rdreq = (~data_readout_fifo_empty & ~data_writeback_fifo_full & ~reg_test[2]);
+assign data_writeback_wrreq = (~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
+assign data_readout_rdreq = (~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
 
 
 // Memory control

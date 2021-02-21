@@ -29,9 +29,9 @@ module julia(
 /***********************************************************************/
 
 /* PLLs */
-wire MEM_CLK;
+wire MEM_CLK, CPU_CLK;
 mem_pll mem_pll(.inclk0(PLD_CLOCKINPUT), .c0(MEM_CLK), .c1(S_CLK));
-vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK));
+vid_pll vid_pll(.inclk0(PLD_CLOCKINPUT), .c0(LCDCLK), .c1(CPU_CLK));
 
 /***********************************************************************/
 
@@ -136,6 +136,7 @@ frame_reader frame_reader (
 /* Processor */
 mandelbrot mandelbrot(
     .i_Clk(MEM_CLK),
+    .i_CPU_Clk(CPU_CLK),
     .i_SDRAM_Requested(frame_reader_requests_sdram),
     .i_Data_Read (data_read),
     .i_Data_Write_Done(data_write_done),
