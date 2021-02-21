@@ -47,7 +47,7 @@ wire [31:0] px_data_write;
 
 // For mock processor
 wire px_readout_rdreq, px_writeback_wrreq;
-wire [31:0] px_readout_to_writeback;
+wire [7:0] px_readout_to_writeback;
 wire px_readout_fifo_empty_cpu;
 wire px_writeback_fifo_full_cpu, px_writeback_fifo_empty_cpu;
 
@@ -63,10 +63,7 @@ processor_fifo_32in8out px_readout_fifo (
     .q (px_readout_to_writeback)
 );
 
-wire [31:0] px_processed_data  = ((px_readout_to_writeback[7:0]   + 8'h01) << 0) | 
-                                 ((px_readout_to_writeback[15:8]  + 8'h01) << 8) | 
-                                 ((px_readout_to_writeback[23:16] + 8'h01) << 16) | 
-                                 ((px_readout_to_writeback[31:24] + 8'h01) << 24);
+wire [7:0] px_processed_data  = (px_readout_to_writeback[7:0]   + 8'h01);
 
 processor_fifo_8in32out px_writeback_fifo (
     .rdclk (i_Clk),
@@ -93,7 +90,7 @@ wire [31:0] data_data_write;
 
 // For mock processor
 wire data_readout_rdreq, data_writeback_wrreq;
-wire [31:0] data_readout_to_writeback;
+wire [63:0] data_readout_to_writeback;
 wire data_readout_fifo_empty_cpu;
 wire data_writeback_fifo_full_cpu, data_writeback_fifo_empty_cpu;
 
@@ -109,10 +106,14 @@ processor_fifo_32in64out data_readout_fifo (
     .q (data_readout_to_writeback)
 );
 
-wire [31:0] data_processed_data = ((data_readout_to_writeback[7:0]   + 8'h08) << 0) | 
+wire [63:0] data_processed_data = ((data_readout_to_writeback[7:0]   + 8'h08) << 0) | 
                                   ((data_readout_to_writeback[15:8]  + 8'h01) << 8) | 
                                   ((data_readout_to_writeback[23:16] + 8'h05) << 16) | 
-                                  ((data_readout_to_writeback[31:24] + 8'h20) << 24);
+                                  ((data_readout_to_writeback[31:24] + 8'h20) << 24) |
+                                  ((data_readout_to_writeback[39:32] + 8'h08) << 32) | 
+                                  ((data_readout_to_writeback[47:40] + 8'h01) << 40) | 
+                                  ((data_readout_to_writeback[55:48] + 8'h05) << 48) | 
+                                  ((data_readout_to_writeback[63:56] + 8'h20) << 56);
 
 processor_fifo_64in32out data_writeback_fifo (
     .rdclk (i_Clk),
