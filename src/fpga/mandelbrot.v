@@ -46,7 +46,7 @@ wire px_writeback_fifo_full, px_writeback_fifo_empty;
 wire [31:0] px_data_write;
 
 // For mock processor
-wire px_readout_rdreq, px_writeback_wrreq;
+wire readout_rdreq, writeback_wrreq;
 wire [7:0] px_readout_to_writeback;
 wire px_readout_fifo_empty_cpu;
 wire px_writeback_fifo_full_cpu, px_writeback_fifo_empty_cpu;
@@ -56,7 +56,7 @@ processor_fifo_32in8out px_readout_fifo (
     .rdclk (i_CPU_Clk),
     .wrclk (i_Clk),
     .data (i_Data_Read),
-    .rdreq (px_readout_rdreq),
+    .rdreq (readout_rdreq),
     .wrreq (px_readout_wrreq),
     .wrempty (px_readout_fifo_empty),
     .rdempty (px_readout_fifo_empty_cpu),
@@ -70,7 +70,7 @@ processor_fifo_8in32out px_writeback_fifo (
     .wrclk (i_CPU_Clk),
     .data (px_processed_data),
     .rdreq (px_writeback_rdreq),
-    .wrreq (px_writeback_wrreq),
+    .wrreq (writeback_wrreq),
     .rdfull (px_writeback_fifo_full),
     .wrfull (px_writeback_fifo_full_cpu),
     .rdempty (px_writeback_fifo_empty),
@@ -89,7 +89,6 @@ wire data_writeback_fifo_full, data_writeback_fifo_empty;
 wire [31:0] data_data_write;
 
 // For mock processor
-wire data_readout_rdreq, data_writeback_wrreq;
 wire [63:0] data_readout_to_writeback;
 wire data_readout_fifo_empty_cpu;
 wire data_writeback_fifo_full_cpu, data_writeback_fifo_empty_cpu;
@@ -99,7 +98,7 @@ processor_fifo_32in64out data_readout_fifo (
     .rdclk (i_CPU_Clk),
     .wrclk (i_Clk),
     .data (i_Data_Read),
-    .rdreq (data_readout_rdreq),
+    .rdreq (readout_rdreq),
     .wrreq (data_readout_wrreq),
     .wrempty (data_readout_fifo_empty),
     .rdempty (data_readout_fifo_empty_cpu),
@@ -120,7 +119,7 @@ processor_fifo_64in32out data_writeback_fifo (
     .wrclk (i_CPU_Clk),
     .data (data_processed_data),
     .rdreq (data_writeback_rdreq),
-    .wrreq (data_writeback_wrreq),
+    .wrreq (writeback_wrreq),
     .rdfull (data_writeback_fifo_full),
     .wrfull (data_writeback_fifo_full_cpu),
     .rdempty (data_writeback_fifo_empty),
@@ -159,12 +158,8 @@ always @(*) begin
 end
 
 // Mock processor
-assign px_writeback_wrreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu);
-assign px_readout_rdreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu);
-
-assign data_writeback_wrreq = (~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
-assign data_readout_rdreq = (~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
-
+assign writeback_wrreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu & ~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
+assign readout_rdreq = (~px_readout_fifo_empty_cpu & ~px_writeback_fifo_full_cpu & ~data_readout_fifo_empty_cpu & ~data_writeback_fifo_full_cpu);
 
 // Memory control
 always @(posedge i_Clk) begin
