@@ -661,8 +661,6 @@ $EndComp
 Connection ~ 2850 1650
 Wire Wire Line
 	2850 1650 3050 1650
-Wire Bus Line
-	8400 1100 8400 3550
 $Comp
 L ik:TPS61165_SOT23 U7
 U 1 1 601ACB88
@@ -674,4 +672,6 @@ F 3 "" H 2500 2250 50  0001 C CNN
 	1    2500 2250
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	8400 1100 8400 3550
 $EndSCHEMATC

@@ -29,7 +29,7 @@ U 1 1 6074B974
 P 4300 2450
 F 0 "U6" H 4300 3331 50  0000 C CNN
 F 1 "EFM8BB21F16I-C-QFN20" H 4300 3240 50  0000 C CNN
-F 2 "Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm" H 4300 3250 50  0001 C CNN
+F 2 "ik:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm" H 4300 3250 50  0001 C CNN
 F 3 "https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf" H 4300 2450 50  0001 C CNN
 	1    4300 2450
 	1    0    0    -1  
