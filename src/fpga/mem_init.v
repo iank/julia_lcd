@@ -35,8 +35,8 @@ always @(posedge i_Clk) begin
         o_Data_Address <= o_Data_Address + 1'd1;
         o_Data_Write <= {4{o_Data_Address[7:0] + 1'd1}};
 
-//      if (o_Data_Address + 1'd1 == 22'd0) begin
-        if (o_Data_Address + 1'd1 == (480*200)) begin
+        if (o_Data_Address + 1'd1 == 22'd0) begin
+//        if (o_Data_Address + 1'd1 == (480*200)) begin
             o_Data_Address <= 0;
             o_SDRAM_Initialized <= 1'b1;
         end

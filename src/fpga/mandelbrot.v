@@ -45,8 +45,7 @@ wire px_writeback_fifo_full, px_writeback_fifo_empty;
 wire [31:0] px_data_write;
 
 // For mock processor
-reg px_readout_rdreq = 1'b0;
-reg px_writeback_wrreq = 1'b0;
+wire px_readout_rdreq, px_writeback_wrreq;
 wire [31:0] px_readout_to_writeback;
 
 /* Read/writeback FIFO */
@@ -87,10 +86,8 @@ wire data_writeback_fifo_full, data_writeback_fifo_empty;
 wire [31:0] data_data_write;
 
 // For mock processor
-reg data_readout_rdreq = 1'b0;
-reg data_writeback_wrreq = 1'b0;
+wire data_readout_rdreq, data_writeback_wrreq;
 wire [31:0] data_readout_to_writeback;
-
 
 /* Read/writeback FIFO */
 processor_fifo_ack_big data_readout_fifo (
@@ -153,26 +150,11 @@ always @(*) begin
 end
 
 // Mock processor
-always @(posedge i_Clk) begin
-    px_readout_rdreq <= 1'b0;
-    px_writeback_wrreq <= 1'b0;
- 
-    reg_test <= reg_test + 1'd1;
-    if (!px_readout_fifo_empty && !px_writeback_fifo_full && reg_test == 4'd0) begin
-        px_writeback_wrreq <= 1'b1;
-        px_readout_rdreq   <= 1'b1;
-    end
-end
+assign px_writeback_wrreq = (~px_readout_fifo_empty & ~px_writeback_fifo_full & (reg_test == 4'd0));
+assign px_readout_rdreq = (~px_readout_fifo_empty & ~px_writeback_fifo_full & (reg_test == 4'd0));
 
-always @(posedge i_Clk) begin
-    data_readout_rdreq <= 1'b0;
-    data_writeback_wrreq <= 1'b0;
- 
-    if (!data_readout_fifo_empty && !data_writeback_fifo_full && reg_test[2] == 1'd0) begin
-        data_writeback_wrreq <= 1'b1;
-        data_readout_rdreq   <= 1'b1;
-    end
-end
+assign data_writeback_wrreq = (~data_readout_fifo_empty & ~data_writeback_fifo_full & ~reg_test[2]);
+assign data_readout_rdreq = (~data_readout_fifo_empty & ~data_writeback_fifo_full & ~reg_test[2]);
 
 
 // Memory control
@@ -182,7 +164,7 @@ always @(posedge i_Clk) begin
         countdown <= READ_BURST_LENGTH - 1;
         o_Data_Address <= px_data_address;
     end
-	 else if (r_State == STATE_IDLE && (r_NextState == STATE_READDATA || r_NextState == STATE_WRITEDATA)) begin
+    else if (r_State == STATE_IDLE && (r_NextState == STATE_READDATA || r_NextState == STATE_WRITEDATA)) begin
         countdown <= 8*READ_BURST_LENGTH - 1;
         o_Data_Address <= data_data_address;
     end
