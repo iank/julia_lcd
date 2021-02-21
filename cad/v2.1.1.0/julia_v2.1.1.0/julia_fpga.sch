@@ -255,7 +255,7 @@ U 1 1 60308FA1
 P 4600 1850
 F 0 "X1" H 4944 1896 50  0000 L CNN
 F 1 "50MHz" H 4944 1805 50  0000 L CNN
-F 2 "Oscillator:Oscillator_SMD_EuroQuartz_XO91-4Pin_7.0x5.0mm" H 5300 1500 50  0001 C CNN
+F 2 "ik:Oscillator_SMD_EuroQuartz_XO91-4Pin_7.0x5.0mm" H 5300 1500 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/XO91.pdf" H 4500 1850 50  0001 C CNN
 	1    4600 1850
 	1    0    0    -1  
