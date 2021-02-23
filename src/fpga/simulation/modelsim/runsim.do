@@ -32,13 +32,7 @@ sim:/julia_tb/DUT/mandelbrot/px_writeback_fifo_full \
 sim:/julia_tb/DUT/mandelbrot/px_writeback_fifo_full_cpu \
 sim:/julia_tb/DUT/mandelbrot/px_writeback_fifo_empty \
 sim:/julia_tb/DUT/mandelbrot/px_data_write \
-sim:/julia_tb/DUT/mandelbrot/px_readout_rdreq \
-sim:/julia_tb/DUT/mandelbrot/px_writeback_wrreq \
-sim:/julia_tb/DUT/mandelbrot/px_readout_to_writeback \
-sim:/julia_tb/DUT/mandelbrot/px_processed_data \
 sim:/julia_tb/DUT/mandelbrot/data_writeback_rdreq \
-sim:/julia_tb/DUT/mandelbrot/data_readout_to_writeback \
-sim:/julia_tb/DUT/mandelbrot/data_processed_data \
 sim:/julia_tb/DUT/mandelbrot/data_readout_wrreq \
 sim:/julia_tb/DUT/MEM_CLK \
 sim:/julia_tb/S_DQ \
@@ -57,5 +51,29 @@ sim:/julia_tb/DUT/mandelbrot/data_readout_fifo_empty \
 sim:/julia_tb/DUT/mandelbrot/data_writeback_fifo_full \
 sim:/julia_tb/DUT/mandelbrot/data_readout_fifo_empty_cpu \
 sim:/julia_tb/DUT/mandelbrot/data_writeback_fifo_full_cpu \
-sim:/julia_tb/DUT/mandelbrot/data_writeback_wrreq \
-sim:/julia_tb/DUT/mandelbrot/data_readout_rdreq
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/xinc \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/yinc \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/xstart \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/ystart \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Clk \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Px_Data \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Read_Fifo_Empty \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Write_Fifo_Full \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Px_Data \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Read_Fifo_Ack \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Write_Fifo_Wrreq \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Iteration \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Xval \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/i_Yval \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Iteration \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Xval \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/o_Yval \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/cx \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/cy \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/x0 \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/y0 \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/x \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/y \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/x2 \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/y2 \
+sim:/julia_tb/DUT/mandelbrot/mandelbrot_math/xy

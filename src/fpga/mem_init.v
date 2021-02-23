@@ -23,7 +23,7 @@ always @(posedge i_Clk) begin
     /* Initialize SDRAM */
     if (o_Command == CMD_IDLE && !o_SDRAM_Initialized) begin
         o_Command <= CMD_WRITE;
-        o_Data_Write <= {4{o_Data_Address[7:0]}};
+        o_Data_Write <= 32'd0;
         countdown <= READ_BURST_LENGTH - 1;
     end
     else if (o_Command == CMD_WRITE && i_Data_Write_Done) begin
@@ -33,10 +33,9 @@ always @(posedge i_Clk) begin
             countdown <= countdown - 1'd1;
 
         o_Data_Address <= o_Data_Address + 1'd1;
-        o_Data_Write <= {4{o_Data_Address[7:0] + 1'd1}};
+        o_Data_Write <= 32'd0;
 
         if (o_Data_Address + 1'd1 == 22'd0) begin
-//        if (o_Data_Address + 1'd1 == (480*200)) begin
             o_Data_Address <= 0;
             o_SDRAM_Initialized <= 1'b1;
         end
