@@ -26,7 +26,7 @@ initial o_First_Data_Ready = 1'b0;
 reg [7:0] countdown;
 
 assign fifo_low_threshold = (i_Pixel_In_Used <= 256);
-assign fifo_high_threshold = (i_Pixel_In_Used >= (1024 - READ_BURST_LENGTH));
+assign fifo_high_threshold = (i_Pixel_In_Used >= (1000 - READ_BURST_LENGTH));
 assign o_FIFO_Wr = o_Command == CMD_READ && i_Data_Read_Valid;
 
 assign o_SDRAM_Request = (fifo_low_threshold && !fifo_filling) || (fifo_filling && !fifo_high_threshold) || (o_Command != CMD_IDLE);
