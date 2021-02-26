@@ -17,8 +17,8 @@ int LEDCOUNT = 0;
 //-----------------------------------------------------------------------------
 // Global CONSTANTS
 //-----------------------------------------------------------------------------
-SI_SBIT(MCU_LED1, SFR_P1, 3); // P1.3 MCU_LED1
-SI_SBIT(MCU_LED2, SFR_P1, 4); // P1.4 MCU_LED2
+SI_SBIT(MCU_LED1, SFR_P1, 3);// P1.3 MCU_LED1
+SI_SBIT(MCU_LED2, SFR_P1, 4);// P1.4 MCU_LED2
 
 //-----------------------------------------------------------------------------
 // TIMER2_ISR
@@ -33,15 +33,14 @@ SI_INTERRUPT (TIMER2_ISR, TIMER2_IRQn)
 {
     TMR2CN0_TF2H = 0; // Clear Timer2 interrupt flag
     if (LEDCOUNT == 10)
-    {
+      {
         MCU_LED1 = ~MCU_LED1;
-    }
+      }
     if (LEDCOUNT == 20)
-    {
+      {
         MCU_LED1 = ~MCU_LED1;
         MCU_LED2 = ~MCU_LED2;
         LEDCOUNT = 0;
-    }
+      }
     LEDCOUNT++;
 }
-
