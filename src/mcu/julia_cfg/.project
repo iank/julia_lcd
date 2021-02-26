@@ -24,9 +24,19 @@
 			<locationURI>STUDIO_SDK_LOC/Device/shared/si8051Base/SILABS_STARTUP.A51</locationURI>
 		</link>
 		<link>
+			<name>lib/efm8bb2/peripheralDrivers/inc/spi_0.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/Device/EFM8BB2/peripheral_driver/inc/spi_0.h</locationURI>
+		</link>
+		<link>
 			<name>lib/efm8bb2/peripheralDrivers/inc/uart_0.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/Device/EFM8BB2/peripheral_driver/inc/uart_0.h</locationURI>
+		</link>
+		<link>
+			<name>lib/efm8bb2/peripheralDrivers/src/spi_0.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/Device/EFM8BB2/peripheral_driver/src/spi_0.c</locationURI>
 		</link>
 		<link>
 			<name>lib/efm8bb2/peripheralDrivers/src/uart_0.c</name>

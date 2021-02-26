@@ -7,10 +7,12 @@
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
     <property object="INTERRUPT_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enableallinterrupts" value="Enabled"/>
-    <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enabletimer2interrupt" value="Enabled"/>
+    <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enablespi0interrupt" value="Enabled"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enableuart0interrupt" value="Enabled"/>
-    <property object="P0.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
-    <property object="P0.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P0.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.2" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P0.2" propertyId="ports.settings.outputmode" value="Push-pull"/>
     <property object="P0.3" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
     <property object="P0.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
     <property object="P0.4" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
@@ -25,13 +27,19 @@
     <property object="P1.4" propertyId="ports.settings.label" value="MCU_LED2"/>
     <property object="P1.4" propertyId="ports.settings.outputmode" value="Push-pull"/>
     <property object="PBCFG_0" propertyId="pbcfg.settings.enablecrossbar" value="Enabled"/>
+    <property object="SPI_0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencyactual" value="5.981 kHz"/>
+    <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencytarget" value="5981"/>
+    <property object="SPI_0" propertyId="spi.clockrate.sysclkdividercoefficientspi0ckr" value="255"/>
+    <property object="SPI_0" propertyId="spi.configuration.enablemastermode" value="Enable"/>
+    <property object="SPI_0" propertyId="spi.configuration.spimode" value="Master"/>
+    <property object="SPI_0" propertyId="spi.control.slaveselectmode" value="Slave or master 3-wire mode"/>
+    <property object="SPI_0" propertyId="spi.control.spienable" value="Enabled"/>
     <property object="TIMER01_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER01_0" propertyId="timer01.timer1highbyte.timer1highbyte" value="96"/>
     <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.targetoverflowfrequency" value="19200"/>
     <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.timerreloadvalue" value="96"/>
     <property object="TIMER16_2" propertyId="ABPeripheral.included" value="true"/>
-    <property object="TIMER16_2" propertyId="timer16.control.runcontrol" value="Start"/>
-    <property object="TIMER16_2" propertyId="timer16.control.timerrunningstate" value="Timer is Running"/>
     <property object="TIMER16_2" propertyId="timer16.initandreloadvalue.targetoverflowfrequency" value="10"/>
     <property object="TIMER16_2" propertyId="timer16.initandreloadvalue.timerreloadvalue" value="40015"/>
     <property object="TIMER16_2" propertyId="timer16.reloadhighbyte.reloadhighbyte" value="156"/>

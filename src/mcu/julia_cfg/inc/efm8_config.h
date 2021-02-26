@@ -7,7 +7,13 @@
 #ifndef __EFM8_CONFIG_H__
 #define __EFM8_CONFIG_H__
 
-#define EFM8PDL_UART0_USE_STDIO        0
+#define EFM8PDL_UART0_USE_STDIO           0
+
+#define EFM8PDL_SPI0_USE_BUFFER           1
+#define EFM8PDL_SPI0_USE_PIPELINE         0
+
+#define EFM8PDL_SPI0_TX_SEGTYPE           SI_SEG_DATA
+#define EFM8PDL_SPI0_RX_SEGTYPE           SI_SEG_DATA
 
 #endif // __EFM8_CONFIG_H__
  
