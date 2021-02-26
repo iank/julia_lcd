@@ -1,11 +1,11 @@
 module mandelbrot_math(
     input i_Clk,
 
-    input [71:0] i_Px_Data,
+    input [103:0] i_Px_Data,
     input i_Read_Fifo_Empty,
     input i_Write_Fifo_Full,
 
-    output [71:0] o_Px_Data,
+    output [103:0] o_Px_Data,
     output o_Read_Fifo_Ack,
     output o_Write_Fifo_Wrreq
 );
@@ -13,15 +13,15 @@ module mandelbrot_math(
 assign o_Write_Fifo_Wrreq = (~i_Read_Fifo_Empty & ~i_Write_Fifo_Full);
 assign o_Read_Fifo_Ack = (~i_Read_Fifo_Empty & ~i_Write_Fifo_Full);
 
-// TODO: calculate x,y indices
+wire [7:0] i_PxVal = i_Px_Data[103:96];
+wire [31:0] i_Xval = i_Px_Data[95:64];
+wire [31:0] i_Yval = i_Px_Data[63:32];
+wire [31:0] i_Iteration = i_Px_Data[31:0];
 
-wire [7:0] i_Iteration = i_Px_Data[71:64];
-wire [31:0] i_Xval = i_Px_Data[63:32];
-wire [31:0] i_Yval = i_Px_Data[31:0];
-
-reg [7:0] o_Iteration;
+reg [7:0] o_PxVal;
 reg [31:0] o_Xval;
 reg [31:0] o_Yval;
+reg [31:0] o_Iteration;
 
 reg [9:0] cx = 10'd0;
 reg [8:0] cy = 9'd0;
@@ -42,7 +42,7 @@ end
 
 // 32 bits => Q5.27 two's complement
 // Result is 64 bits.. Q10.54
-// I want result[58:27]
+// Products in result[58:27]
 
 // Increments
 localparam signed [31:0] xinc   = 32'sb0_0000_000000011101000000101000100; // 5.666 / 800;
@@ -76,26 +76,29 @@ always @(*) begin
        
     // Already escaped?
     if (i_Xval == 32'hFFFFFFFF && i_Yval == 32'hFFFFFFFF) begin
-        o_Iteration = i_Iteration;
+        o_PxVal = i_PxVal;
         o_Xval = i_Xval;
         o_Yval = i_Yval;
+        o_Iteration = i_Iteration;
     end
     // Not already escaped
     else begin      
         if (x2[58:27] + y2[58:27] > 32'sb0_0100_000000000000000000000000000 /* 4.0 */) begin
             o_Xval = 32'hFFFFFFFF;
             o_Yval = 32'hFFFFFFFF;
+            o_PxVal = i_Iteration[7:0];
             o_Iteration = i_Iteration;
         end
         else begin
             o_Yval = (xy[58:27] << 1) + y0;
             o_Xval = x2[58:27] - y2[58:27] + x0;
             o_Iteration = i_Iteration + 1'b1;
+            o_PxVal = 8'hFF;
         end
     end
 end
 
-assign o_Px_Data = { o_Iteration, o_Xval, o_Yval };
+assign o_Px_Data = { o_PxVal, o_Xval, o_Yval, o_Iteration };
 
 
 endmodule

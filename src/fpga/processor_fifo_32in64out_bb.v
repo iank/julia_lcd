@@ -47,7 +47,7 @@ module processor_fifo_32in64out (
 	input	  rdreq;
 	input	  wrclk;
 	input	  wrreq;
-	output	[63:0]  q;
+	output	[127:0]  q;
 	output	  rdempty;
 	output	  wrempty;
 
@@ -79,7 +79,7 @@ endmodule
 // Retrieval info: PRIVATE: dc_aclr NUMERIC "0"
 // Retrieval info: PRIVATE: diff_widths NUMERIC "1"
 // Retrieval info: PRIVATE: msb_usedw NUMERIC "0"
-// Retrieval info: PRIVATE: output_width NUMERIC "64"
+// Retrieval info: PRIVATE: output_width NUMERIC "128"
 // Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 // Retrieval info: PRIVATE: rsFull NUMERIC "0"
 // Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
@@ -95,15 +95,15 @@ endmodule
 // Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo_mixed_widths"
 // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "32"
 // Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "6"
-// Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "5"
-// Retrieval info: CONSTANT: LPM_WIDTH_R NUMERIC "64"
+// Retrieval info: CONSTANT: LPM_WIDTHU_R NUMERIC "4"
+// Retrieval info: CONSTANT: LPM_WIDTH_R NUMERIC "128"
 // Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: USE_EAB STRING "ON"
 // Retrieval info: CONSTANT: WRSYNC_DELAYPIPE NUMERIC "5"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
-// Retrieval info: USED_PORT: q 0 0 64 0 OUTPUT NODEFVAL "q[63..0]"
+// Retrieval info: USED_PORT: q 0 0 128 0 OUTPUT NODEFVAL "q[127..0]"
 // Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
 // Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
@@ -115,7 +115,7 @@ endmodule
 // Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
 // Retrieval info: CONNECT: @wrclk 0 0 0 0 wrclk 0 0 0 0
 // Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
-// Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
+// Retrieval info: CONNECT: q 0 0 128 0 @q 0 0 128 0
 // Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
 // Retrieval info: CONNECT: wrempty 0 0 0 0 @wrempty 0 0 0 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL processor_fifo_32in64out.v TRUE

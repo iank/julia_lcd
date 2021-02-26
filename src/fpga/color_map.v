@@ -36,7 +36,8 @@ module color_map
             8'd28: rgb   = 24'h3300FF;
             8'd29: rgb   = 24'h2200FF;
             8'd30: rgb   = 24'h1100FF;
-            default: rgb = 24'h000000;
+            8'd255: rgb   = 24'h000000;
+            default: rgb = 24'hFFFFFF;
         endcase
     end
 endmodule

@@ -55,7 +55,7 @@ wire readout_rdreq, writeback_wrreq;
 wire px_readout_fifo_empty_cpu, px_writeback_fifo_full_cpu;
 wire [7:0] px_fifo_q, px_fifo_data;
 wire data_readout_fifo_empty_cpu, data_writeback_fifo_full_cpu;
-wire [63:0] data_fifo_q, data_fifo_data;
+wire [95:0] data_fifo_q, data_fifo_data;
 
 /* Read/writeback FIFO */
 processor_fifo_32in8out px_readout_fifo (
@@ -155,7 +155,7 @@ always @(posedge i_Clk) begin
         o_Data_Address <= px_data_address;
     end
     else if (r_State == STATE_IDLE && (r_NextState == STATE_READDATA || r_NextState == STATE_WRITEDATA)) begin
-        countdown <= 8*READ_BURST_LENGTH - 1;
+        countdown <= 16*READ_BURST_LENGTH - 1;
         o_Data_Address <= data_data_address;
     end
 
@@ -179,7 +179,7 @@ always @(posedge i_Clk) begin
  
     else if (r_State == STATE_WRITEDATA && i_Data_Write_Done) begin
         if (countdown == 3'd0) begin
-            data_data_address <= o_Data_Address == (22'h20000 + (480*1600 - 1)) ? 22'h20000 : data_data_address + 8*READ_BURST_LENGTH;
+            data_data_address <= o_Data_Address == (22'h20000 + (480*3200 - 1)) ? 22'h20000 : data_data_address + 16*READ_BURST_LENGTH;
         end
         countdown <= countdown - 1'd1;
         o_Data_Address <= o_Data_Address + 1'd1;
