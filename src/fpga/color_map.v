@@ -17,7 +17,26 @@ module color_map
             8'd9 : rgb   = 24'hAA0066;
             8'd10: rgb   = 24'hAA0099;
             8'd11: rgb   = 24'hAA00BB;
-            default: rgb = 24'hAA33BB;
+            8'd12: rgb   = 24'hBB00CC;
+            8'd13: rgb   = 24'hCC00DD;
+            8'd14: rgb   = 24'hDD00EE;
+            8'd15: rgb   = 24'hEE00FF;
+            8'd16: rgb   = 24'hFF00FF;
+            8'd17: rgb   = 24'hEE00FF;
+            8'd18: rgb   = 24'hDD00FF;
+            8'd19: rgb   = 24'hCC00FF;
+            8'd20: rgb   = 24'hBB00FF;
+            8'd21: rgb   = 24'hAA00FF;
+            8'd22: rgb   = 24'h9900FF;
+            8'd23: rgb   = 24'h8800FF;
+            8'd24: rgb   = 24'h7700FF;
+            8'd25: rgb   = 24'h6600FF;
+            8'd26: rgb   = 24'h5500FF;
+            8'd27: rgb   = 24'h4400FF;
+            8'd28: rgb   = 24'h3300FF;
+            8'd29: rgb   = 24'h2200FF;
+            8'd30: rgb   = 24'h1100FF;
+            default: rgb = 24'h000000;
         endcase
     end
 endmodule
