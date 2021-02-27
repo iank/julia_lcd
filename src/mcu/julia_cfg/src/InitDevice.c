@@ -389,10 +389,6 @@ extern void
 SPI_0_enter_DefaultMode_from_RESET (void)
 {
   // $[SPI0CKR - SPI0 Clock Rate]
-  /***********************************************************************
-   - SPI0 Clock Rate = 0xFF
-   ***********************************************************************/
-  SPI0CKR = (0xFF << SPI0CKR_SPI0CKR__SHIFT);
   // [SPI0CKR - SPI0 Clock Rate]$
 
   // $[SPI0FCN0 - SPI0 FIFO Control 0]

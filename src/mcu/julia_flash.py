@@ -51,4 +51,7 @@ with serial.Serial('/dev/ttyUSB0', 9600) as ser:
         length = length - to_read
 
     resp = ser.read(4)
-    print(resp)
+    if resp == b'HI\x01\x01':
+        print("Dump complete")
+    else:
+        print("Failure during dump")
