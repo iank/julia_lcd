@@ -268,15 +268,15 @@ PORTS_1_enter_DefaultMode_from_RESET (void)
   /***********************************************************************
    - P1.0 output is open-drain
    - P1.1 output is open-drain
-   - P1.2 output is open-drain
+   - P1.2 output is push-pull
    - P1.3 output is push-pull
    - P1.4 output is push-pull
-   - P1.5 output is open-drain
-   - P1.6 output is open-drain
+   - P1.5 output is push-pull
+   - P1.6 output is push-pull
    ***********************************************************************/
   P1MDOUT = P1MDOUT_B0__OPEN_DRAIN | P1MDOUT_B1__OPEN_DRAIN
-      | P1MDOUT_B2__OPEN_DRAIN | P1MDOUT_B3__PUSH_PULL | P1MDOUT_B4__PUSH_PULL
-      | P1MDOUT_B5__OPEN_DRAIN | P1MDOUT_B6__OPEN_DRAIN;
+      | P1MDOUT_B2__PUSH_PULL | P1MDOUT_B3__PUSH_PULL | P1MDOUT_B4__PUSH_PULL
+      | P1MDOUT_B5__PUSH_PULL | P1MDOUT_B6__PUSH_PULL;
   // [P1MDOUT - Port 1 Output Mode]$
 
   // $[P1MDIN - Port 1 Input Mode]
@@ -313,9 +313,9 @@ TIMER01_0_enter_DefaultMode_from_RESET (void)
 
   // $[TH1 - Timer 1 High Byte]
   /***********************************************************************
-   - Timer 1 High Byte = 0x60
+   - Timer 1 High Byte = 0xD8
    ***********************************************************************/
-  TH1 = (0x60 << TH1_TH1__SHIFT);
+  TH1 = (0xD8 << TH1_TH1__SHIFT);
   // [TH1 - Timer 1 High Byte]$
 
   // $[TL1 - Timer 1 Low Byte]

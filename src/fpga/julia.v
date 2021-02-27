@@ -176,7 +176,7 @@ video_out video_out (
 );
 
 /* LEDs */
-assign LEDG[0] = 1'b1;
+assign LEDG[0] = 1'b0;
 assign LEDG[1] = 1'b1;
 
 endmodule

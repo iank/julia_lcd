@@ -12,12 +12,26 @@
 // Global Constants
 //-----------------------------------------------------------------------------
 
-#define PAGE_LENGTH   256
+/* */
+// FPGA config outputs
+SI_SBIT(CONFIG_N, SFR_P1, 2);     // P1.2 CONFIG_N
+SI_SBIT(DCLK, SFR_P1, 5);         // P1.5 DCLK
+SI_SBIT(DATA0, SFR_P1, 6);        // P1.6 DATA0
+
+// FPGA config inputs
+SI_SBIT(STATUS_N, SFR_P1, 1);     // P1.1 STATUS_N
+SI_SBIT(CONF_DONE, SFR_P1, 0);    // P1.0 CONF_DONE
+
+/* */
 
 #define MCU_LED_OFF 1
 #define MCU_LED_ON  0
 SI_SBIT(MCU_LED_GREEN, SFR_P1, 3);// P1.3 MCU_LED1
 SI_SBIT(MCU_LED_RED,   SFR_P1, 4);// P1.4 MCU_LED2
+
+/* */
+
+#define PAGE_LENGTH   256
 
 #define CMD_ERASE 0
 #define CMD_DUMP 1
@@ -53,9 +67,20 @@ void SiLabs_Startup (void)
 
 static uint8_t wait_for_command(void)
 {
+    uint16_t wait;
+
+    wait = DELAY_10_MS * 50;
+
     rx_complete = false;
     UART0_readBuffer(buffer, CMD_LENGTH);
-    while (!rx_complete);
+    while (!rx_complete && wait > 0)
+    {
+        delay(DELAY_10_MS);
+        wait--;
+    }
+
+    if (!rx_complete)
+        return CMD_NONE;
 
     if (!(buffer[0] == CMD_MAGIC1 && buffer[1] == CMD_MAGIC2))
         return CMD_NONE;
@@ -179,6 +204,90 @@ static bool read_and_transmit(void)
     return true;
 }
 
+static void FPGA_bitstream_write(const uint8_t *buffer, uint16_t bytes)
+{
+    uint16_t i;
+    uint8_t byte,j;
+    for (i=0; i<bytes; i++)
+    {
+        // Clock out data LSB first. Bits are latched on rising edge of DCLK
+        byte = buffer[i];
+        for (j=0; j<8; j++)
+        {
+            DATA0 = byte & 1;
+            DCLK = 1;
+            DCLK = 0;
+            byte = byte >> 1;
+        }
+    }
+}
+
+static bool configure_fpga()
+{
+    uint32_t length, bytes_read, addr;
+    uint16_t bytes_to_read;
+    uint16_t i;
+
+    CONFIG_N = 1;
+    delay(DELAY_10_MS);
+    if (!STATUS_N)
+        return false;
+
+    CONFIG_N = 0;
+    delay(DELAY_10_MS);
+
+    addr = 0;
+    if (!SPI_Read_Page(addr, buffer))
+        return false;
+
+    length = 0;
+    length |= buffer[0]; length <<= 8;
+    length |= buffer[1]; length <<= 8;
+    length |= buffer[2]; length <<= 8;
+    length |= buffer[3];
+
+    addr += PAGE_LENGTH;
+
+    // TODO: magic value to indicate config is valid
+
+    if (STATUS_N || CONF_DONE)
+        return false;
+
+    // Begin configuration
+    CONFIG_N = 1;
+    while (!STATUS_N); // TODO: timeout
+
+    bytes_read = 0;
+    while (bytes_read < length)
+    {
+        if (length - bytes_read > PAGE_LENGTH)
+            bytes_to_read = PAGE_LENGTH;
+        else
+            bytes_to_read = length - bytes_read;
+
+        bytes_read += bytes_to_read;
+
+        if (!SPI_Read_Page(addr, buffer))
+            return false;
+
+        FPGA_bitstream_write(buffer, bytes_to_read);
+        if (!STATUS_N) // Failure
+            return false;
+
+        addr += bytes_to_read;
+        MCU_LED_GREEN = ~MCU_LED_GREEN;
+    }
+
+    for (i=0; i<1024; i++) {
+        DCLK = ~DCLK;
+    }
+
+    if (!CONF_DONE)
+        return false;
+
+    return true;
+}
+
 //-----------------------------------------------------------------------------
 // main() Routine
 // ----------------------------------------------------------------------------
@@ -189,6 +298,10 @@ int main (void)
     SPI_CS_N = SPI_CS_N_DISABLE;
     MCU_LED_GREEN = MCU_LED_OFF;
     MCU_LED_RED = MCU_LED_OFF;
+    CONFIG_N = 1;
+    DCLK = 0;
+    DATA0 = 0;
+
     enter_DefaultMode_from_RESET();
     IE_EA = 1;                                // Enable global interrupts
 
@@ -238,17 +351,22 @@ int main (void)
             break;
 
           default:
-            // TODO: timeout, config FPGA
-            bail();
+            if (configure_fpga()) {
+                MCU_LED_GREEN = MCU_LED_ON;
+                goto shutdown_success;
+            }
+            else {
+                bail();
+            }
             break;
         }
     }
 
+shutdown_success:
     // TODO: power down SPI flash
     // TODO: power down self
-//    succeed();
 
-//    while (1);
+    while (1);
 }
 
 //-----------------------------------------------------------------------------
