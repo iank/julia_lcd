@@ -10,12 +10,17 @@
 #include <spi_0.h>
 #include "spi_flash.h"
 #include "util.h"
+#include "string.h"
 
 //-----------------------------------------------------------------------------
 // Global Constants
 //-----------------------------------------------------------------------------
 
+#define PAGE_LENGTH 256
+
 #define WRSR 0x01
+#define PAGE_PROGRAM 0x02
+#define READ_DATA 0x03
 #define WRDI 0x04
 #define RDSR 0x05
 #define WREN 0x06
@@ -23,7 +28,7 @@
 #define ERASE_ALL 0x60
 #define RDID 0x90
 
-#define FLASH_TXN_LENGTH 6
+#define FLASH_TXN_LENGTH 16
 
 #define SR_WIP 0x01
 #define SR_WEL 0x02
@@ -158,7 +163,7 @@ bool SPI_Flash_Init(void)
 
 bool SPI_Flash_Erase(void)
 {
-    uint8_t retries;
+    uint8_t retries = 0;
     if (!_Set_Write_Enable())
         return false;
 
@@ -170,6 +175,76 @@ bool SPI_Flash_Erase(void)
             return true;
     }
     return false;
+}
+
+bool SPI_Program_Page(uint32_t addr, const uint8_t *buffer)
+{
+    uint8_t i;
+
+    if (!_Set_Write_Enable())
+        return false;
+
+    // Do transfer
+    SPI0_Busy = true;
+    SPI_CS_N = SPI_CS_N_ENABLE;
+
+    SPI_TxBuf[0] = PAGE_PROGRAM;
+    SPI_TxBuf[1] = (addr & 0x00FF0000) >> 16;
+    SPI_TxBuf[2] = (addr & 0x0000FF00) >>  8;
+    SPI_TxBuf[3] = (addr & 0x000000FF);
+
+    SPI0_transfer(SPI_TxBuf, NULL, SPI0_TRANSFER_TX, 4);
+    while (SPI0_Busy);
+
+    for (i=0; i<16; i++)
+    {
+        memcpy(SPI_TxBuf, buffer, 16);
+        buffer += 16;
+
+        SPI0_Busy = true;
+        SPI0_transfer(SPI_TxBuf, NULL, SPI0_TRANSFER_TX, 16);
+
+        while (SPI0_Busy);
+    }
+
+    SPI_CS_N = SPI_CS_N_DISABLE;
+
+    if (_WaitBusy())
+        return true;
+    else
+        return false;
+}
+
+bool SPI_Read_Page(uint32_t addr, const uint8_t *buffer)
+{
+    uint8_t i;
+
+    // Do transfer
+    SPI0_Busy = true;
+    SPI_CS_N = SPI_CS_N_ENABLE;
+
+    SPI_TxBuf[0] = READ_DATA;
+    SPI_TxBuf[1] = (addr & 0x00FF0000) >> 16;
+    SPI_TxBuf[2] = (addr & 0x0000FF00) >>  8;
+    SPI_TxBuf[3] = (addr & 0x000000FF);
+
+    SPI0_transfer(SPI_TxBuf, NULL, SPI0_TRANSFER_TX, 4);
+    while (SPI0_Busy);
+
+    for (i=0; i<16; i++)
+    {
+        SPI0_Busy = true;
+        SPI0_transfer(NULL, SPI_RxBuf, SPI0_TRANSFER_RX, 16);
+
+        while (SPI0_Busy);
+
+        memcpy(buffer, SPI_RxBuf, 16);
+        buffer += 16;
+    }
+
+    SPI_CS_N = SPI_CS_N_DISABLE;
+
+    return true;
 }
 
 //-----------------------------------------------------------------------------

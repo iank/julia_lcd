@@ -14,5 +14,7 @@ SI_SBIT(SPI_CS_N, SFR_P0, 7);// P0.7 SPI_CS_N
 
 bool SPI_Flash_Init(void);
 bool SPI_Flash_Erase(void);
+bool SPI_Program_Page(uint32_t addr, const uint8_t *buffer);
+bool SPI_Read_Page(uint32_t addr, const uint8_t *buffer);
 
 #endif /* INC_SPI_FLASH_H_ */

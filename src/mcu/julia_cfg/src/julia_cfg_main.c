@@ -11,7 +11,8 @@
 //-----------------------------------------------------------------------------
 // Global Constants
 //-----------------------------------------------------------------------------
-#define UART_BUFFER_LENGTH   258  // Enough for a full page + checksum
+
+#define PAGE_LENGTH   256
 
 #define MCU_LED_OFF 1
 #define MCU_LED_ON  0
@@ -31,12 +32,13 @@ SI_SBIT(MCU_LED_RED,   SFR_P1, 4);// P1.4 MCU_LED2
 #define RSP_MAGIC2 0x49
 #define RSP_FAIL 0x00
 #define RSP_SUCCESS 0x01
+#define RSP_CONTINUE 0x02
 #define RSP_LENGTH 4
 
 //-----------------------------------------------------------------------------
 // Global Variables
 //-----------------------------------------------------------------------------
-SI_SEGMENT_VARIABLE(buffer[UART_BUFFER_LENGTH], uint8_t, SI_SEG_XDATA);
+SI_SEGMENT_VARIABLE(buffer[PAGE_LENGTH], uint8_t, SI_SEG_XDATA);
 volatile bool tx_complete, rx_complete;
 
 //-----------------------------------------------------------------------------
@@ -49,7 +51,7 @@ void SiLabs_Startup (void)
 {
 }
 
-uint8_t wait_for_command(void)
+static uint8_t wait_for_command(void)
 {
     rx_complete = false;
     UART0_readBuffer(buffer, CMD_LENGTH);
@@ -61,7 +63,7 @@ uint8_t wait_for_command(void)
     return buffer[2];
 }
 
-void respond(uint8_t cmd, uint8_t status)
+static void respond(uint8_t cmd, uint8_t status)
 {
     buffer[0] = RSP_MAGIC1;
     buffer[1] = RSP_MAGIC2;
@@ -73,16 +75,108 @@ void respond(uint8_t cmd, uint8_t status)
     while (!tx_complete);
 }
 
-void bail(void)
+static void bail(void)
 {
     MCU_LED_RED = MCU_LED_ON;
     while (1) {}
 }
 
-void succeed(void)
+static bool receive_and_write(void)
 {
-    MCU_LED_GREEN = MCU_LED_ON;
-    while (1) {}
+    uint32_t length, bytes_read, addr;
+    uint16_t bytes_to_read;
+
+    rx_complete = false;
+    UART0_readBuffer(buffer, sizeof(uint32_t));
+    while (!rx_complete);
+
+    length = 0;
+    length |= buffer[0]; length <<= 8;
+    length |= buffer[1]; length <<= 8;
+    length |= buffer[2]; length <<= 8;
+    length |= buffer[3];
+
+    addr = 0;
+    if (!SPI_Program_Page(addr, buffer))
+        return false;
+
+    addr += PAGE_LENGTH;
+
+    bytes_read = 0;
+    while (bytes_read < length)
+    {
+        if (length - bytes_read > PAGE_LENGTH)
+            bytes_to_read = PAGE_LENGTH;
+        else
+            bytes_to_read = length - bytes_read;
+
+        respond(CMD_WRITE, RSP_CONTINUE);
+
+        rx_complete = false;
+        UART0_readBuffer(buffer, bytes_to_read>>2);
+        while (!rx_complete);
+
+        rx_complete = false;
+        UART0_readBuffer(buffer + (bytes_to_read>>2), bytes_to_read - (bytes_to_read>>2));
+        while (!rx_complete);
+
+        bytes_read += bytes_to_read;
+
+        if (!SPI_Program_Page(addr, buffer))
+            return false;
+
+        addr += bytes_to_read;
+    }
+
+    return true;
+}
+
+static bool read_and_transmit(void)
+{
+    uint32_t length, bytes_read, addr;
+    uint16_t bytes_to_read;
+
+    addr = 0;
+    if (!SPI_Read_Page(addr, buffer))
+        return false;
+
+    length = 0;
+    length |= buffer[0]; length <<= 8;
+    length |= buffer[1]; length <<= 8;
+    length |= buffer[2]; length <<= 8;
+    length |= buffer[3];
+
+    tx_complete = false;
+    UART0_writeBuffer(buffer, 4);
+    while (!tx_complete);
+
+    addr += PAGE_LENGTH;
+
+    bytes_read = 0;
+    while (bytes_read < length)
+    {
+        if (length - bytes_read > PAGE_LENGTH)
+            bytes_to_read = PAGE_LENGTH;
+        else
+            bytes_to_read = length - bytes_read;
+
+        bytes_read += bytes_to_read;
+
+        if (!SPI_Read_Page(addr, buffer))
+            return false;
+
+        tx_complete = false;
+        UART0_writeBuffer(buffer, bytes_to_read>>2);
+        while (!tx_complete);
+
+        tx_complete = false;
+        UART0_writeBuffer(buffer + (bytes_to_read>>2), bytes_to_read - (bytes_to_read>>2));
+        while (!tx_complete);
+
+        addr += bytes_to_read;
+    }
+
+    return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -123,12 +217,24 @@ int main (void)
 
             break;
           case CMD_DUMP:
-            // TODO:
-            bail();
+            if (read_and_transmit()) {
+                MCU_LED_GREEN = MCU_LED_ON;
+                respond(CMD_DUMP, RSP_SUCCESS);
+            }
+            else {
+                respond(CMD_DUMP, RSP_FAIL);
+                bail();
+            }
             break;
           case CMD_WRITE:
-            // TODO:
-            bail();
+            if (receive_and_write()) {
+                MCU_LED_GREEN = MCU_LED_ON;
+                respond(CMD_WRITE, RSP_SUCCESS);
+            }
+            else {
+                respond(CMD_WRITE, RSP_FAIL);
+                bail();
+            }
             break;
 
           default:
@@ -138,10 +244,11 @@ int main (void)
         }
     }
 
-shutdown_success:
-    succeed();
+    // TODO: power down SPI flash
+    // TODO: power down self
+//    succeed();
 
-    while (1);
+//    while (1);
 }
 
 //-----------------------------------------------------------------------------
