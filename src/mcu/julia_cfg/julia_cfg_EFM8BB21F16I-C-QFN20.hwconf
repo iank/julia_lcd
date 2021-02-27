@@ -8,6 +8,7 @@
     <property object="INTERRUPT_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enableallinterrupts" value="Enabled"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enablespi0interrupt" value="Enabled"/>
+    <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enabletimer2interrupt" value="Enabled"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enableuart0interrupt" value="Enabled"/>
     <property object="P0.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
     <property object="P0.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
@@ -40,6 +41,8 @@
     <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.targetoverflowfrequency" value="19200"/>
     <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.timerreloadvalue" value="96"/>
     <property object="TIMER16_2" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER16_2" propertyId="timer16.control.runcontrol" value="Start"/>
+    <property object="TIMER16_2" propertyId="timer16.control.timerrunningstate" value="Timer is Running"/>
     <property object="TIMER16_2" propertyId="timer16.initandreloadvalue.targetoverflowfrequency" value="10"/>
     <property object="TIMER16_2" propertyId="timer16.initandreloadvalue.timerreloadvalue" value="40015"/>
     <property object="TIMER16_2" propertyId="timer16.reloadhighbyte.reloadhighbyte" value="156"/>

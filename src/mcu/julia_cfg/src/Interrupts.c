@@ -5,15 +5,32 @@
 // leave the sections inside the "$[...]" comment tags alone
 // or they will be overwritten!
 //=========================================================
+#include <SI_EFM8BB2_Register_Enums.h>                // SFR declarations
 
 // USER INCLUDES
 
 //-----------------------------------------------------------------------------
 // Global VARIABLES
 //-----------------------------------------------------------------------------
+volatile int TMRCNT = 0;
 
 //-----------------------------------------------------------------------------
 // Global CONSTANTS
 //-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// TIMER2_ISR
+//-----------------------------------------------------------------------------
+//
+// TIMER2 ISR Content goes here. Remember to clear flag bits:
+// TMR2CN0::TF2H (Timer # High Byte Overflow Flag)
+// TMR2CN0::TF2L (Timer # Low Byte Overflow Flag)
+//
+//-----------------------------------------------------------------------------
+SI_INTERRUPT (TIMER2_ISR, TIMER2_IRQn)
+  {
+    TMR2CN0_TF2H = 0;
+    TMRCNT++;
+  }
 
 

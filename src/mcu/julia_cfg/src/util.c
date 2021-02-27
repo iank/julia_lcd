@@ -17,3 +17,10 @@ void bin_to_hexstr(unsigned char *str, const unsigned char *buf, unsigned int nu
     str[0] = '\r';
     str[1] = '\n';
 }
+
+extern volatile int TMRCNT;
+void delay(unsigned int tenths)
+{
+    TMRCNT = 0;
+    while (TMRCNT < tenths);
+}

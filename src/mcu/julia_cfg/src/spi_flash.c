@@ -9,23 +9,28 @@
 #include <SI_EFM8BB2_Register_Enums.h>                // SFR declarations
 #include <spi_0.h>
 #include "spi_flash.h"
+#include "util.h"
 
 //-----------------------------------------------------------------------------
 // Global Constants
 //-----------------------------------------------------------------------------
 
-#define RDID 0x90
+#define WRSR 0x01
 #define WRDI 0x04
 #define RDSR 0x05
-#define WRSR 0x01
+#define WREN 0x06
 #define EWSR 0x50
+#define ERASE_ALL 0x60
+#define RDID 0x90
+
 #define FLASH_TXN_LENGTH 6
 
 #define SR_WIP 0x01
+#define SR_WEL 0x02
 
 #define SPI_NO_ADDRESS_COMMAND 0xFFFFFFFF
 
-#define WAIT_BUSY_RETRIES 100
+#define WAIT_BUSY_RETRIES 1000
 
 //-----------------------------------------------------------------------------
 // Global Variables
@@ -90,9 +95,10 @@ static void _SPI_General_Command(uint8_t instruction, uint32_t addr,
 // Check if memory is ready / wait for write to complete
 static bool _WaitBusy()
 {
-    uint8_t retries = 0;
+    unsigned int retries = 0;
     uint8_t status;
     do {
+        delay(DELAY_10_MS);
         retries++;
 
         _SPI_General_Command(RDSR, SPI_NO_ADDRESS_COMMAND, 0, NULL, 1, &status);
@@ -102,6 +108,21 @@ static bool _WaitBusy()
     {
         return false;
     }
+
+    return true;
+}
+
+static bool _Set_Write_Enable()
+{
+    uint8_t status;
+
+    _SPI_General_Command(WREN, SPI_NO_ADDRESS_COMMAND, 0, NULL, 0, NULL);
+    if (!_WaitBusy)
+        return false;
+
+    _SPI_General_Command(RDSR, SPI_NO_ADDRESS_COMMAND, 0, NULL, 1, &status);
+    if ((status & SR_WEL) == 0)
+        return false;
 
     return true;
 }
@@ -133,6 +154,22 @@ bool SPI_Flash_Init(void)
     // Send WRDI
     // Send EWSR
     // WRSR, 0x00
+}
+
+bool SPI_Flash_Erase(void)
+{
+    uint8_t retries;
+    if (!_Set_Write_Enable())
+        return false;
+
+    _SPI_General_Command(ERASE_ALL, SPI_NO_ADDRESS_COMMAND, 0, NULL, 0, NULL);
+
+    while (retries++ < 10)
+    {
+        if (_WaitBusy())
+            return true;
+    }
+    return false;
 }
 
 //-----------------------------------------------------------------------------

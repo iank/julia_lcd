@@ -13,5 +13,6 @@
 SI_SBIT(SPI_CS_N, SFR_P0, 7);// P0.7 SPI_CS_N
 
 bool SPI_Flash_Init(void);
+bool SPI_Flash_Erase(void);
 
 #endif /* INC_SPI_FLASH_H_ */
