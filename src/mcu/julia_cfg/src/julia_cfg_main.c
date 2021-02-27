@@ -15,8 +15,8 @@
 
 #define MCU_LED_OFF 1
 #define MCU_LED_ON  0
-SI_SBIT(MCU_LED1, SFR_P1, 3);// P1.3 MCU_LED1
-SI_SBIT(MCU_LED2, SFR_P1, 4);// P1.4 MCU_LED2
+SI_SBIT(MCU_LED_GREEN, SFR_P1, 3);// P1.3 MCU_LED1
+SI_SBIT(MCU_LED_RED,   SFR_P1, 4);// P1.4 MCU_LED2
 
 
 //-----------------------------------------------------------------------------
@@ -50,13 +50,21 @@ void SiLabs_Startup (void)
 int main (void)
 {
     SPI_CS_N = SPI_CS_N_DISABLE;
-    MCU_LED1 = MCU_LED_OFF;
+    MCU_LED_GREEN = MCU_LED_OFF;
+    MCU_LED_RED = MCU_LED_OFF;
     enter_DefaultMode_from_RESET();
     IE_EA = 1;                                // Enable global interrupts
 
     UART0_init(UART0_RX_ENABLE, UART0_WIDTH_8, UART0_MULTIPROC_DISABLE);
 
-    SPI_Flash_Init();
+    if (SPI_Flash_Init())
+    {
+        MCU_LED_GREEN = MCU_LED_ON;
+    }
+    else
+    {
+        MCU_LED_RED = MCU_LED_ON;
+    }
 
     while (1)
     {

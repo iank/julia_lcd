@@ -87,6 +87,8 @@
                                     								
                                 </option>
                                 								
+                                <option id="com.silabs.ide.si8051.keil.compiler.category.listing.preprocessor.807761289" superClass="com.silabs.ide.si8051.keil.compiler.category.listing.preprocessor" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+                                								
                                 <inputType id="com.silabs.ide.si8051.keil.compiler.inputType.253085576" superClass="com.silabs.ide.si8051.keil.compiler.inputType"/>
                                 							
                             </tool>
@@ -115,7 +117,7 @@
                             							
                             <tool command="LX51" id="com.silabs.ide.si8051.keil.toolchain.linker.2024258739" name="Keil 8051 Linker" superClass="com.silabs.ide.si8051.keil.toolchain.linker">
                                 								
-                                <option id="com.silabs.ide.si8051.keil.linker.category.ordering.selection.11926775" superClass="com.silabs.ide.si8051.keil.linker.category.ordering.selection" useByScannerDiscovery="false" value="./src/InitDevice.OBJ;./src/Interrupts.OBJ;./src/SILABS_STARTUP.OBJ;./src/julia_cfg_main.OBJ;./src/util.OBJ;./lib/efm8bb2/peripheralDrivers/src/spi_0.OBJ;./lib/efm8bb2/peripheralDrivers/src/uart_0.OBJ" valueType="string"/>
+                                <option id="com.silabs.ide.si8051.keil.linker.category.ordering.selection.11926775" name="Linker input ordering" superClass="com.silabs.ide.si8051.keil.linker.category.ordering.selection" useByScannerDiscovery="false" value="./src/InitDevice.OBJ;./src/Interrupts.OBJ;./src/SILABS_STARTUP.OBJ;./src/julia_cfg_main.OBJ;./src/util.OBJ;./lib/efm8bb2/peripheralDrivers/src/spi_0.OBJ;./lib/efm8bb2/peripheralDrivers/src/uart_0.OBJ" valueType="string"/>
                                 								
                                 <inputType id="com.silabs.ide.si8051.keil.linker.inputType.1867209393" superClass="com.silabs.ide.si8051.keil.linker.inputType"/>
                                 							
@@ -309,6 +311,20 @@
     	
     <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
     	
-    <storageModule moduleId="refreshScope"/>
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration configurationName="Keil 8051 v9.60.0 - Release">
+            			
+            <resource resourceType="PROJECT" workspacePath="/julia_cfg"/>
+            		
+        </configuration>
+        		
+        <configuration configurationName="Keil 8051 v9.60.0 - Debug">
+            			
+            <resource resourceType="PROJECT" workspacePath="/julia_cfg"/>
+            		
+        </configuration>
+        	
+    </storageModule>
     
 </cproject>
