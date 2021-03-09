@@ -15,6 +15,7 @@ module mandelbrot(
 );
 
 `include "sdram.vh"
+`include "draw.vh"
 
 localparam STATE_IDLE      = 3'd0;
 localparam STATE_READPX    = 3'd1;
@@ -108,6 +109,8 @@ mandelbrot_math mandelbrot_math(
     .i_Clk(i_CPU_Clk),
     .i_Px_Data({px_fifo_q, data_fifo_q}),
     .o_Px_Data({px_fifo_data, data_fifo_data}),
+    
+    .i_Draw(DRAW_MANDELBROT),
     
 	 .i_Read_Fifo_Empty(px_readout_fifo_empty_cpu | data_readout_fifo_empty_cpu),
 	 .i_Write_Fifo_Full(px_writeback_fifo_full_cpu | data_writeback_fifo_full_cpu),

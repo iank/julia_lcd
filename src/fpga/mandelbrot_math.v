@@ -4,11 +4,14 @@ module mandelbrot_math(
     input [103:0] i_Px_Data,
     input i_Read_Fifo_Empty,
     input i_Write_Fifo_Full,
+    input [1:0] i_Draw,
 
     output [103:0] o_Px_Data,
     output o_Read_Fifo_Ack,
     output o_Write_Fifo_Wrreq
 );
+
+`include "draw.vh"
 
 assign o_Write_Fifo_Wrreq = (~i_Read_Fifo_Empty & ~i_Write_Fifo_Full);
 assign o_Read_Fifo_Ack = (~i_Read_Fifo_Empty & ~i_Write_Fifo_Full);
@@ -93,10 +96,18 @@ always @(*) begin
             o_Iteration = i_Iteration;
         end
         else begin
-            o_Yval = (xy[58:27] << 1) + cy;
-            o_Xval = x2[58:27] - y2[58:27] + cx;
-            o_Iteration = i_Iteration + 1'b1;
-            o_PxVal = 8'hFF;
+            if (i_Draw == DRAW_MANDELBROT) begin
+                o_Yval = (xy[58:27] << 1) + y0;
+                o_Xval = x2[58:27] - y2[58:27] + x0;
+                o_Iteration = i_Iteration + 1'b1;
+                o_PxVal = 8'hFF;
+            end
+            else /*if (i_Draw == DRAW_JULIA)*/ begin
+                o_Yval = (xy[58:27] << 1) + cy;
+                o_Xval = x2[58:27] - y2[58:27] + cx;
+                o_Iteration = i_Iteration + 1'b1;
+                o_PxVal = 8'hFF;
+            end
         end
     end
 end
