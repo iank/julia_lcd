@@ -23,6 +23,24 @@ localparam STATE_WRITEPX   = 3'd2;
 localparam STATE_READDATA  = 3'd3;
 localparam STATE_WRITEDATA = 3'd4;
 
+
+/////////////////////////////////////////
+reg [31:0] r_Counter = 32'd0;
+
+reg [1:0] draw_state = DRAW_MANDELBROT;
+always @(posedge i_CPU_Clk) begin
+    r_Counter <= r_Counter + 32'd1;
+    if (draw_state != DRAW_CLEAR && r_Counter[27] == 1'b1) begin
+        draw_state <= DRAW_CLEAR;
+        r_Counter <= 32'd0;
+    end
+    if (draw_state == DRAW_CLEAR && r_Counter[25] == 1'b1) begin
+        draw_state <= DRAW_JULIA;
+        r_Counter <= 32'd0;
+    end
+end
+/////////////////////////////////////////
+
 reg [2:0] r_State = STATE_IDLE;
 reg [2:0] r_NextState;
 
@@ -110,7 +128,7 @@ mandelbrot_math mandelbrot_math(
     .i_Px_Data({px_fifo_q, data_fifo_q}),
     .o_Px_Data({px_fifo_data, data_fifo_data}),
     
-    .i_Draw(DRAW_MANDELBROT),
+    .i_Draw(draw_state),
     
 	 .i_Read_Fifo_Empty(px_readout_fifo_empty_cpu | data_readout_fifo_empty_cpu),
 	 .i_Write_Fifo_Full(px_writeback_fifo_full_cpu | data_writeback_fifo_full_cpu),

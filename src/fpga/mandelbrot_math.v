@@ -82,31 +82,59 @@ always @(*) begin
        
     // Already escaped?
     if (i_Xval == 32'hFFFFFFFF && i_Yval == 32'hFFFFFFFF) begin
-        o_PxVal = i_PxVal;
-        o_Xval = i_Xval;
-        o_Yval = i_Yval;
-        o_Iteration = i_Iteration;
+        if (i_Draw == DRAW_CLEAR) begin
+            o_PxVal = {i_PxVal[7], 7'h0};
+            o_Xval = 32'h00000000;
+            o_Yval = 32'h00000000;
+            o_Iteration = 32'h0;
+        end
+        else begin
+            o_PxVal = i_PxVal;
+            o_Xval = i_Xval;
+            o_Yval = i_Yval;
+            o_Iteration = i_Iteration;
+        end
     end
     // Not already escaped
     else begin      
         if (x2[58:27] + y2[58:27] > 32'sb0_0100_000000000000000000000000000 /* 4.0 */) begin
-            o_Xval = 32'hFFFFFFFF;
-            o_Yval = 32'hFFFFFFFF;
-            o_PxVal = i_Iteration[7:0];
-            o_Iteration = i_Iteration;
+            if (i_Draw == DRAW_MANDELBROT) begin
+                o_Xval = 32'hFFFFFFFF;
+                o_Yval = 32'hFFFFFFFF;
+                o_PxVal = 8'h00;
+                o_Iteration = i_Iteration;
+            end
+            else if (i_Draw == DRAW_JULIA) begin
+                o_Xval = 32'hFFFFFFFF;
+                o_Yval = 32'hFFFFFFFF;
+                o_PxVal = {i_PxVal[7], i_Iteration[6:0]};
+                o_Iteration = i_Iteration;
+            end
+            else begin // i_Draw == DRAW_CLEAR
+                o_Xval = 32'h00000000;
+                o_Yval = 32'h00000000;
+                o_PxVal = {i_PxVal[7], 7'h0};
+                o_Iteration = 32'h0;
+            end
         end
         else begin
             if (i_Draw == DRAW_MANDELBROT) begin
                 o_Yval = (xy[58:27] << 1) + y0;
                 o_Xval = x2[58:27] - y2[58:27] + x0;
                 o_Iteration = i_Iteration + 1'b1;
-                o_PxVal = 8'hFF;
+                o_PxVal = 8'h80;
             end
-            else /*if (i_Draw == DRAW_JULIA)*/ begin
+            else if (i_Draw == DRAW_JULIA) begin
                 o_Yval = (xy[58:27] << 1) + cy;
                 o_Xval = x2[58:27] - y2[58:27] + cx;
                 o_Iteration = i_Iteration + 1'b1;
-                o_PxVal = 8'hFF;
+                o_PxVal = {i_PxVal[7], 7'h7F};
+            end
+            else begin // i_Draw == DRAW_CLEAR
+                o_Yval = 32'h00000000;
+                o_Xval = 32'h00000000;
+                o_Iteration = 32'h0;
+                o_PxVal = {i_PxVal[7], 7'h0};
             end
         end
     end
