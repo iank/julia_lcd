@@ -23,17 +23,17 @@ reg [31:0] o_Xval;
 reg [31:0] o_Yval;
 reg [31:0] o_Iteration;
 
-reg [9:0] cx = 10'd0;
-reg [8:0] cy = 9'd0;
+reg [9:0] px_x = 10'd0;
+reg [8:0] px_y = 9'd0;
 
 always @(posedge i_Clk) begin
     if (o_Read_Fifo_Ack) begin
-        cx <= cx + 1'b1;
-        if (cx + 1'b1 == 10'd800) begin
-            cx <= 10'd0;
-            cy <= cy + 1'b1;
-            if (cy + 1'b1 == 9'd480) begin
-                cy <= 9'd0;
+        px_x <= px_x + 1'b1;
+        if (px_x + 1'b1 == 10'd800) begin
+            px_x <= 10'd0;
+            px_y <= px_y + 1'b1;
+            if (px_y + 1'b1 == 9'd480) begin
+                px_y <= 9'd0;
             end
         end
     end
@@ -52,6 +52,9 @@ localparam signed [31:0] yinc   = 32'sb0_0000_000000011101000000110110101; // 3.
 localparam signed [31:0] xstart = 32'sb1_1101_001010101100000010000011001; // 32'd0 - xinc * (800 / 2.0);
 localparam signed [31:0] ystart = 32'sb1_1110_010011001100110011001100110; // 32'd0 - yinc * (480 / 2.0);
 
+// C value for julia set
+localparam signed [31:0] cx = 32'sb1_1111_001101011100001010001111011;  // -0.79
+localparam signed [31:0] cy = 32'sb0_0000_001001100110011001100110011;  //  0.15
 
 reg signed [31:0] x0,y0;
 reg signed [31:0] x,y;
@@ -61,8 +64,8 @@ always @(*) begin
     x = i_Xval;
     y = i_Yval;
 
-    x0 = xstart + xinc*cx;
-    y0 = ystart + yinc*cy;
+    x0 = xstart + xinc*px_x;
+    y0 = ystart + yinc*px_y;
     
     // Needs initialization?
     if (i_Xval == 32'h00000000)
@@ -90,8 +93,8 @@ always @(*) begin
             o_Iteration = i_Iteration;
         end
         else begin
-            o_Yval = (xy[58:27] << 1) + y0;
-            o_Xval = x2[58:27] - y2[58:27] + x0;
+            o_Yval = (xy[58:27] << 1) + cy;
+            o_Xval = x2[58:27] - y2[58:27] + cx;
             o_Iteration = i_Iteration + 1'b1;
             o_PxVal = 8'hFF;
         end
