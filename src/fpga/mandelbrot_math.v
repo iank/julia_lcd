@@ -56,8 +56,26 @@ localparam signed [31:0] xstart = 32'sb1_1101_001010101100000010000011001; // 32
 localparam signed [31:0] ystart = 32'sb1_1110_010011001100110011001100110; // 32'd0 - yinc * (480 / 2.0);
 
 // C value for julia set
-localparam signed [31:0] cx = 32'sb1_1111_001101011100001010001111011;  // -0.79
-localparam signed [31:0] cy = 32'sb0_0000_001001100110011001100110011;  //  0.15
+
+// xinc = 0.0070825
+// yinc = 0.00708333333
+
+// upper left corner is -2.83300, -1.69999999
+
+// -0.79, 0.15 -> px val 288.46, 261.1
+// try 288, 261. origin + pxval*inc = -0.79324, 0.14875
+
+//localparam signed [31:0] cx = 32'sb1_1111_001101011100001010001111011;  // -0.79
+//localparam signed [31:0] cy = 32'sb0_0000_001001100110011001100110011;  //  0.15
+
+//localparam signed [31:0] cx = 32'sb1_1111_001101001110111000111001001;  // -0.79324
+//localparam signed [31:0] cy = 32'sb0_0000_001001100001010001111010111;  //  0.14875
+
+localparam touch_cx = 288;
+localparam touch_cy = 261;
+
+reg signed [31:0] cx = xstart + touch_cx * xinc;
+reg signed [31:0] cy = ystart + touch_cy * yinc; 
 
 reg signed [31:0] x0,y0;
 reg signed [31:0] x,y;
