@@ -50,33 +50,24 @@ end
 // Result is 64 bits.. Q10.54
 // Products in result[58:27]
 
+// A good window: x ~ [-2.5,1.0]: xinc = 0.004375
+//                y ~ [-1.5,1.5]: yinc = 0.00625
+//
+// So the aspect ratio there isn't right. Use the yinc = 0.00625, and the x center of -0.75:
+// xinc = yinc = 0.00625
+// xstart = -0.75 - xinc * (800 / 2.0)
+// ystart = 0 - yinc * (480 / 2.0)
+
+
 // Increments
-localparam signed [31:0] xinc   = 32'sb0_0000_000000011101000000101000100; // 5.666 / 800;
-localparam signed [31:0] yinc   = 32'sb0_0000_000000011101000000110110101; // 3.400 / 480;
+localparam signed [31:0] xinc   = 32'sb0_0000_000000010100011110101110001; // 0.005
+localparam signed [31:0] yinc   = 32'sb0_0000_000000010100011110101110001; // 0.005
 
 // Upper-left corner relative to origin (midpoint)
-localparam signed [31:0] xstart = 32'sb1_1101_001010101100000010000011001; // 32'd0 - xinc * (800 / 2.0);
-localparam signed [31:0] ystart = 32'sb1_1110_010011001100110011001100110; // 32'd0 - yinc * (480 / 2.0);
+localparam signed [31:0] xstart = 32'sb1_1110_000000000000000000000000000; //     0 - xinc * (800 / 2.0); -> *2^27 -> two's complement
+localparam signed [31:0] ystart = 32'sb1_1110_110011001100110011001100111; //     0 - yinc * (480 / 2.0); -> *2^27 -> two's complement
 
 // C value for julia set
-
-// xinc = 0.0070825
-// yinc = 0.00708333333
-
-// upper left corner is -2.83300, -1.69999999
-
-// -0.79, 0.15 -> px val 288.46, 261.1
-// try 288, 261. origin + pxval*inc = -0.79324, 0.14875
-
-//localparam signed [31:0] cx = 32'sb1_1111_001101011100001010001111011;  // -0.79
-//localparam signed [31:0] cy = 32'sb0_0000_001001100110011001100110011;  //  0.15
-
-//localparam signed [31:0] cx = 32'sb1_1111_001101001110111000111001001;  // -0.79324
-//localparam signed [31:0] cy = 32'sb0_0000_001001100001010001111010111;  //  0.14875
-
-//localparam touch_cx = 288;
-//localparam touch_cy = 261;
-
 wire signed [31:0] cx = xstart + i_cx * xinc;
 wire signed [31:0] cy = ystart + i_cy * yinc; 
 
