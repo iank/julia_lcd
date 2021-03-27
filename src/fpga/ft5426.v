@@ -61,6 +61,7 @@ initial r_I2CVal2 = 8'hFF;
 initial r_I2CVal3 = 8'hFF;
 initial r_I2CVal4 = 8'hFF;
 
+// TODO: register on liftoff, 2'b01
 assign touch_registered = r_I2CVal1[7:6] == 2'b00 || r_I2CVal1[7:6] == 2'b10;
 
 reg [19:0] r_Counter = 20'd0;

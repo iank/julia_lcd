@@ -83,6 +83,10 @@ wire [9:0] pixel_in_used;
 /* Touch controller -> Mandelbrot */
 wire [11:0] touch_x;
 wire [11:0] touch_y;
+wire touch_registered;
+
+/* Mandelbrot status */
+wire mb_init_done;
 
 /***********************************************************************/
 
@@ -155,6 +159,8 @@ mandelbrot mandelbrot(
     
     .i_cx(touch_x[9:0]),
     .i_cy(touch_y[8:0]),
+    .i_touch_registered(touch_registered),
+    .o_init_done(mb_init_done),
     
     .o_SDRAM_Yield(processor_yields_sdram),
     .o_Command(PR_command),
@@ -191,7 +197,6 @@ video_out video_out (
 );
 
 /* I2C touch controller */
-wire touch_registered;
 ft5426 ft5426(
     .i_Clk(PLD_CLOCKINPUT),
     .o_px_x(touch_x),
@@ -204,8 +209,8 @@ ft5426 ft5426(
 );
 
 /* LEDs */
-assign LEDG[0] = ~touch_registered;  // green, active low
-assign LEDG[1] = 1'b1;  // red, active low
+assign LEDG[0] = ~mb_init_done;  // green, active low
+assign LEDG[1] = ~touch_registered;  // red, active low
 
 /* Backlight controller */
 assign LIGHT = 1'b1;

@@ -14,7 +14,9 @@ module mandelbrot(
     output [31:0] o_Data_Write,
 
     input [9:0] i_cx,
-    input [8:0] i_cy
+    input [8:0] i_cy,
+    input i_touch_registered,
+    output reg o_init_done
 );
 
 `include "sdram.vh"
@@ -30,14 +32,29 @@ localparam STATE_WRITEDATA = 3'd4;
 /////////////////////////////////////////
 reg [31:0] r_Counter = 32'd0;
 
+initial o_init_done = 1'b0;
+
+reg [9:0] julia_cx;
+reg [8:0] julia_cy;
+
 reg [1:0] draw_state = DRAW_MANDELBROT;
 always @(posedge i_CPU_Clk) begin
     r_Counter <= r_Counter + 32'd1;
-    if (draw_state != DRAW_CLEAR && r_Counter[27] == 1'b1) begin
+    
+    julia_cx <= i_cx;
+    julia_cy <= i_cy;
+    
+    if (draw_state == DRAW_MANDELBROT && r_Counter[26] == 1'b1) begin
+        draw_state <= DRAW_CLEAR;
+        r_Counter <= 32'd0;
+        o_init_done <= 1'b1;
+    end
+    
+    if (draw_state == DRAW_JULIA && i_touch_registered) begin
         draw_state <= DRAW_CLEAR;
         r_Counter <= 32'd0;
     end
-    if (draw_state == DRAW_CLEAR && r_Counter[25] == 1'b1) begin
+    if (draw_state == DRAW_CLEAR && r_Counter[23] == 1'b1) begin
         draw_state <= DRAW_JULIA;
         r_Counter <= 32'd0;
     end
@@ -138,8 +155,8 @@ mandelbrot_math mandelbrot_math(
     .o_Read_Fifo_Ack(readout_rdreq),
     .o_Write_Fifo_Wrreq(writeback_wrreq),
 
-    .i_cx(i_cx),
-    .i_cy(i_cy)
+    .i_cx(julia_cx),
+    .i_cy(julia_cy)
 );
 	 
 /***********************************************************************/
