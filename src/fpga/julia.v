@@ -21,7 +21,14 @@ module julia(
     output DEN,
     output HSD,
     output VSD,
-    output STBYB
+    output STBYB,
+    
+    output LIGHT,
+    
+    input TOUCH_INTN,
+    output TOUCH_RSTN,
+    inout SCL,
+    inout SDA
 );
 
 `include "sdram.vh"
@@ -72,6 +79,10 @@ wire [31:0] pixel_data_in;
 wire [7:0] pixel_data_out;
 wire pixel_data_in_enable, pixel_data_out_acknowledge;
 wire [9:0] pixel_in_used;
+
+/* Touch controller -> Mandelbrot */
+wire [11:0] touch_x;
+wire [11:0] touch_y;
 
 /***********************************************************************/
 
@@ -141,6 +152,10 @@ mandelbrot mandelbrot(
     .i_Data_Read (data_read),
     .i_Data_Write_Done(data_write_done),
     .i_Data_Read_Valid(data_read_valid),
+    
+    .i_cx(touch_x[9:0]),
+    .i_cy(touch_y[8:0]),
+    
     .o_SDRAM_Yield(processor_yields_sdram),
     .o_Command(PR_command),
     .o_Data_Address(PR_data_address),
@@ -175,8 +190,24 @@ video_out video_out (
     .STBYB(STBYB)
 );
 
+/* I2C touch controller */
+wire touch_registered;
+ft5426 ft5426(
+    .i_Clk(PLD_CLOCKINPUT),
+    .o_px_x(touch_x),
+    .o_px_y(touch_y),
+    .TOUCH_INTN(TOUCH_INTN),
+    .TOUCH_RSTN(TOUCH_RSTN),
+    .SCL(SCL),
+    .SDA(SDA),
+    .touch_registered(touch_registered)
+);
+
 /* LEDs */
-assign LEDG[0] = 1'b0;
-assign LEDG[1] = 1'b1;
+assign LEDG[0] = ~touch_registered;  // green, active low
+assign LEDG[1] = 1'b1;  // red, active low
+
+/* Backlight controller */
+assign LIGHT = 1'b1;
 
 endmodule

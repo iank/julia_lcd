@@ -8,7 +8,10 @@ module mandelbrot_math(
 
     output [103:0] o_Px_Data,
     output o_Read_Fifo_Ack,
-    output o_Write_Fifo_Wrreq
+    output o_Write_Fifo_Wrreq,
+
+    input [9:0] i_cx,
+    input [8:0] i_cy
 );
 
 `include "draw.vh"
@@ -71,11 +74,11 @@ localparam signed [31:0] ystart = 32'sb1_1110_010011001100110011001100110; // 32
 //localparam signed [31:0] cx = 32'sb1_1111_001101001110111000111001001;  // -0.79324
 //localparam signed [31:0] cy = 32'sb0_0000_001001100001010001111010111;  //  0.14875
 
-localparam touch_cx = 288;
-localparam touch_cy = 261;
+//localparam touch_cx = 288;
+//localparam touch_cy = 261;
 
-reg signed [31:0] cx = xstart + touch_cx * xinc;
-reg signed [31:0] cy = ystart + touch_cy * yinc; 
+wire signed [31:0] cx = xstart + i_cx * xinc;
+wire signed [31:0] cy = ystart + i_cy * yinc; 
 
 reg signed [31:0] x0,y0;
 reg signed [31:0] x,y;

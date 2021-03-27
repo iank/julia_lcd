@@ -11,7 +11,10 @@ module mandelbrot(
 
     output [1:0] o_Command,
     output reg [21:0] o_Data_Address,
-    output [31:0] o_Data_Write
+    output [31:0] o_Data_Write,
+
+    input [9:0] i_cx,
+    input [8:0] i_cy
 );
 
 `include "sdram.vh"
@@ -130,10 +133,13 @@ mandelbrot_math mandelbrot_math(
     
     .i_Draw(draw_state),
     
-	 .i_Read_Fifo_Empty(px_readout_fifo_empty_cpu | data_readout_fifo_empty_cpu),
-	 .i_Write_Fifo_Full(px_writeback_fifo_full_cpu | data_writeback_fifo_full_cpu),
-	 .o_Read_Fifo_Ack(readout_rdreq),
-	 .o_Write_Fifo_Wrreq(writeback_wrreq)
+    .i_Read_Fifo_Empty(px_readout_fifo_empty_cpu | data_readout_fifo_empty_cpu),
+    .i_Write_Fifo_Full(px_writeback_fifo_full_cpu | data_writeback_fifo_full_cpu),
+    .o_Read_Fifo_Ack(readout_rdreq),
+    .o_Write_Fifo_Wrreq(writeback_wrreq),
+
+    .i_cx(i_cx),
+    .i_cy(i_cy)
 );
 	 
 /***********************************************************************/
