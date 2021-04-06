@@ -17,6 +17,7 @@ module tftlcd
     input i_CLK,
     input [(DATA_WIDTH-1):0] i_RGB,
     input i_Begin,
+    input i_Disable,
 
     output [(X_COUNTER_WIDTH-1):0] o_XPx,
     output [(Y_COUNTER_WIDTH-1):0] o_YPx,
@@ -94,12 +95,15 @@ module tftlcd
     end
 
     /* Dynamic Outputs */
-    assign STBYB = ~(r_CurrentState == STATE_RESET);  // 1 = Normal operation, 0 = Standby mode
+
+    // 1 = Normal operation, 0 = Standby mode
+    assign STBYB = ~(r_CurrentState == STATE_RESET || i_Disable);
+
     assign VSD   = ~(r_CurrentState == STATE_RESET);
     assign HSD   = ~(r_CurrentState == STATE_RESET);
     assign DEN    = DataEnable;
     
-    assign RGB = r_RGB[(DATA_WIDTH-1):0];
+    assign RGB = i_Disable ? 24'd0 : r_RGB[(DATA_WIDTH-1):0];
 
     assign o_XPx = r_CounterX;
     assign o_YPx = r_CounterY;

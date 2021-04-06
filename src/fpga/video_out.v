@@ -2,6 +2,7 @@ module video_out(
     input LCDCLK,
     input [7:0] i_Pixel_Data,
     input i_Begin,
+    input i_Disable,
 
     output o_Pixel_Data_Acknowledge,
 
@@ -21,6 +22,7 @@ tftlcd #(.Y_PX(480), .X_PX(800)) tftlcd(
     .i_CLK(LCDCLK),
     .i_RGB(rgb),
     .i_Begin(lcd_begin),
+    .i_Disable(i_Disable),
     
     .o_XPx(),
     .o_YPx(),

@@ -7,8 +7,8 @@ module color_map
     always @(*) begin
         case (value)
 
-             8'd0   : rgb = 24'hff6666;
-             8'd128 : rgb = 24'hcd3434;
+             8'd0   : rgb = 24'h000000;
+             8'd128 : rgb = 24'h330000;
              8'd1   : rgb = 24'hff6d66;
              8'd129 : rgb = 24'hcd3b34;
              8'd2   : rgb = 24'hff7466;

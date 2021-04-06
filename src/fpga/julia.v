@@ -187,6 +187,7 @@ video_out video_out (
     .i_Begin(first_data_ready),
     .i_Pixel_Data(pixel_data_out), // "out" from FIFO
     .o_Pixel_Data_Acknowledge(pixel_data_out_acknowledge),
+    .i_Disable(~LIGHT),
  
     /* Physical outputs */
     .RGB(RGB),
@@ -213,6 +214,10 @@ assign LEDG[0] = ~mb_init_done;  // green, active low
 assign LEDG[1] = ~touch_registered;  // red, active low
 
 /* Backlight controller */
-assign LIGHT = 1'b1;
+backlight backlight(
+    .i_Clk(PLD_CLOCKINPUT),
+    .i_Touch(touch_registered),
+    .o_Light(LIGHT)
+);
 
 endmodule

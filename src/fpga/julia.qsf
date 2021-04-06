@@ -165,6 +165,12 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name GENERATE_RBF_FILE ON
+set_location_assignment PIN_D4 -to LIGHT
+set_location_assignment PIN_C9 -to SCL
+set_location_assignment PIN_B9 -to SDA
+set_location_assignment PIN_A9 -to TOUCH_INTN
+set_location_assignment PIN_D9 -to TOUCH_RSTN
+set_global_assignment -name VERILOG_FILE backlight.v
 set_global_assignment -name VERILOG_FILE ft5426.v
 set_global_assignment -name VERILOG_FILE axis_fifo.v
 set_global_assignment -name VERILOG_FILE i2c_master_wbs_8.v
@@ -192,9 +198,4 @@ set_global_assignment -name QIP_FILE processor_fifo_64in32out.qip
 set_global_assignment -name QIP_FILE processor_fifo_32in64out.qip
 set_global_assignment -name QIP_FILE processor_fifo_32in8out.qip
 set_global_assignment -name QIP_FILE processor_fifo_8in32out.qip
-set_location_assignment PIN_D4 -to LIGHT
-set_location_assignment PIN_C9 -to SCL
-set_location_assignment PIN_B9 -to SDA
-set_location_assignment PIN_A9 -to TOUCH_INTN
-set_location_assignment PIN_D9 -to TOUCH_RSTN
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
